@@ -1,28 +1,34 @@
 /* ===== Estrutura do site: temas e listas. Para adicionar material, inclua um item em "listas" ou um novo tema. ===== */
+/* Capelo (ícone da revisão para o vestibular) */
+const CAPELO = '<svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true"><path d="M2 15 L20 7 L38 15 L20 23 Z" fill="currentColor"/><path d="M10 19 V28 Q20 34 30 28 V19 L20 23 Z" fill="currentColor"/><path d="M34 16.5 V27" stroke="currentColor" stroke-width="2"/><circle cx="34" cy="28.5" r="2.2" fill="currentColor"/></svg>';
 const SITE = {
   escola: 'Colégio Israelita Brasileiro',
   turma: '3ª série',
+  apelido: 'Terceirão',
   turmas: 'Turmas 301 e 302',
   prof: 'Prof. Ricieri',
   temas: [
     {
-      id: 'enem', ico: 'E', nome: 'Revisão ENEM', cls: 'th-enem', estilo: 'estrada', deco: 'enem',
+      id: 'enem', ico: CAPELO, nome: 'Revisão ENEM', cls: 'th-enem', estilo: 'estrada', deco: 'conquista',
       resumo: 'As 30 questões do aulão de Física, divididas em três listas por área.',
       listas: [
         { id: 'eletricidade', key: 'cib3-enem-eletricidade-v1', num: 1,
           titulo: 'Eletricidade e energia',
           resumo: 'Disjuntor, conta de luz, choque, circuitos, LED, chuveiro, transformador, hidrelétrica e cargas elétricas.',
           intro: 'São as questões 1 a 7, 26, 27 e 29 da lista impressa do aulão, em ordem de dificuldade.',
+          cls: 'th-eletr', estilo: 'circuito', deco: 'circuito',
           tools: TOOLS_E1, Q: Q_E1 },
         { id: 'calor-ondas', key: 'cib3-enem-calor-ondas-v1', num: 2,
           titulo: 'Calor, ondas e luz',
           resumo: 'Calorimetria, mudança de fase, gases, máquinas térmicas, ondas, som e luz.',
           intro: 'São as questões 8 a 16 e 21 da lista impressa do aulão, em ordem de dificuldade.',
+          cls: 'th-calor', estilo: 'espectro', deco: 'calor',
           tools: TOOLS_E2, Q: Q_E2 },
         { id: 'mecanica-optica', key: 'cib3-enem-mecanica-optica-v1', num: 3,
           titulo: 'Movimento, forças e óptica',
           resumo: 'Velocidade média, gráficos, lançamento vertical, transmissão, Newton, atrito, empuxo, alavancas, refração e visão.',
           intro: 'São as questões 17 a 20, 22 a 25, 28 e 30 da lista impressa do aulão, em ordem de dificuldade.',
+          cls: 'th-mec', estilo: 'bloco', deco: 'forcas',
           tools: TOOLS_E3, Q: Q_E3 }
       ]
     },
@@ -112,12 +118,30 @@ function stats(l){ const s = load(l.key); let n = 0, c = 0; l.Q.forEach((q,i)=>{
 function plate(eyebrow, title, sub){
   $('eyebrow').textContent = eyebrow; $('ptitle').textContent = title; $('psub').textContent = sub;
   const r = document.documentElement;
-  SITE.temas.forEach(t => t.cls && r.classList.remove(t.cls));
-  if (T && T.cls) r.classList.add(T.cls);
-  $('deco').innerHTML = T ? decoTema(T.deco || T.estilo) : '';
+  SITE.temas.forEach(t => { t.cls && r.classList.remove(t.cls); t.listas.forEach(l => l.cls && r.classList.remove(l.cls)); });
+  r.classList.remove('th-home');
+  const cls = (LI && LI.cls) || (T && T.cls);
+  if (cls) r.classList.add(cls);
+  if (!T) r.classList.add('th-home');
+  $('deco').innerHTML = T ? decoTema((LI && LI.deco) || T.deco || T.estilo) : decoTema('capelo');
 }
 /* Enfeite do cabeçalho de cada tema */
 function decoTema(e){
+  if (e === 'capelo' || e === 'conquista'){
+    const cap = `<g transform="translate(150 6) scale(1.3)"><path d="M2 15 L20 7 L38 15 L20 23 Z" fill="currentColor"/><path d="M10 19 V28 Q20 34 30 28 V19 L20 23 Z" fill="currentColor"/><path d="M34 16.5 V27" stroke="currentColor" stroke-width="2"/><circle cx="34" cy="28.5" r="2.2" fill="currentColor"/></g>`;
+    if (e === 'capelo') return `<svg viewBox="0 0 220 80" aria-hidden="true">${cap}<path d="M150 70 h56" stroke="currentColor" stroke-width="2" opacity=".6"/></svg>`;
+    return `<svg viewBox="0 0 220 80" aria-hidden="true"><path d="M4 78 L70 36 L96 52 L136 22 L216 78 Z" fill="currentColor" opacity=".35"/><path d="M136 22 V2" stroke="currentColor" stroke-width="2.5"/><path d="M137 2 L160 8 L137 14 Z" fill="currentColor"/><path d="M40 78 L52 68 L62 72 L74 60 L86 64 L100 54 L112 58 L124 40 L134 26" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 4"/></svg>`;
+  }
+  if (e === 'circuito'){
+    return `<svg viewBox="0 0 220 80" aria-hidden="true"><path d="M40 20 H180 V60 H40 Z" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="30" y="30" width="20" height="20" fill="var(--sign)"/><path d="M30 34 H50 M34 46 H46" stroke="currentColor" stroke-width="3"/><path d="M90 60 l5 -8 l10 16 l10 -16 l10 16 l5 -8" fill="var(--sign)" stroke="currentColor" stroke-width="2.5"/><circle cx="180" cy="40" r="15" fill="var(--sign)" stroke="currentColor" stroke-width="2.5"/><path d="M172 36 q8 10 16 0" fill="none" stroke="currentColor" stroke-width="2"/><path d="M180 14 V6 M198 22 L204 16 M162 22 L156 16 M204 40 H212" stroke="currentColor" stroke-width="2.5"/></svg>`;
+  }
+  if (e === 'calor'){
+    let d = 'M96 44'; for (let x = 96; x <= 218; x += 3) d += ` L${x} ${(44 - 12 * Math.sin(2 * Math.PI * (x - 96) / 30)).toFixed(1)}`;
+    return `<svg viewBox="0 0 220 80" aria-hidden="true"><rect x="38" y="6" width="14" height="52" rx="7" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="45" cy="64" r="11" fill="currentColor"/><rect x="42" y="26" width="6" height="36" fill="currentColor"/><path d="M58 16 h8 M58 26 h8 M58 36 h8 M58 46 h8" stroke="currentColor" stroke-width="2"/><path d="${d}" fill="none" stroke="currentColor" stroke-width="3"/></svg>`;
+  }
+  if (e === 'forcas'){
+    return `<svg viewBox="0 0 220 80" aria-hidden="true"><path d="M4 70 H110" stroke="currentColor" stroke-width="2.5"/><rect x="36" y="38" width="34" height="32" fill="currentColor" opacity=".55"/><path d="M70 54 H104 M98 48 L106 54 L98 60" fill="none" stroke="currentColor" stroke-width="3"/><path d="M36 54 H12 M18 48 L10 54 L18 60" fill="none" stroke="currentColor" stroke-width="2" opacity=".7"/><path d="M168 8 Q182 40 168 72 Q154 40 168 8 Z" fill="currentColor" opacity=".45"/><path d="M120 24 H168 L214 46 M120 56 H168 L214 34" fill="none" stroke="currentColor" stroke-width="2"/></svg>`;
+  }
   if (e === 'enem'){
     return `<svg viewBox="0 0 220 80" aria-hidden="true"><path d="M8 74 L92 30 L132 30 L212 74 Z" fill="currentColor" opacity=".35"/><path d="M110 70 L110 62 M110 54 L110 47 M110 41 L110 36 M110 32 L110 30" stroke="currentColor" stroke-width="3"/><path d="M150 30 V2" stroke="currentColor" stroke-width="2.5"/><path d="M150 2 h22 v5 h-22 z M150 7 h22 v5 h-22 z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M150 2 h5.5 v5 h-5.5 z M161 2 h5.5 v5 h-5.5 z M155.5 7 h5.5 v5 h-5.5 z M166.5 7 h5.5 v5 h-5.5 z" fill="currentColor"/></svg>`;
   }
@@ -137,7 +161,26 @@ function decoTema(e){
 }
 /* Trilha de progresso: estrada (carro), onda (corda) ou raio de luz */
 function trilha(n){
-  const e = (T && T.estilo) || 'estrada';
+  const e = (LI && LI.estilo) || (T && T.estilo) || 'estrada';
+  if (e === 'bloco'){
+    return `<div class="lane2 ln-bloco" id="lane" data-estilo="bloco">
+      <svg class="ln-base" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="24" x2="1000" y2="24"/></svg>
+      <svg class="ln-fill" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="24" x2="1000" y2="24"/></svg>
+      <span class="ln-src" aria-hidden="true"></span><span class="ln-head" aria-hidden="true"></span></div>`;
+  }
+  if (e === 'circuito'){
+    return `<div class="lane2 ln-circ" id="lane" data-estilo="circuito">
+      <svg class="ln-base" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="15" x2="1000" y2="15"/></svg>
+      <svg class="ln-fill" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="15" x2="1000" y2="15"/></svg>
+      <span class="ln-src" aria-hidden="true"></span><span class="ln-head" aria-hidden="true"></span><span class="ln-lamp" aria-hidden="true"><i></i></span></div>`;
+  }
+  if (e === 'espectro'){
+    let d = 'M0 15'; for (let x = 0; x <= 1000; x += 4) d += ` L${x} ${(15 - 10 * Math.sin(2 * Math.PI * x * (n + 4) * (1 + x / 1000) / 2000)).toFixed(2)}`;
+    return `<div class="lane2 ln-onda ln-esp" id="lane" data-estilo="espectro">
+      <svg class="ln-base" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="15" x2="1000" y2="15"/></svg>
+      <svg class="ln-fill" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="gEsp" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1000" y2="0"><stop offset="0" stop-color="#E5482F"/><stop offset=".3" stop-color="#FF9F40"/><stop offset=".5" stop-color="#FFE24D"/><stop offset=".65" stop-color="#55D17A"/><stop offset=".82" stop-color="#4FA3FF"/><stop offset="1" stop-color="#A57CFF"/></linearGradient></defs><path d="${d}"/></svg>
+      <span class="ln-src" aria-hidden="true"></span><span class="ln-head" aria-hidden="true"></span></div>`;
+  }
   if (e === 'onda'){
     let d = 'M0 15'; for (let x = 0; x <= 1000; x += 4) d += ` L${x} ${(15 - 10 * Math.sin(2 * Math.PI * x * n / 1000)).toFixed(2)}`;
     return `<div class="lane2 ln-onda" id="lane" data-estilo="onda">
@@ -173,7 +216,7 @@ function crumbs(items){
 function openHome(){
   contarTempo(); tMarca = null;
   T = LI = null;
-  plate(`Física · ${SITE.escola}`, SITE.turma, `${SITE.turmas} · ${SITE.prof}`);
+  plate(`Física · ${SITE.escola}`, SITE.apelido, `${SITE.turma} · ${SITE.turmas.replace('Turmas ', '')} · ${SITE.prof}`);
   crumbs(null);
   $('view').innerHTML = `
     <section class="card intro">
@@ -218,7 +261,7 @@ function openTema(ti){
       ${T.listas.map((l, i) => {
         const s = stats(l);
         const prog = s.n ? `<span class="chip ${s.n === s.total ? 'ok' : ''}">${s.n === s.total ? `Feita · ${s.c}/${s.total} certas` : `${s.n}/${s.total} respondidas`}</span>` : '';
-        return `<button class="tile" data-lista="${i}">
+        return `<button class="tile ${l.cls || ''}" data-lista="${i}">
           <span class="ico lane">L${l.num}</span>
           <span><span class="tt">Lista ${l.num} · ${l.titulo}</span><span class="ds">${l.resumo}</span>
             <span class="meta"><span class="chip">${s.total} questões</span><span class="chip">com resolução</span>${prog}</span></span>
@@ -445,7 +488,7 @@ function openFormulario(){
 function go(h){ if (location.hash === h) route(); else location.hash = h; }
 function openLogin(){
   contarTempo(); tMarca = null; T = LI = null;
-  plate(`Física · ${SITE.escola}`, SITE.turma, `${SITE.turmas} · ${SITE.prof}`);
+  plate(`Física · ${SITE.escola}`, SITE.apelido, `${SITE.turma} · ${SITE.turmas.replace('Turmas ', '')} · ${SITE.prof}`);
   crumbs(null);
   $('view').innerHTML = `
     <form class="card intro" id="loginForm" novalidate>

@@ -3,7 +3,7 @@
 # Ordem do script: data.js (ajudantes: f, L, plot, fig, sen, tabela) → enem.js → inducao.js → engine_app.js (SITE, CONFIG e motor).
 import os
 B=os.path.dirname(os.path.abspath(__file__))+'/'
-head=open(B+'head.html',encoding='utf-8').read().replace('<title>Lista de Cinemática 9º Ano</title>','''<title>Física 3ª Série CIB</title>
+head=open(B+'head.html',encoding='utf-8').read().replace('<title>Lista de Cinemática 9º Ano</title>','''<title>Terceirão · Física CIB</title>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#7A1F2B">
 <meta name="description" content="Aulão de Física e listas interativas para a reta final do ENEM, 3ª série do Colégio Israelita Brasileiro.">
@@ -11,7 +11,7 @@ head=open(B+'head.html',encoding='utf-8').read().replace('<title>Lista de Cinem�
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Física 3ª">
+<meta name="apple-mobile-web-app-title" content="Terceirão">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">''')
 extra=open(B+'extra.css',encoding='utf-8').read()+'''
 .install{border-color:var(--sign)}

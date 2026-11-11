@@ -121,3 +121,37 @@
 .tile.th-form .ico{background:var(--sign);outline-color:var(--sign);font-style:italic;font-family:Georgia,serif}
 /* Contas longas quebram a linha no celular, em vez de ficarem escondidas */
 .eq{white-space:normal;overflow-wrap:anywhere}
+/* ===== Identidade de cada lista do ENEM ===== */
+.th-eletr, :root.th-eletr{--sign:#1E3A8A;--lane:#FFD43B;--road:#0E1633;--road-ink:#EEF2FF;--lvb-line:#FFD43B}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]).th-eletr, :root:not([data-theme="light"]) .th-eletr{--sign:#3050B8;--road:#080D20}}
+:root[data-theme="dark"].th-eletr, :root[data-theme="dark"] .th-eletr{--sign:#3050B8;--road:#080D20}
+.th-calor, :root.th-calor{--sign:#A9381A;--lane:#FF9F40;--road:#2A120B;--road-ink:#FFF1EA;--lvb-line:#FF9F40}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]).th-calor, :root:not([data-theme="light"]) .th-calor{--sign:#C24A26;--road:#180A06}}
+:root[data-theme="dark"].th-calor, :root[data-theme="dark"] .th-calor{--sign:#C24A26;--road:#180A06}
+.th-mec, :root.th-mec{--sign:#1F5E4A;--lane:#F2B705;--road:#10241D;--road-ink:#EAF5F0;--lvb-line:#F2B705}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]).th-mec, :root:not([data-theme="light"]) .th-mec{--sign:#2A7A61;--road:#08140F}}
+:root[data-theme="dark"].th-mec, :root[data-theme="dark"] .th-mec{--sign:#2A7A61;--road:#08140F}
+:root.th-eletr .plate-inner, :root.th-calor .plate-inner, :root.th-mec .plate-inner, :root.th-home .plate-inner{padding-bottom:50px}
+:root.th-eletr .plate-deco, :root.th-calor .plate-deco, :root.th-mec .plate-deco{opacity:.5}
+.tile .ico svg{display:block}
+/* Trilha "circuito": a corrente percorre o fio e acende a lâmpada */
+.ln-circ{margin-right:30px}
+.ln-circ .ln-base line{stroke-dasharray:none;opacity:.35}
+.ln-circ .ln-fill line{stroke:var(--lane);stroke-width:3.5;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 3px var(--lane))}
+.ln-circ .ln-head{width:8px;height:8px;border-radius:50%;background:#FFFFFF;transform:translate(-50%,-50%);box-shadow:0 0 6px 2px var(--lane)}
+.ln-circ .ln-src{width:12px;height:20px;left:-20px;border-left:3px solid var(--road-ink);border-right:3px solid var(--road-ink);opacity:.8;transform:translateY(-50%) scaleX(.6)}
+.ln-lamp{position:absolute;right:-26px;top:50%;width:20px;height:20px;border-radius:50%;border:2px solid var(--road-ink);transform:translateY(-50%);opacity:.9}
+.ln-lamp i{position:absolute;inset:2px;border-radius:50%;background:var(--lane);opacity:calc(var(--p) / 100);box-shadow:0 0 12px 4px var(--lane);transition:opacity .6s ease}
+/* Trilha "espectro": a onda passa do infravermelho ao violeta */
+.ln-esp .ln-fill path{stroke:url(#gEsp);stroke-width:3}
+.ln-esp .ln-head{background:#FFFFFF}
+.ln-esp .ln-src{background:var(--lane)}
+@media (prefers-reduced-motion: reduce){.ln-lamp i{transition:none}}
+/* Trilha "bloco": uma força empurra o bloco pela superfície */
+.ln-bloco .ln-base line{stroke:var(--road-ink);stroke-width:2;opacity:.35;vector-effect:non-scaling-stroke}
+.ln-bloco .ln-fill line{stroke:var(--lane);stroke-width:3;vector-effect:non-scaling-stroke}
+.ln-bloco .ln-head{top:7px;width:18px;height:15px;border-radius:2px;background:var(--lane);transform:translateX(-100%)}
+.ln-bloco .ln-head::after{content:"";position:absolute;left:21px;top:6px;width:12px;height:2.5px;background:var(--road-ink)}
+.ln-bloco .ln-head::before{content:"";position:absolute;left:31px;top:2.5px;border-top:4.75px solid transparent;border-bottom:4.75px solid transparent;border-left:7px solid var(--road-ink)}
+.ln-bloco{margin-right:30px}
+.ln-bloco .ln-src{width:4px;height:22px;left:-12px;top:13px;transform:translateY(-50%);background:repeating-linear-gradient(180deg,var(--road-ink) 0 2px,transparent 2px 5px);opacity:.6}
