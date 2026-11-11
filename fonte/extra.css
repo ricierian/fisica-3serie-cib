@@ -186,3 +186,9 @@ button.chip-link{background:transparent;cursor:pointer;font-family:var(--f-mono)
 .tbl-deriv .simb{font-family:var(--f-mono);white-space:nowrap}
 .tbl-deriv td:nth-child(2){text-align:left}
 .tbl-pref td,.tbl-pref th{padding:6px 5px}
+
+/* Ondulatória (mesmas cores do app da 2ª série) */
+.th-ondas, :root.th-ondas{--sign:#0B6477;--lane:#FF9466;--road:#0B2830;--road-ink:#EAF5F7;--lvb-line:#FF9466}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]).th-ondas, :root:not([data-theme="light"]) .th-ondas{--sign:#137C91;--lane:#FFA27A;--road:#06191E}}
+:root[data-theme="dark"].th-ondas, :root[data-theme="dark"] .th-ondas{--sign:#137C91;--lane:#FFA27A;--road:#06191E}
+:root.th-ondas .plate-inner, .th-ondas .plate .plate-inner{padding-bottom:50px}

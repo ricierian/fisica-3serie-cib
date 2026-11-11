@@ -35,6 +35,49 @@ const SITE = {
       ]
     },
     {
+      id: 'calorimetria', ico: '°C', nome: 'Calorimetria', cls: 'th-calor', estilo: 'espectro', deco: 'calor',
+      resumo: 'Lista do aulão de Calorimetria: calor sensível e latente, propagação, potência, dilatação, termometria e geladeira.',
+      listas: [
+        { id: 'aulao', key: 'cib3-calorimetria-aulao-v1', num: 1,
+          titulo: 'Aulão de Calorimetria',
+          resumo: '10 questões inéditas no estilo do ENEM, do básico ao avançado.',
+          intro: 'Questões feitas para fechar o aulão: o que mais aparece no ENEM em calorimetria e o que costuma vir junto (dilatação, termometria e termodinâmica).',
+          tools: TOOLS_CALOR, Q: Q_CALOR }
+      ]
+    },
+    {
+      id: 'ondulatoria', ico: 'λ', nome: 'Ondulatória', cls: 'th-ondas', estilo: 'onda', deco: 'onda',
+      resumo: 'Três listas para a reta final: fenômenos ondulatórios, conceitos com fenômenos e os cálculos que já caíram no ENEM.',
+      listas: [
+        { id: 'fenomenos', key: 'cib3-ondulatoria-fenomenos-v1', num: 1,
+          titulo: 'Fenômenos ondulatórios',
+          resumo: 'Reflexão, refração, difração, interferência, ressonância, polarização e efeito Doppler no cotidiano.',
+          intro: 'A porta de entrada: questões conceituais, como o ENEM costuma cobrar os fenômenos ondulatórios. Quase sem contas.',
+          tools: TOOLS_OND1, Q: Q_OND1 },
+        { id: 'conceitos', key: 'cib3-ondulatoria-conceitos-v1', num: 2,
+          titulo: 'Conceitos e fenômenos',
+          resumo: 'Qualidades do som, decibéis, espectro eletromagnético, eco, v = λ · f e mais fenômenos.',
+          intro: 'Nível misto: conceitos de ondulatória com contas curtas, como a maior parte das questões de ondas do ENEM.',
+          tools: TOOLS_OND2, Q: Q_OND2 },
+        { id: 'calculos', key: 'cib3-ondulatoria-calculos-v1', num: 3,
+          titulo: 'Os cálculos que caem',
+          resumo: 'Ondas estacionárias, tubos, cordas, ecos, Doppler, decibéis, interferência e refração.',
+          intro: 'Intermediária e avançada: os modelos de cálculo de ondulatória que já apareceram no ENEM, com outros contextos e outros números.',
+          tools: TOOLS_OND3, Q: Q_OND3 }
+      ]
+    },
+    {
+      id: 'eletricidade', ico: 'Ω', nome: 'Eletricidade e circuitos', cls: 'th-eletr', estilo: 'circuito', deco: 'circuito',
+      resumo: 'Circuitos do jeito que o ENEM cobra: ligações, resistência, potência, baterias, medidores e ponte de Wheatstone.',
+      listas: [
+        { id: 'circuitos', key: 'cib3-eletricidade-circuitos-v1', num: 1,
+          titulo: 'Circuitos no ENEM',
+          resumo: '10 questões inéditas, do básico ao avançado.',
+          intro: 'Do pisca-pisca de Natal à ponte de Wheatstone. Complementa a lista “Eletricidade e energia” da Revisão ENEM, sem repetir os contextos.',
+          tools: TOOLS_ELET, Q: Q_ELET }
+      ]
+    },
+    {
       id: 'inducao', ico: 'Φ', nome: 'Indução eletromagnética', cls: 'th-inducao', estilo: 'onda', deco: 'bobina',
       resumo: 'Fluxo magnético, leis de Faraday e de Lenz, fem de movimento, geradores e transformadores.',
       listas: [

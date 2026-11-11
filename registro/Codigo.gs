@@ -26,9 +26,16 @@ const LISTAS = [
   ['Revisão ENEM', 'Lista 2'],
   ['Revisão ENEM', 'Lista 3'],
   ['Indução eletromagnética', 'Lista 1'],
-  ['Indução eletromagnética', 'Lista 2']
+  ['Indução eletromagnética', 'Lista 2'],
+  ['Calorimetria', 'Lista 1'],
+  ['Ondulatória', 'Lista 1'],
+  ['Ondulatória', 'Lista 2'],
+  ['Ondulatória', 'Lista 3'],
+  ['Eletricidade e circuitos', 'Lista 1']
 ];
-const rotulo = l => (l[0] === 'Revisão ENEM' ? 'ENEM ' : 'Indução ') + l[1];
+const ROTULOS = { 'Revisão ENEM': 'ENEM', 'Indução eletromagnética': 'Indução', 'Calorimetria': 'Calorimetria',
+  'Ondulatória': 'Ondas', 'Eletricidade e circuitos': 'Circuitos' };
+const rotulo = l => (ROTULOS[l[0]] || l[0]) + ' ' + l[1];
 const LINHAS = 80; // linhas preparadas por turma
 
 const CABECALHO = ['Data e hora', 'E-mail', 'Turma', 'Evento', 'Tema', 'Lista', 'Acertos', 'Total',
