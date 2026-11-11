@@ -74,28 +74,33 @@ const FIG_TRILHOS = (() => {
 const FIG_TERRA = (() => {
   const tri = (x, y) => `<path d="M${x} ${y-7} L${x+6} ${y+5} L${x-6} ${y+5} Z" fill="#3A7BD5"/>`;
   const laco = (k, s) => `<path d="M170 ${168 - 4*k} C ${170 + s*(100 + 30*k)} ${190 + 10*k}, ${170 + s*(100 + 30*k)} ${30 - 10*k}, 170 ${52 + 4*k}" fill="none" stroke="#3A7BD5" stroke-width="1.8"/>`;
-  return fig('0 0 340 230', 'A Terra com o eixo norte-sul geográfico e as linhas do campo magnético do planeta. Do lado de fora da Terra, as linhas saem da região do sul geográfico e chegam à região do norte geográfico; as setas nas linhas apontam para o norte geográfico.',
-  `${laco(0, 1)}${laco(1, 1)}${laco(0, -1)}${laco(1, -1)}
-   ${tri(170 + 75, 116)}${tri(170 + 97, 116)}${tri(170 - 75, 116)}${tri(170 - 97, 116)}
+  return fig('0 0 340 250', 'Esquema simplificado da Terra. O eixo de rotação, que liga os polos geográficos, é vertical. As linhas do campo magnético estão organizadas em torno de outro eixo, o eixo magnético, um pouco inclinado em relação ao eixo de rotação. Do lado de fora da Terra, as linhas saem da região do sul geográfico e chegam à região do norte geográfico.',
+  `<g transform="rotate(-11 170 110)">${laco(0, 1)}${laco(1, 1)}${laco(0, -1)}${laco(1, -1)}
+   ${tri(170 + 75, 116)}${tri(170 + 97, 116)}${tri(170 - 75, 116)}${tri(170 - 97, 116)}</g>
    <circle cx="170" cy="110" r="56" fill="var(--eq-bg)" stroke="var(--ink)" stroke-width="2"/>
-   <line x1="170" y1="36" x2="170" y2="184" stroke="var(--ink)" stroke-width="1.4" stroke-dasharray="5 4"/>
-   <text x="170" y="22" text-anchor="middle" class="pt pt-strong">norte geográfico</text>
-   <text x="170" y="206" text-anchor="middle" class="pt pt-strong">sul geográfico</text>
-   <text x="196" y="146" text-anchor="middle" class="pt">Terra</text>
-   <text x="300" y="224" text-anchor="end" class="pt" style="fill:#3A7BD5">linhas do campo magnético</text>`, 360);
+   <g transform="rotate(-11 170 110)"><line x1="170" y1="40" x2="170" y2="180" stroke="#3A7BD5" stroke-width="2" stroke-dasharray="7 4"/></g>
+   <line x1="170" y1="32" x2="170" y2="188" stroke="var(--ink)" stroke-width="1.6"/>
+   <circle cx="170" cy="32" r="3" fill="var(--ink)"/><circle cx="170" cy="188" r="3" fill="var(--ink)"/>
+   <text x="178" y="22" class="pt pt-strong">norte geográfico</text>
+   <text x="162" y="206" text-anchor="end" class="pt pt-strong">sul geográfico</text>
+   <text x="148" y="34" text-anchor="end" class="pt pt-strong" style="fill:#3A7BD5">eixo magnético</text>
+   <text x="200" y="146" text-anchor="middle" class="pt">Terra</text>
+   <text x="170" y="228" text-anchor="middle" class="pt" style="fill:#3A7BD5">linhas do campo magnético</text>
+   <text x="170" y="244" text-anchor="middle" class="pt">esquema simplificado, fora de escala</text>`, 360);
 })();
 
 /* ===================== LISTA 1 · Magnetismo e campo magnético ===================== */
 const Q_MAG = [
 { src: 'Inédita', nivel: 'básico',
-  text: `<p>Em uma trilha, um grupo de escoteiros usa uma bússola para se orientar. A agulha, um pequeno ímã que gira livremente, aponta com seu polo norte para a região do norte geográfico da Terra. O esquema representa as linhas do campo magnético do planeta.</p>
+  text: `<p>Em uma trilha, um grupo de escoteiros usa uma bússola para se orientar. A agulha, um pequeno ímã que gira livremente, aponta com seu polo norte para a região do norte geográfico da Terra. O esquema, simplificado, representa as linhas do campo magnético do planeta.</p>
 ${FIG_TERRA}
 <p>Isso acontece porque, nas proximidades do norte geográfico, está localizado</p>`,
   opts: ['o polo norte magnético da Terra, que atrai o polo norte da agulha.','um grande depósito de ferro, que atrai qualquer ímã.','o polo sul magnético da Terra, que atrai o polo norte da agulha.','o ponto onde o campo magnético da Terra é nulo.','o polo norte magnético, porque polos de mesmo nome se atraem quando estão muito distantes.'], ans: 2,
   hint: 'Polos de mesmo nome se repelem; de nomes diferentes se atraem. Se o polo norte da agulha é atraído para lá, que polo magnético existe lá?',
   steps: [['Regra dos polos', '<p>Polos de nomes diferentes se atraem. O polo norte da agulha só é puxado para o norte geográfico se ali houver um polo <b>sul</b> magnético.</p>'],
           ['O esquema confirma', '<p>Fora de um ímã, as linhas de campo saem do polo norte e chegam ao polo sul. No esquema, elas chegam à região do norte geográfico: ali está um polo sul magnético.</p>'],
-          ['Conclusão', '<p>A Terra se comporta como um grande ímã com o polo sul magnético perto do norte geográfico (e o polo norte magnético perto do sul geográfico).</p>']],
+          ['Conclusão', '<p>A Terra se comporta como um grande ímã com o polo sul magnético perto do norte geográfico (e o polo norte magnético perto do sul geográfico).</p>'],
+          ['Perto, mas não no mesmo lugar', '<p>Repare no esquema: as linhas de campo se organizam em torno do <b>eixo magnético</b>, que é inclinado em relação ao eixo de rotação. Por isso os polos magnéticos <b>não coincidem</b> com os polos geográficos, e ainda se deslocam lentamente ao longo dos anos.</p><p>Na prática, a bússola aponta para o norte <b>magnético</b>, que fica um pouco afastado do norte geográfico. Dizer que ela aponta para o norte geográfico é uma <b>aproximação</b>, boa o bastante para se orientar numa trilha. A diferença entre as duas direções se chama <b>declinação magnética</b>, e mapas de navegação a indicam para corrigir a leitura da bússola.</p>']],
   alt: 'O nome “polo norte” da agulha vem de ela apontar para o norte geográfico, não do tipo de polo que existe lá. Por isso a troca de nomes confunde tanta gente.',
   warn: erros([['A)','polos de mesmo nome se repelem.'],['B)','a orientação vale no planeta todo, não depende de jazidas.'],['D)','se o campo fosse nulo, a agulha não teria direção preferida.'],['E)','polos de mesmo nome se repelem a qualquer distância.']]) },
 
