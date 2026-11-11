@@ -220,3 +220,15 @@ body.com-calc .wrap{padding-bottom:96px}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .calc-exp.calc-final{color:var(--lane)}}
 @media print{.calc,.calc-fab{display:none!important}}
 :root[data-theme="dark"] .calc-exp.calc-final{color:var(--lane)}
+
+/* ===== Formulário: fórmula nunca quebra no meio; legenda dos símbolos ===== */
+.fxbox{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.fx{white-space:nowrap;display:inline-block}
+.fx-sep{margin:0 .55em 0 .1em;color:var(--muted)}
+.form-leg{display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 10px;margin:10px 0 0;padding-top:8px;border-top:1px solid var(--line);font-size:13.5px;line-height:1.35}
+.form-leg dt{font-weight:700;white-space:nowrap;text-align:right}
+.form-leg dd{margin:0;color:var(--muted);min-width:0;overflow-wrap:anywhere}
+.form-leg .un{display:inline-block;margin-left:6px;padding:0 6px;border-radius:6px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-family:var(--f-mono);font-size:12px;white-space:nowrap}
+.tool.tool-extra .form-leg .un{background:var(--eq-bg)}
+.form-leg sub{font-size:.75em}
+@media (max-width:360px){.formsec .fxbox{font-size:15px}.formsec .tool.tool-extra .fxbox{font-size:14.5px}}

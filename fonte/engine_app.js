@@ -532,6 +532,21 @@ function openConsultaHub(){
   toTop();
 }
 const migConsulta = nome => [{ label:'Início', nav:'home' }, { label:'Consulta rápida', consulta:'' }, { label: nome }];
+/* Formulário: cada fórmula fica numa linha só (sem quebrar no meio); as fórmulas de um mesmo bloco podem ir para linhas diferentes */
+function fxLinha(h){
+  return h.split(/<br\s*\/?>/).map(lin => lin.split('&nbsp;;&nbsp;').map(pc => {
+    const k = pc.indexOf('<small');
+    const fm = (k >= 0 ? pc.slice(0, k) : pc).trim(), nota = k >= 0 ? pc.slice(k) : '';
+    if (!fm) return nota;
+    if (!/[=≤]/.test(fm)) return fm + nota;
+    const r = fm.match(/^([^=<]{1,22}?:)\s+(.*)$/);   // rótulo ("série:", "sobre fio:") fica fora da fórmula
+    return (r ? `${r[1]} <span class="fx">${r[2]}</span>` : `<span class="fx">${fm}</span>`) + nota;
+  }).join('<span class="fx-sep">;</span>')).join('<br>');
+}
+const legendaHTML = t => {
+  const L = LEGENDA[t]; if (!L) return '';
+  return `<dl class="form-leg">${L.map(([sb, ds, un]) => `<dt>${sb}</dt><dd>${ds}<span class="un">${un}</span></dd>`).join('')}</dl>`;
+};
 function openFormulario(){
   abrirConsulta('Formulário', 'As fórmulas por assunto, das essenciais às complementares.', migConsulta('Formulário'));
   const nEss = FORMULARIO.reduce((n, s) => n + s.ess.length, 0), nExt = FORMULARIO.reduce((n, s) => n + s.ext.length, 0);
@@ -541,9 +556,9 @@ function openFormulario(){
     <nav class="card formnav" aria-label="Assuntos do formulário"><p class="sect-label">Ir para</p><div class="row" style="gap:6px">${FORMULARIO.map((s, i) => `<a class="chip chip-link" href="#/consulta/formulario" data-sec="${i}">${s.nome}</a>`).join('')}</div></nav>
     ${FORMULARIO.map((s, i) => `<section class="card formsec" id="sec${i}"><h2 class="formh">${s.nome}</h2>
         <p class="form-tag"><span class="leg leg-main">Essenciais</span></p>
-        <div class="tools-grid form-grid">${s.ess.map(([t, h, a]) => `<div class="tool tool-main"><h4>${t}</h4><div>${h}</div></div>`).join('')}</div>
+        <div class="tools-grid form-grid">${s.ess.map(([t, h, a]) => `<div class="tool tool-main"><h4>${t}</h4><div class="fxbox">${fxLinha(h)}</div>${legendaHTML(t)}</div>`).join('')}</div>
         ${s.ext.length ? `<details class="form-extra"><summary><span class="leg leg-extra">Para ir além</span><span class="small">${s.ext.length} ${s.ext.length > 1 ? 'fórmulas complementares' : 'fórmula complementar'}</span><span class="chev">›</span></summary>
-          <div class="tools-grid form-grid">${s.ext.map(([t, h]) => `<div class="tool tool-extra"><h4>${t}</h4><div>${h}</div></div>`).join('')}</div></details>` : ''}
+          <div class="tools-grid form-grid">${s.ext.map(([t, h]) => `<div class="tool tool-extra"><h4>${t}</h4><div class="fxbox">${fxLinha(h)}</div>${legendaHTML(t)}</div>`).join('')}</div></details>` : ''}
       </section>`).join('')}
     ${outrasConsultas('formulario')}`;
   toTop();
