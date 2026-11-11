@@ -71,13 +71,30 @@ const FIG_TRILHOS = (() => {
    <text x="300" y="168" text-anchor="end" class="pt">L = 0,40 m · B ⊗</text>`, 380);
 })();
 
+const FIG_TERRA = (() => {
+  const tri = (x, y) => `<path d="M${x} ${y-7} L${x+6} ${y+5} L${x-6} ${y+5} Z" fill="#3A7BD5"/>`;
+  const laco = (k, s) => `<path d="M170 ${168 - 4*k} C ${170 + s*(100 + 30*k)} ${190 + 10*k}, ${170 + s*(100 + 30*k)} ${30 - 10*k}, 170 ${52 + 4*k}" fill="none" stroke="#3A7BD5" stroke-width="1.8"/>`;
+  return fig('0 0 340 230', 'A Terra com o eixo norte-sul geográfico e as linhas do campo magnético do planeta. Do lado de fora da Terra, as linhas saem da região do sul geográfico e chegam à região do norte geográfico; as setas nas linhas apontam para o norte geográfico.',
+  `${laco(0, 1)}${laco(1, 1)}${laco(0, -1)}${laco(1, -1)}
+   ${tri(170 + 75, 116)}${tri(170 + 97, 116)}${tri(170 - 75, 116)}${tri(170 - 97, 116)}
+   <circle cx="170" cy="110" r="56" fill="var(--eq-bg)" stroke="var(--ink)" stroke-width="2"/>
+   <line x1="170" y1="36" x2="170" y2="184" stroke="var(--ink)" stroke-width="1.4" stroke-dasharray="5 4"/>
+   <text x="170" y="22" text-anchor="middle" class="pt pt-strong">norte geográfico</text>
+   <text x="170" y="206" text-anchor="middle" class="pt pt-strong">sul geográfico</text>
+   <text x="196" y="146" text-anchor="middle" class="pt">Terra</text>
+   <text x="300" y="224" text-anchor="end" class="pt" style="fill:#3A7BD5">linhas do campo magnético</text>`, 360);
+})();
+
 /* ===================== LISTA 1 · Magnetismo e campo magnético ===================== */
 const Q_MAG = [
 { src: 'Inédita', nivel: 'básico',
-  text: '<p>Em uma trilha, um grupo de escoteiros usa uma bússola para se orientar. A agulha, um pequeno ímã que gira livremente, aponta com seu polo norte para a região do norte geográfico da Terra.</p><p>Isso acontece porque, nas proximidades do norte geográfico, está localizado</p>',
+  text: `<p>Em uma trilha, um grupo de escoteiros usa uma bússola para se orientar. A agulha, um pequeno ímã que gira livremente, aponta com seu polo norte para a região do norte geográfico da Terra. O esquema representa as linhas do campo magnético do planeta.</p>
+${FIG_TERRA}
+<p>Isso acontece porque, nas proximidades do norte geográfico, está localizado</p>`,
   opts: ['o polo norte magnético da Terra, que atrai o polo norte da agulha.','um grande depósito de ferro, que atrai qualquer ímã.','o polo sul magnético da Terra, que atrai o polo norte da agulha.','o ponto onde o campo magnético da Terra é nulo.','o polo norte magnético, porque polos de mesmo nome se atraem quando estão muito distantes.'], ans: 2,
   hint: 'Polos de mesmo nome se repelem; de nomes diferentes se atraem. Se o polo norte da agulha é atraído para lá, que polo magnético existe lá?',
   steps: [['Regra dos polos', '<p>Polos de nomes diferentes se atraem. O polo norte da agulha só é puxado para o norte geográfico se ali houver um polo <b>sul</b> magnético.</p>'],
+          ['O esquema confirma', '<p>Fora de um ímã, as linhas de campo saem do polo norte e chegam ao polo sul. No esquema, elas chegam à região do norte geográfico: ali está um polo sul magnético.</p>'],
           ['Conclusão', '<p>A Terra se comporta como um grande ímã com o polo sul magnético perto do norte geográfico (e o polo norte magnético perto do sul geográfico).</p>']],
   alt: 'O nome “polo norte” da agulha vem de ela apontar para o norte geográfico, não do tipo de polo que existe lá. Por isso a troca de nomes confunde tanta gente.',
   warn: erros([['A)','polos de mesmo nome se repelem.'],['B)','a orientação vale no planeta todo, não depende de jazidas.'],['D)','se o campo fosse nulo, a agulha não teria direção preferida.'],['E)','polos de mesmo nome se repelem a qualquer distância.']]) },
@@ -174,10 +191,46 @@ ${FIG_ESPECTRO}
   warn: erros([['A)','acerta a intensidade, mas correntes opostas se repelem.'],['B) 0,0040 N/m:','usa a distância em centímetros (2 em vez de 0,020).'],['C) 4,0 N/m:','usa a distância como 0,0020 m.'],['E)','as forças atuam em cabos diferentes; não se cancelam.']]) }
 ];
 
+const FIG_LANTERNA = (() => {
+  const [d, mk] = seta('var(--ink)');
+  return fig('0 0 340 170', 'Corte de uma lanterna de sacudir: dentro de um tubo, um ímã desliza para a frente e para trás e atravessa uma bobina enrolada no meio do tubo. A bobina está ligada a um capacitor e a um LED na ponta.',
+  `${d}<rect x="20" y="64" width="250" height="44" rx="20" fill="none" stroke="var(--ink)" stroke-width="2"/>
+   <rect x="46" y="74" width="24" height="24" fill="#D64A3B"/><rect x="70" y="74" width="24" height="24" fill="#3A7BD5"/>
+   <text x="58" y="91" text-anchor="middle" class="pt pt-strong" style="fill:#fff">N</text><text x="82" y="91" text-anchor="middle" class="pt pt-strong" style="fill:#fff">S</text>
+   <line x1="40" y1="46" x2="104" y2="46" stroke="var(--ink)" stroke-width="2" marker-start="${mk}" marker-end="${mk}"/>
+   <text x="72" y="36" text-anchor="middle" class="pt">ímã desliza</text>
+   ${[140,150,160,170,180,190].map(x => `<ellipse cx="${x}" cy="86" rx="5" ry="28" fill="none" stroke="#D9A62E" stroke-width="2.4"/>`).join('')}
+   <text x="165" y="136" text-anchor="middle" class="pt">bobina</text>
+   <path d="M190 114 V140 H292 V96 M140 114 V152 H298 V96" fill="none" stroke="var(--ink)" stroke-width="1.4"/>
+   <path d="M292 76 V96 M298 76 V96" stroke="var(--ink)" stroke-width="2.2"/>
+   <path d="M300 74 L318 86 L300 98 Z" fill="#F2B705" stroke="var(--ink)" stroke-width="1.4"/>
+   <text x="336" y="60" text-anchor="end" class="pt">capacitor e LED</text>`, 380);
+})();
+
+const FIG_FREIO = (() => {
+  const [d, mk] = seta('var(--ink)');
+  return fig('0 0 340 180', 'Freio magnético visto de lado: dois ímãs fixos no trilho, um acima e outro abaixo de uma fenda. Uma aleta de cobre presa ao carrinho entra na fenda, movendo-se para a direita. Entre os ímãs há um campo magnético vertical.',
+  `${d}<rect x="170" y="30" width="110" height="34" rx="4" fill="#8C9AA6" stroke="var(--ink)" stroke-width="1.6"/>
+   <rect x="170" y="116" width="110" height="34" rx="4" fill="#8C9AA6" stroke="var(--ink)" stroke-width="1.6"/>
+   <text x="225" y="52" text-anchor="middle" class="pt pt-strong" style="fill:#fff">ímã</text>
+   <text x="225" y="138" text-anchor="middle" class="pt pt-strong" style="fill:#fff">ímã</text>
+   ${[190, 225, 260].map(x => `<line x1="${x}" y1="66" x2="${x}" y2="114" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="3 3"/>`).join('')}
+   <rect x="70" y="82" width="150" height="16" rx="3" fill="#C8743A" stroke="var(--ink)" stroke-width="1.4"/>
+   <rect x="20" y="70" width="50" height="40" rx="6" fill="var(--line)" stroke="var(--ink)" stroke-width="1.6"/>
+   <text x="45" y="128" text-anchor="middle" class="pt">carrinho</text>
+   <text x="134" y="76" text-anchor="middle" class="pt">aleta de cobre</text>
+   <line x1="80" y1="150" x2="140" y2="150" stroke="var(--ink)" stroke-width="2.5" marker-end="${mk}"/>
+   <text x="110" y="168" text-anchor="middle" class="pt pt-strong">v</text>
+   <text x="268" y="94" class="pt pt-strong">B</text>
+   <text x="225" y="172" text-anchor="middle" class="pt">ímãs fixos no trilho</text>`, 380);
+})();
+
 /* ===================== LISTA 2 · Indução eletromagnética ===================== */
 const Q_IND = [
 { src: 'Inédita', nivel: 'básico',
-  text: '<p>Algumas lanternas de emergência não usam pilhas: basta sacudi-las para que acendam. Dentro delas, um ímã desliza para a frente e para trás, atravessando uma bobina ligada a um capacitor que armazena a energia.</p><p>A lanterna produz energia elétrica porque</p>',
+  text: `<p>Algumas lanternas de emergência não usam pilhas: basta sacudi-las para que acendam. Dentro delas, um ímã desliza para a frente e para trás, atravessando uma bobina ligada a um capacitor que armazena a energia, como no esquema.</p>
+${FIG_LANTERNA}
+<p>A lanterna produz energia elétrica porque</p>`,
   opts: ['o ímã libera elétrons para a bobina ao passar por dentro dela.','o movimento do ímã faz variar o fluxo magnético na bobina, induzindo corrente.','o atrito do ímã com o tubo eletriza a bobina.','o campo magnético do ímã parado já é suficiente para gerar corrente na bobina.','a bobina se transforma em ímã e passa a atrair cargas elétricas do ar.'], ans: 1,
   hint: 'Se o ímã ficasse parado dentro da bobina, a lanterna funcionaria? O que o movimento muda?',
   steps: [['Variação de fluxo', '<p>Ao passar pela bobina, o ímã faz o fluxo magnético através das espiras aumentar e diminuir.</p>'],
@@ -225,7 +278,9 @@ ${plot({aria:'Fluxo magnético em cada espira, em webers, em função do tempo, 
   warn: erros([['A)','é o trecho de 0 a 2 s, menos inclinado: 20 × 0,3 = 6,0 V.'],['B)','confunde fluxo alto com fluxo variando.'],['D)','esquece o número de espiras.'],['E)','acerta que a fem é nula de 2 a 4 s, mas não é o intervalo pedido.']]) },
 
 { src: 'Inédita', nivel: 'intermediário',
-  text: '<p>Algumas montanhas-russas usam freios magnéticos: no fim do percurso, aletas de cobre presas ao carrinho passam entre ímãs fixos nos trilhos. O carrinho desacelera suavemente, sem nenhum contato entre as peças, e as aletas esquentam.</p><p>Esse freio funciona porque</p>',
+  text: `<p>Algumas montanhas-russas usam freios magnéticos: no fim do percurso, aletas de cobre presas ao carrinho passam entre ímãs fixos nos trilhos, como no esquema. O carrinho desacelera suavemente, sem nenhum contato entre as peças, e as aletas esquentam.</p>
+${FIG_FREIO}
+<p>Esse freio funciona porque</p>`,
   opts: ['os ímãs atraem as aletas de cobre e as seguram.','o cobre é ferromagnético e se imanta ao passar pelos ímãs.','o atrito com o ar entre os ímãs é muito grande.','os ímãs eletrizam as aletas por indução, e elas passam a ser repelidas pelos trilhos metálicos.','as correntes induzidas nas aletas, pela lei de Lenz, se opõem ao movimento que as criou.'], ans: 4,
   hint: 'O cobre não é atraído por ímãs. Mas é um ótimo condutor. O que acontece com um condutor que se move perto de um ímã?',
   steps: [['Correntes induzidas', '<p>Ao passar entre os ímãs, o fluxo magnético nas aletas varia, e surgem correntes induzidas no cobre.</p>'],

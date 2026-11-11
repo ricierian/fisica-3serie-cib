@@ -32,9 +32,42 @@ const FIG_PONTE = fig('0 0 340 230', 'Ponte de Wheatstone em forma de losango. D
    <path d="M16 99 H44 M22 109 H38 M16 119 H44" stroke="var(--ink)" stroke-width="2.4"/>
    ${[[190,25],[110,110],[270,110],[190,195]].map(([x,y]) => `<circle cx="${x}" cy="${y}" r="3.5" fill="var(--ink)"/>`).join('')}`, 380);
 
+/* Série e paralelo com uma lâmpada queimada (questão 1) */
+const FIG_SERIE_PAR = (() => {
+  const pilha = (x, y) => `<path d="M${x-12} ${y} H${x+12} M${x-6} ${y+8} H${x+6}" stroke="var(--ink)" stroke-width="2.4"/>`;
+  const lq = (x, y) => `<circle cx="${x}" cy="${y}" r="13" fill="var(--surface)" stroke="#D64A3B" stroke-width="2.4" stroke-dasharray="4 3"/><path d="M${x-9} ${y-9} L${x-2} ${y-2} M${x+2} ${y+2} L${x+9} ${y+9} M${x+9} ${y-9} L${x-9} ${y+9}" stroke="#D64A3B" stroke-width="1.6"/>`;
+  const rot = (x, y, t) => `<text x="${x}" y="${y}" text-anchor="middle" class="pt pt-strong">${t}</text>`;
+  return fig('0 0 360 206', 'Dois esquemas com uma fonte e três lâmpadas, L1, L2 e L3. No esquema I, as três lâmpadas estão uma depois da outra, num único caminho. No esquema II, cada lâmpada está em um ramo próprio, ligado diretamente à fonte. Nos dois, a lâmpada L2 queimou.',
+  `<path d="M20 86 V40 H160 V150 H20 V94" fill="none" stroke="var(--ink)" stroke-width="2"/>${pilha(20, 86)}
+   ${lamp(55, 40, 'L₁')}${lq(90, 40)}${rot(90, 21, 'L₂')}${lamp(125, 40, 'L₃')}
+   ${rot(90, 174, 'Esquema I')}
+   <path d="M200 86 V40 H340 M200 94 V150 H340" fill="none" stroke="var(--ink)" stroke-width="2"/>${pilha(200, 86)}
+   ${[250, 295, 340].map(x => `<line x1="${x}" y1="40" x2="${x}" y2="150" stroke="var(--ink)" stroke-width="2"/>`).join('')}
+   ${lamp(250, 95, '')}${lq(295, 95)}${lamp(340, 95, '')}
+   ${[[250,'L₁'],[295,'L₂'],[340,'L₃']].map(([x, t]) => `<text x="${x - 17}" y="${74}" text-anchor="end" class="pt pt-strong">${t}</text>`).join('')}
+   ${rot(270, 174, 'Esquema II')}
+   <text x="180" y="200" text-anchor="middle" class="pt">Nos dois, a lâmpada L₂ (tracejada) queimou.</text>`, 400);
+})();
+
+/* Circuito com dois medidores (questão 3) */
+const FIG_MEDIDORES = (() => {
+  const med = (x, y, t) => `<circle cx="${x}" cy="${y}" r="16" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/><text x="${x}" y="${y+5}" text-anchor="middle" class="pt pt-strong">${t}</text>`;
+  return fig('0 0 340 190', 'Circuito com uma pilha, um medidor M1 no fio que sai da pilha, uma lâmpada e um medidor M2 ligado entre os dois terminais da lâmpada.',
+  `<path d="M40 92 V40 H250 V150 H40 V100" fill="none" stroke="var(--ink)" stroke-width="2"/>
+   <path d="M28 92 H52 M34 100 H46" stroke="var(--ink)" stroke-width="2.4"/>
+   <text x="56" y="100" class="pt">pilha</text>
+   ${med(140, 40, 'M₁')}
+   ${lamp(250, 95, '')}<text x="232" y="100" text-anchor="end" class="pt">lâmpada</text>
+   <path d="M250 62 H305 V79 M305 111 V128 H250" fill="none" stroke="var(--ink)" stroke-width="2"/>
+   ${med(305, 95, 'M₂')}
+   ${[[250,62],[250,128]].map(([x,y]) => `<circle cx="${x}" cy="${y}" r="3.5" fill="var(--ink)"/>`).join('')}`, 380);
+})();
+
 const Q_ELET = [
 { src: 'Inédita', nivel: 'básico',
-  text: '<p>Em um pisca-pisca de Natal antigo, quando uma das lâmpadas queima, todas as outras se apagam. Já em uma casa, quando a lâmpada da sala queima, as dos outros cômodos continuam acesas e os aparelhos continuam funcionando.</p><p>Essa diferença acontece porque</p>',
+  text: `<p>Em um pisca-pisca de Natal antigo, quando uma das lâmpadas queima, todas as outras se apagam. Já em uma casa, quando a lâmpada da sala queima, as dos outros cômodos continuam acesas e os aparelhos continuam funcionando. Os esquemas mostram as duas maneiras de ligar várias lâmpadas a uma mesma fonte.</p>
+${FIG_SERIE_PAR}
+<p>Essa diferença acontece porque</p>`,
   opts: ['no pisca-pisca, as lâmpadas estão em série; em casa, em paralelo.','no pisca-pisca, as lâmpadas estão em paralelo; em casa, em série.','as lâmpadas do pisca-pisca funcionam com corrente contínua.','em casa, cada lâmpada tem um fusível próprio dentro do bulbo.','a lâmpada queimada passa a conduzir toda a corrente, e as outras ficam sem energia elétrica.'], ans: 0,
   hint: 'Quando uma lâmpada queima, seu filamento se rompe e ela vira um “circuito aberto”. Em que tipo de ligação isso interrompe a corrente em todas?',
   steps: [['Lâmpada queimada', '<p>O filamento se rompe: por aquela lâmpada não passa mais corrente.</p>'],
@@ -55,13 +88,15 @@ ${tabela(['Extensão','Comprimento','Área da seção do fio'],[['I','5 m','0,75
   warn: erros([['I)','é curta, mas o fio é fino.'],['IV)','é a pior opção: comprida e fina.'],['V)','tem fio grosso, mas é quatro vezes mais comprida que a II.']]) },
 
 { src: 'Inédita', nivel: 'básico',
-  text: '<p>Em uma aula de laboratório, um estudante monta um circuito com uma pilha e uma pequena lâmpada. Ele quer medir, ao mesmo tempo, a corrente elétrica que atravessa a lâmpada e a tensão elétrica entre os terminais dela, usando um amperímetro e um voltímetro.</p><p>Para fazer as medidas corretamente, ele deve ligar</p>',
-  opts: ['o amperímetro e o voltímetro em série com a lâmpada.','o amperímetro em paralelo e o voltímetro em série com a lâmpada.','o amperímetro em série e o voltímetro em paralelo com a lâmpada.','o amperímetro e o voltímetro em paralelo com a lâmpada.','o amperímetro em paralelo com a pilha e o voltímetro em série com a lâmpada, para não interferir na corrente.'], ans: 2,
-  hint: 'Para medir corrente, ela precisa passar por dentro do medidor. Para medir tensão, o medidor compara dois pontos.',
-  steps: [['Amperímetro', '<p>A corrente da lâmpada tem de atravessar o aparelho: ligação <b>em série</b>. Ele tem resistência muito pequena, para não alterar a corrente.</p>'],
-          ['Voltímetro', '<p>Mede a diferença de potencial entre os terminais da lâmpada: ligação <b>em paralelo</b>. Ele tem resistência muito grande, para quase não desviar corrente.</p>']],
+  text: `<p>Em uma aula de laboratório, um estudante monta um circuito com uma pilha e uma pequena lâmpada. Ele quer medir, ao mesmo tempo, a corrente elétrica que atravessa a lâmpada e a tensão elétrica entre os terminais dela. Para isso, liga dois medidores, M₁ e M₂, como no esquema.</p>
+${FIG_MEDIDORES}
+<p>Para que as medidas fiquem corretas, M₁ e M₂ devem ser, respectivamente,</p>`,
+  opts: ['dois amperímetros.','um voltímetro e um amperímetro.','um amperímetro e um voltímetro.','dois voltímetros.','um voltímetro e um amperímetro, ambos de resistência interna muito pequena.'], ans: 2,
+  hint: 'Veja por onde passa a corrente da lâmpada: ela atravessa M₁? E M₂ está ligado entre quais pontos?',
+  steps: [['M₁: em série', '<p>Toda a corrente que vai para a lâmpada atravessa M₁: ele está <b>em série</b>. Para medir corrente, a corrente precisa passar por dentro do medidor: M₁ é o <b>amperímetro</b>, de resistência muito pequena, para não alterar a corrente.</p>'],
+          ['M₂: em paralelo', '<p>M₂ está ligado entre os dois terminais da lâmpada: está <b>em paralelo</b>. É o <b>voltímetro</b>, que compara o potencial de dois pontos e tem resistência muito grande, para quase não desviar corrente.</p>']],
   alt: 'Um amperímetro ligado em paralelo funciona como um curto-circuito (resistência quase nula): pode queimar o fusível do aparelho ou descarregar a pilha.',
-  warn: erros([['A)','em série, o voltímetro, de resistência enorme, praticamente corta a corrente.'],['B)','inverte as duas ligações.'],['D)','em paralelo, o amperímetro provoca um curto-circuito.'],['E)','amperímetro em paralelo com a pilha é um curto-circuito.']]) },
+  warn: erros([['A)','um amperímetro na posição de M₂, em paralelo com a lâmpada, provoca um curto-circuito.'],['B)','inverte os aparelhos: o voltímetro em M₁, em série, praticamente corta a corrente.'],['D)','um voltímetro em M₁, em série, praticamente corta a corrente.'],['E)','inverte os aparelhos, e voltímetro precisa de resistência muito grande, não pequena.']]) },
 
 { src: 'Inédita', nivel: 'intermediário',
   text: '<p>Uma lanterna funciona com três pilhas de 1,5 V ligadas em série e uma lâmpada de 4,5 V e 0,9 W. Cada pilha tem capacidade de 2 000 mAh, ou seja, pode fornecer uma corrente de 2 000 mA durante 1 hora (ou uma corrente menor por mais tempo).</p><p>Com a lâmpada funcionando nas condições nominais, a lanterna fica acesa por, aproximadamente,</p>',

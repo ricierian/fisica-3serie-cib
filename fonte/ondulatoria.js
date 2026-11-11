@@ -65,6 +65,32 @@ const FIG_ALTOFALANTES = fig('0 0 340 190', 'Dois alto-falantes, A e B, ligados 
    <text x="170" y="52" text-anchor="middle" class="pt pt-strong">3,00 m</text>
    <text x="170" y="138" text-anchor="middle" class="pt pt-strong">d</text>`, 380);
 
+/* Muro da quadra (Lista 1, questão 4) */
+const pessoa = (x, y, lab) => `<circle cx="${x}" cy="${y-52}" r="9" fill="none" stroke="var(--ink)" stroke-width="2"/><path d="M${x} ${y-43} V${y-18} M${x-12} ${y-34} H${x+12} M${x} ${y-18} L${x-9} ${y} M${x} ${y-18} L${x+9} ${y}" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>${lab ? `<text x="${x}" y="${y+16}" text-anchor="middle" class="pt">${lab}</text>` : ''}`;
+const FIG_MURO = fig('0 0 340 190', 'Vista lateral: dois colegas conversam de um lado de um muro alto; do outro lado, um estudante. A linha de visão entre o estudante e os colegas é bloqueada pelo muro.',
+  `<line x1="10" y1="160" x2="330" y2="160" stroke="var(--ink)" stroke-width="2"/>
+   <rect x="168" y="40" width="18" height="120" fill="var(--line)" stroke="var(--ink)" stroke-width="2"/>
+   <text x="177" y="30" text-anchor="middle" class="pt pt-strong">muro</text>
+   ${pessoa(52, 160, '')}${pessoa(92, 160, '')}${pessoa(278, 160, '')}
+   <text x="80" y="178" text-anchor="middle" class="pt">colegas conversando</text>
+   <text x="278" y="178" text-anchor="middle" class="pt">estudante</text>
+   <line x1="270" y1="108" x2="186" y2="104" stroke="var(--muted)" stroke-width="1.6" stroke-dasharray="5 4"/>
+   <text x="232" y="96" text-anchor="middle" class="pt">linha de visão</text>
+   <text x="200" y="110" text-anchor="middle" class="pt pt-strong" style="fill:#D64A3B">✕</text>`, 380);
+
+/* Emissora, morro e bairro (Lista 1, questão 10) */
+const FIG_MORRO = fig('0 0 340 180', 'Uma emissora de rádio à esquerda, um morro no meio e um bairro do outro lado do morro. A linha reta que sai da antena e passa rente ao topo do morro passa acima do bairro.',
+  `<line x1="10" y1="150" x2="330" y2="150" stroke="var(--ink)" stroke-width="2"/>
+   <path d="M30 150 L42 60 L54 150 M35 110 H49 M33 130 H51" fill="none" stroke="var(--ink)" stroke-width="2"/>
+   <circle cx="42" cy="56" r="4" fill="var(--ink)"/>
+   <text x="42" y="168" text-anchor="middle" class="pt">emissora</text>
+   <path d="M110 150 Q170 20 230 150 Z" fill="#7FA36B" stroke="var(--ink)" stroke-width="1.5" opacity=".85"/>
+   <text x="170" y="168" text-anchor="middle" class="pt">morro</text>
+   <line x1="46" y1="58" x2="330" y2="120" stroke="var(--muted)" stroke-width="1.6" stroke-dasharray="5 4"/>
+   ${[262,288,312].map(x => `<path d="M${x-9} 150 V136 L${x} 127 L${x+9} 136 V150 Z" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.6"/>`).join('')}
+   <text x="288" y="168" text-anchor="middle" class="pt">bairro</text>
+   <text x="96" y="54" class="pt">linha reta rente ao topo</text>`, 380);
+
 /* ===================== LISTA 1 · Fenômenos ondulatórios ===================== */
 const Q_OND1 = [
 { src: 'Inédita', nivel: 'básico',
@@ -97,7 +123,9 @@ ${plot({aria:'Amplitude de vibração da taça, em unidades arbitrárias, em fun
   warn: erros([['B)','não é a força da voz, e sim a frequência certa; fora de 880 Hz, a taça quase não vibra.'],['C)','880 Hz é um som audível (ultrassom é acima de 20 000 Hz).'],['D)','refração não explica o aumento da vibração justo em uma frequência.'],['E)','a velocidade no cristal não “prende” energia; o que importa é a coincidência de frequências.']]) },
 
 { src: 'Inédita', nivel: 'básico',
-  text: '<p>Durante um intervalo, um estudante está atrás do muro da quadra e ouve claramente a conversa de dois colegas do outro lado, mas não consegue vê-los. Tanto o som quanto a luz são ondas, mas eles se comportam de modo diferente diante do muro.</p><p>Ele ouve sem ver porque</p>',
+  text: `<p>Durante um intervalo, um estudante está atrás do muro da quadra e ouve claramente a conversa de dois colegas do outro lado, mas não consegue vê-los, como no esquema. Tanto o som quanto a luz são ondas, mas eles se comportam de modo diferente diante do muro.</p>
+${FIG_MURO}
+<p>Ele ouve sem ver porque</p>`,
   opts: ['o som se propaga mais rápido que a luz.','a luz sofre difração ao passar pelo muro, e o som não.','o som, de comprimento de onda bem maior, contorna o muro por difração.','o som é refletido pelo chão e chega por cima do muro com mais intensidade que a luz.','a luz é uma onda mecânica e precisa de um meio para se propagar.'], ans: 2,
   hint: 'Compare os comprimentos de onda: o da voz é da ordem de centímetros a metros; o da luz, de centenésimos de milésimo de milímetro. Qual deles “enxerga” o muro como um obstáculo pequeno?',
   steps: [['Comprimentos de onda', '<p>Voz humana: λ de algumas dezenas de centímetros a alguns metros. Luz visível: λ ≈ 0,0000005 m (500 nm).</p>'],
@@ -155,8 +183,9 @@ ${tabela(['Onda','Tipo de vibração','Meios em que se propaga'],[['P (primária
   warn: erros([['A)','a lentidão não impede a chegada; o problema é o meio que elas atravessam.'],['B)','se o núcleo fosse todo sólido, as ondas S o atravessariam.'],['C)','o quadro diz que as ondas P são longitudinais.'],['D)','as ondas sísmicas viajam pelo interior da Terra, não pela atmosfera.']]) },
 
 { src: 'Inédita', nivel: 'avançado',
-  text: `<p>Em uma cidade cercada por morros, os moradores dos bairros atrás dos morros captam bem as rádios AM, mas quase não captam as rádios FM, que chegam com muito chiado. O quadro mostra as faixas usadas por esses dois tipos de transmissão.</p>
+  text: `<p>Em uma cidade cercada por morros, os moradores dos bairros atrás dos morros captam bem as rádios AM, mas quase não captam as rádios FM, que chegam com muito chiado. O esquema mostra a situação, e o quadro mostra as faixas usadas por esses dois tipos de transmissão.</p>
 ${tabela(['Faixa','Frequência','Comprimento de onda (aprox.)'],[['AM','540 kHz a 1 600 kHz','190 m a 560 m'],['FM','88 MHz a 108 MHz','2,8 m a 3,4 m']])}
+${FIG_MORRO}
 <p>A diferença na recepção atrás dos morros se explica porque</p>`,
   opts: ['as ondas FM têm frequência menor e perdem energia mais depressa.','as ondas AM são mecânicas e se propagam pelo solo dos morros.','as ondas AM, de comprimento de onda maior, contornam os morros por difração.','as ondas FM se propagam mais devagar que as AM e não chegam a tempo.','as ondas FM sofrem polarização ao passar pelos morros e, por isso, não podem mais ser captadas pelos rádios comuns.'], ans: 2,
   hint: 'Compare os comprimentos de onda com o tamanho dos morros. Qual onda “enxerga” o morro como um obstáculo contornável?',
@@ -165,6 +194,35 @@ ${tabela(['Faixa','Frequência','Comprimento de onda (aprox.)'],[['AM','540 kHz 
   alt: 'Pela equação v = λ · f, com a mesma velocidade, frequência menor significa comprimento de onda maior. Por isso a “vantagem” da AM está na frequência baixa, que é justamente o que A inverte.',
   warn: erros([['A)','as ondas FM têm frequência maior, não menor.'],['B)','AM e FM são ondas eletromagnéticas.'],['D)','as duas se propagam à velocidade da luz.'],['E)','polarização não impede a recepção atrás dos morros.']]) }
 ];
+
+/* Escala de decibéis (Lista 2, questão 4) */
+const FIG_DB = (() => {
+  const y = d => 196 - 1.4 * d;
+  const marcas = [[40,'Biblioteca'],[60,'Conversa normal'],[80,'Trânsito intenso'],[110,'Show de rock']];
+  return fig('0 0 340 214', 'Escala vertical de nível sonoro, de 0 a 120 decibéis. Biblioteca: 40 dB. Conversa normal: 60 dB. Trânsito intenso: 80 dB. Show de rock: 110 dB.',
+  `<defs><linearGradient id="gdb" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#2FA463"/><stop offset=".55" stop-color="#F2B705"/><stop offset="1" stop-color="#D9553B"/></linearGradient></defs>
+   <rect x="70" y="${y(120)}" width="20" height="${1.4*120}" rx="4" fill="url(#gdb)" stroke="var(--ink)" stroke-width="1.5"/>
+   ${[0,20,40,60,80,100,120].map(d => `<line x1="64" y1="${y(d)}" x2="70" y2="${y(d)}" stroke="var(--ink)" stroke-width="1.4"/><text x="58" y="${y(d)+4}" text-anchor="end" class="pt">${d}</text>`).join('')}
+   <text x="80" y="16" text-anchor="middle" class="pt pt-strong">nível sonoro (dB)</text>
+   ${marcas.map(([d, t]) => `<line x1="90" y1="${y(d)}" x2="124" y2="${y(d)}" stroke="var(--ink)" stroke-width="1.4"/><circle cx="124" cy="${y(d)}" r="3.5" fill="var(--ink)"/><text x="132" y="${y(d)+4}" class="pt pt-strong">${t}: ${d} dB</text>`).join('')}`, 360);
+})();
+
+/* Sonar (Lista 2, questão 6) */
+const FIG_SONAR = (() => {
+  const [d, mk] = seta('#3A7BD5'), [d2, mk2] = seta('#E8562A');
+  return fig('0 0 340 200', 'Um navio na superfície do mar emite um pulso de ultrassom para baixo. O pulso reflete no fundo e volta ao navio. A profundidade h é desconhecida.',
+  `${d}${d2}<path d="M0 50 Q 20 44 40 50 T 80 50 T 120 50 T 160 50 T 200 50 T 240 50 T 280 50 T 320 50 T 360 50" fill="none" stroke="#3A7BD5" stroke-width="2"/>
+   <path d="M120 50 L130 64 H210 L222 50 Z" fill="var(--line)" stroke="var(--ink)" stroke-width="1.8"/><rect x="150" y="34" width="30" height="16" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.6"/>
+   <text x="236" y="40" class="pt">navio</text>
+   <path d="M0 176 Q 40 168 80 174 T 160 176 T 240 172 T 340 176 V200 H0 Z" fill="var(--line)" stroke="var(--ink)" stroke-width="1.5"/>
+   <text x="300" y="194" text-anchor="middle" class="pt">fundo</text>
+   <line x1="158" y1="70" x2="158" y2="168" stroke="#3A7BD5" stroke-width="2.5" marker-end="${mk}"/>
+   <line x1="184" y1="168" x2="184" y2="72" stroke="#E8562A" stroke-width="2.5" stroke-dasharray="6 4" marker-end="${mk2}"/>
+   <text x="150" y="122" text-anchor="end" class="pt pt-strong" style="fill:#3A7BD5">pulso</text>
+   <text x="192" y="122" class="pt pt-strong" style="fill:#E8562A">eco</text>
+   <line x1="290" y1="54" x2="290" y2="170" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="3 3"/>
+   <text x="298" y="116" class="pt pt-strong">h = ?</text>`, 380);
+})();
 
 /* ===================== LISTA 2 · Conceitos e fenômenos ===================== */
 const ondaPiano = (() => { const p = []; for (let k = 0; k <= 160; k++){ const x = 8 * k / 160; p.push([+x.toFixed(3), +(Math.sin(2*Math.PI*x/4) + 0.25*Math.sin(4*Math.PI*x/4)).toFixed(3)]); } return p; })();
@@ -203,8 +261,8 @@ ${tabela(['Radiação','Uso no cotidiano'],[['Ondas de rádio','emissoras FM'],[
   warn: erros([['A)','é a de menor frequência do quadro.'],['B)','micro-ondas aquecem a água dos alimentos, mas não ionizam.'],['C)','infravermelho tem frequência menor que a da luz visível.'],['D)','é energética, mas tem frequência menor que a dos raios X.']]) },
 
 { src: 'Inédita', nivel: 'intermediário',
-  text: `<p>O nível de intensidade sonora é medido em decibéis (dB). A escala é logarítmica: cada aumento de 10 dB corresponde a uma intensidade 10 vezes maior. O quadro mostra valores típicos de alguns ambientes.</p>
-${tabela(['Ambiente','Nível sonoro'],[['Biblioteca','40 dB'],['Conversa normal','60 dB'],['Trânsito intenso','80 dB'],['Show de rock','110 dB']])}
+  text: `<p>O nível de intensidade sonora é medido em decibéis (dB). A escala é logarítmica: cada aumento de 10 dB corresponde a uma intensidade 10 vezes maior. A escala mostra valores típicos de alguns ambientes.</p>
+${FIG_DB}
 <p>Em relação à conversa normal, a intensidade sonora do trânsito intenso é</p>`,
   opts: ['1,3 vez maior.','2 vezes maior.','20 vezes maior.','100 vezes maior.','1 000 vezes maior.'], ans: 3,
   hint: 'De 60 dB para 80 dB são dois “degraus” de 10 dB. Cada degrau multiplica a intensidade por 10.',
@@ -223,7 +281,9 @@ ${tabela(['Ambiente','Nível sonoro'],[['Biblioteca','40 dB'],['Conversa normal'
   warn: erros([['A) 0,086 mm:','erra a conversão de metros para milímetros.'],['B) 8,6 mm:','erra a conversão de metros para centímetros.'],['D) 86 cm:','usa 10⁸ Hz no lugar de 10⁹ Hz.'],['E) 1,1 × 10¹⁸ m:','multiplica a velocidade pela frequência.']]) },
 
 { src: 'Inédita', nivel: 'intermediário',
-  text: '<p>Um navio de pesquisa mapeia o fundo do mar com um sonar: um pulso de ultrassom é emitido para baixo, reflete no fundo e volta ao navio. Em um ponto da rota, o eco foi recebido 0,80 s depois da emissão. A velocidade do som na água do mar é de cerca de 1 500 m/s.</p><p>A profundidade do mar nesse ponto é de, aproximadamente,</p>',
+  text: `<p>Um navio de pesquisa mapeia o fundo do mar com um sonar: um pulso de ultrassom é emitido para baixo, reflete no fundo e volta ao navio, como no esquema. Em um ponto da rota, o eco foi recebido 0,80 s depois da emissão. A velocidade do som na água do mar é de cerca de 1 500 m/s.</p>
+${FIG_SONAR}
+<p>A profundidade do mar nesse ponto é de, aproximadamente,</p>`,
   opts: ['300 m.','600 m.','1 200 m.','1 875 m.','2 400 m.'], ans: 1,
   hint: 'Em 0,80 s, o som fez o caminho de ida e o de volta.',
   steps: [['Distância percorrida', '<div class="eq">d<sub>total</sub> = 1 500 × 0,80 = 1 200 m</div>'],

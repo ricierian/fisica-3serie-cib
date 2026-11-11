@@ -21,6 +21,25 @@ const FIG_BIMETAL = fig('0 0 340 170', 'Termostato: lâmina bimetálica presa nu
    <text x="27" y="48" text-anchor="middle" class="pt">suporte</text>
    <text x="175" y="164" text-anchor="middle" class="pt">circuito da resistência do ferro</text>`, 380);
 
+/* Placa de teste da lei de Fourier (questão 5) */
+const FIG_PLACA = (() => {
+  const [d, mk] = seta('#E8562A'), [d2, mk2] = seta('var(--ink)');
+  return fig('0 0 340 196', 'Placa de teste vista de lado: área de 0,5 metro quadrado e espessura de 2,5 centímetros. Uma face está no lado quente e a outra no lado frio, com diferença de 20 graus Celsius entre elas. O fluxo de calor que atravessa a placa é de 12 watts.',
+  `${d}${d2}<rect x="140" y="30" width="60" height="104" fill="var(--eq-bg)" stroke="var(--ink)" stroke-width="2"/>
+   <text x="170" y="20" text-anchor="middle" class="pt pt-strong">placa: A = 0,5 m²</text>
+   <text x="70" y="48" text-anchor="middle" class="pt pt-strong">lado quente</text>
+   <text x="270" y="48" text-anchor="middle" class="pt pt-strong">lado frio</text>
+   <line x1="44" y1="84" x2="294" y2="84" stroke="#E8562A" stroke-width="3" marker-end="${mk}"/>
+   <text x="70" y="106" text-anchor="middle" class="pt pt-strong" style="fill:#E8562A">Φ = 12 W</text>
+   <line x1="140" y1="150" x2="200" y2="150" stroke="var(--ink)" stroke-width="1.4" marker-start="${mk2}" marker-end="${mk2}"/>
+   <text x="170" y="167" text-anchor="middle" class="pt pt-strong">L = 2,5 cm</text>
+   <text x="170" y="190" text-anchor="middle" class="pt">ΔT entre as faces = 20 °C</text>`, 380);
+})();
+
+/* Aquecimento de 1 kg de areia e de 1 kg de água (questão 6) */
+const GRAF_AREIA = plot({aria:'Temperatura, em graus Celsius, em função da energia recebida, em quilojoules, para 1 kg de areia e 1 kg de água. As duas começam a 25 graus. Com 42 kJ, a areia chega a 75 graus e a água a 35 graus.', xmin:0, xmax:42, ymin:20, ymax:80, xt:[0,14,28,42], yt:[25,35,45,55,65,75], xl:'energia recebida (kJ)', yl:'T (°C)', l:44,
+  L:[{p:[[0,25],[42,75]], c:'#E8962A', lab:'areia', lp:[18,58]}, {p:[[0,25],[42,35]], c:'#3A7BD5', lab:'água', lp:[30,38]}], pts:[[42,75],[42,35]]});
+
 const Q_CALOR = [
 { src: 'Inédita', nivel: 'básico',
   text: '<p>Para enfrentar as ondas de calor, algumas prefeituras incentivam a pintura de telhados e lajes com tinta branca, os chamados “telhados frios”. Em dias de sol forte, a temperatura no interior das casas com telhado branco pode ficar alguns graus abaixo da registrada em casas com telhas escuras.</p><p>A principal razão para esse efeito é que a superfície branca</p>',
@@ -67,7 +86,9 @@ ${plot({aria:'Temperatura da água, em graus Celsius, em função do tempo, em m
   warn: erros([['A)','as retas têm a mesma inclinação: o ritmo de aquecimento é o mesmo.'],['C)','nos dois patamares a temperatura fica constante durante a fervura.'],['D)','a pressão muda a temperatura de ebulição, não o calor específico.'],['E)','a água ferve também na panela de pressão; o patamar a 120 °C mostra isso.']]) },
 
 { src: 'Inédita', nivel: 'intermediário',
-  text: `<p>Para escolher o isolante da tampa de uma caixa térmica, um técnico mediu o fluxo de calor através de uma placa de teste com 0,5 m² de área e 2,5 cm de espessura. Com uma diferença de 20 °C entre as duas faces, o fluxo medido foi de 12 W. Pela lei de Fourier, o fluxo de calor por condução é dado por Φ = k · A · ΔT / L, em que k é a condutividade térmica, uma constante característica de cada material.</p>
+  text: `<p>Para escolher o isolante da tampa de uma caixa térmica, um técnico mediu o fluxo de calor através de uma placa de teste, nas condições indicadas no esquema.</p>
+${FIG_PLACA}
+<p>Pela lei de Fourier, o fluxo de calor por condução é dado por Φ = k · A · ΔT / L, em que k é a condutividade térmica, uma constante característica de cada material.</p>
 ${tabela(['Material','k (W/(m·°C))'],[['Aço','50'],['Vidro','0,80'],['Madeira','0,15'],['Isopor','0,030'],['Ar parado','0,025']])}
 <p>A placa testada é feita de</p>`,
   opts: ['aço.','vidro.','madeira.','isopor.','ar parado.'], ans: 3,
@@ -79,15 +100,16 @@ ${tabela(['Material','k (W/(m·°C))'],[['Aço','50'],['Vidro','0,80'],['Madeira
   warn: erros([['A) aço:','divide o fluxo pela espessura em vez de multiplicar (dá 48 ≈ 50).']]) },
 
 { src: 'Inédita', nivel: 'intermediário',
-  text: `<p>Em uma tarde de verão, um estudante percebe que a areia da praia está muito quente, enquanto a água do mar continua fresca. Para entender o fenômeno, ele considera porções de areia e de água de mesma massa, recebendo a mesma quantidade de energia do Sol, e consulta a tabela de calores específicos aproximados.</p>
-${tabela(['Material','Calor específico (kJ/(kg·°C))'],[['Água','4,2'],['Concreto','0,88'],['Areia','0,84']])}
-<p>A razão entre a variação de temperatura da areia e a da água e o sentido da brisa que sopra na praia durante a tarde são, respectivamente,</p>`,
+  text: `<p>Em uma tarde de verão, um estudante percebe que a areia da praia está muito quente, enquanto a água do mar continua fresca. Para entender o fenômeno, ele consulta o gráfico, que mostra como a temperatura de 1 kg de areia e de 1 kg de água varia com a energia recebida.</p>
+${GRAF_AREIA}
+<p>Para uma mesma energia recebida, a razão entre a variação de temperatura da areia e a da água e o sentido da brisa que sopra na praia durante a tarde são, respectivamente,</p>`,
   opts: ['0,20; do mar para a areia.','0,20; da areia para o mar.','1,0; não há brisa, pois as duas recebem a mesma energia.','5,0; da areia para o mar.','5,0; do mar para a areia.'], ans: 4,
-  hint: 'Com Q e m iguais, ΔT é inversamente proporcional ao calor específico. Para a brisa: sobre qual superfície o ar esquenta mais e sobe?',
-  steps: [['Razão das variações', `<p>Q = m · c · ΔT, com Q e m iguais:</p><div class="eq">${f('ΔT<sub>areia</sub>','ΔT<sub>água</sub>')} = ${f('c<sub>água</sub>','c<sub>areia</sub>')} = ${f('4,2','0,84')} = 5,0</div>`],
+  hint: 'Escolha uma mesma energia no eixo horizontal e compare quanto subiu cada temperatura. Para a brisa: sobre qual superfície o ar esquenta mais e sobe?',
+  steps: [['Leitura do gráfico', '<p>Com 42 kJ, a areia vai de 25 °C a 75 °C (ΔT = 50 °C) e a água, de 25 °C a 35 °C (ΔT = 10 °C).</p>'],
+          ['Razão das variações', `<div class="eq">${f('ΔT<sub>areia</sub>','ΔT<sub>água</sub>')} = ${f('50','10')} = 5,0</div><p>A areia tem calor específico 5 vezes menor: c = Q/(m · ΔT) dá 0,84 kJ/(kg·°C) para a areia e 4,2 kJ/(kg·°C) para a água.</p>`],
           ['Brisa', '<p>A areia fica mais quente; o ar sobre ela se aquece, fica menos denso e sobe. O ar mais frio, de cima do mar, ocupa o lugar: a brisa sopra <b>do mar para a areia</b> (brisa marítima).</p>']],
   alt: 'À noite tudo se inverte: a areia esfria rápido (calor específico baixo) e o mar continua morno, então a brisa sopra da terra para o mar. O mesmo efeito explica a menor amplitude térmica das cidades litorâneas.',
-  warn: erros([['A) 0,20; do mar para a areia:','inverte a razão (c<sub>areia</sub>/c<sub>água</sub>), embora acerte a brisa.'],['B) 0,20; da areia para o mar:','inverte a razão e o sentido da brisa.'],['C)','mesma energia não significa mesma variação de temperatura: depende do calor específico.'],['D) 5,0; da areia para o mar:','acerta a razão, mas inverte a convecção (o ar quente sobe, e o frio vem ocupar o lugar).']]) },
+  warn: erros([['A) 0,20; do mar para a areia:','inverte a razão (ΔT da água dividido pelo da areia), embora acerte a brisa.'],['B) 0,20; da areia para o mar:','inverte a razão e o sentido da brisa.'],['C)','mesma energia não significa mesma variação de temperatura: depende do calor específico.'],['D) 5,0; da areia para o mar:','acerta a razão, mas inverte a convecção (o ar quente sobe, e o frio vem ocupar o lugar).']]) },
 
 { src: 'Inédita', nivel: 'intermediário',
   text: '<p>Em provas longas em dias quentes, a evaporação do suor é o principal mecanismo de resfriamento do corpo. Suponha que, durante 1 hora de corrida, um atleta precise eliminar, apenas pela evaporação do suor, 540 J de energia térmica a cada segundo. Considere que a entalpia de vaporização da água, à temperatura da pele, é 43,2 kJ/mol e que sua massa molar é 18 g/mol.</p><p>A massa de suor que precisa evaporar nessa hora é de, aproximadamente,</p>',
