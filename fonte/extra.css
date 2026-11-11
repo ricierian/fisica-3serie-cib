@@ -225,10 +225,14 @@ body.com-calc .wrap{padding-bottom:96px}
 .fxbox{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
 .fx{white-space:nowrap;display:inline-block}
 .fx-sep{margin:0 .55em 0 .1em;color:var(--muted)}
-.form-leg{display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 10px;margin:10px 0 0;padding-top:8px;border-top:1px solid var(--line);font-size:13.5px;line-height:1.35}
-.form-leg dt{font-weight:700;white-space:nowrap;text-align:right}
-.form-leg dd{margin:0;color:var(--muted);min-width:0;overflow-wrap:anywhere}
-.form-leg .un{display:inline-block;margin-left:6px;padding:0 6px;border-radius:6px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-family:var(--f-mono);font-size:12px;white-space:nowrap}
-.tool.tool-extra .form-leg .un{background:var(--eq-bg)}
-.form-leg sub{font-size:.75em}
+.form-resumo{border-top:1.5px solid var(--line);padding-top:12px}
+.form-resumo .sect-label{margin:0 0 8px}
+.rs-lista{font-size:14px;line-height:1.4}
+.rs{display:grid;grid-template-columns:minmax(4.6em,auto) minmax(0,1fr);gap:10px;padding:4px 0;border-bottom:1px dashed var(--line);break-inside:avoid}
+.rs:last-child{border-bottom:0}
+.rs b{text-align:right;white-space:nowrap}
+.rs > span{color:var(--muted);overflow-wrap:anywhere}
+.rs .un{display:inline-block;margin-left:6px;padding:0 6px;border-radius:6px;background:var(--eq-bg);border:1px solid var(--line);color:var(--ink);font-family:var(--f-mono);font-size:12px;max-width:100%}
+.rs sub{font-size:.75em}
+@media (min-width:640px){.rs-lista{columns:2;column-gap:28px}}
 @media (max-width:360px){.formsec .fxbox{font-size:15px}.formsec .tool.tool-extra .fxbox{font-size:14.5px}}

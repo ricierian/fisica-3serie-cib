@@ -543,9 +543,9 @@ function fxLinha(h){
     return (r ? `${r[1]} <span class="fx">${r[2]}</span>` : `<span class="fx">${fm}</span>`) + nota;
   }).join('<span class="fx-sep">;</span>')).join('<br>');
 }
-const legendaHTML = t => {
-  const L = LEGENDA[t]; if (!L) return '';
-  return `<dl class="form-leg">${L.map(([sb, ds, un]) => `<dt>${sb}</dt><dd>${ds}<span class="un">${un}</span></dd>`).join('')}</dl>`;
+const resumoHTML = nome => {
+  const L = RESUMO[nome]; if (!L) return '';
+  return `<div class="form-resumo"><p class="sect-label">Resumo: símbolos e unidades no SI</p><div class="rs-lista">${L.map(([sb, ds, un]) => `<div class="rs"><b>${sb}</b><span>${ds}<span class="un">${un}</span></span></div>`).join('')}</div></div>`;
 };
 function openFormulario(){
   abrirConsulta('Formulário', 'As fórmulas por assunto, das essenciais às complementares.', migConsulta('Formulário'));
@@ -556,9 +556,10 @@ function openFormulario(){
     <nav class="card formnav" aria-label="Assuntos do formulário"><p class="sect-label">Ir para</p><div class="row" style="gap:6px">${FORMULARIO.map((s, i) => `<a class="chip chip-link" href="#/consulta/formulario" data-sec="${i}">${s.nome}</a>`).join('')}</div></nav>
     ${FORMULARIO.map((s, i) => `<section class="card formsec" id="sec${i}"><h2 class="formh">${s.nome}</h2>
         <p class="form-tag"><span class="leg leg-main">Essenciais</span></p>
-        <div class="tools-grid form-grid">${s.ess.map(([t, h, a]) => `<div class="tool tool-main"><h4>${t}</h4><div class="fxbox">${fxLinha(h)}</div>${legendaHTML(t)}</div>`).join('')}</div>
+        <div class="tools-grid form-grid">${s.ess.map(([t, h, a]) => `<div class="tool tool-main"><h4>${t}</h4><div class="fxbox">${fxLinha(h)}</div></div>`).join('')}</div>
         ${s.ext.length ? `<details class="form-extra"><summary><span class="leg leg-extra">Para ir além</span><span class="small">${s.ext.length} ${s.ext.length > 1 ? 'fórmulas complementares' : 'fórmula complementar'}</span><span class="chev">›</span></summary>
-          <div class="tools-grid form-grid">${s.ext.map(([t, h]) => `<div class="tool tool-extra"><h4>${t}</h4><div class="fxbox">${fxLinha(h)}</div>${legendaHTML(t)}</div>`).join('')}</div></details>` : ''}
+          <div class="tools-grid form-grid">${s.ext.map(([t, h]) => `<div class="tool tool-extra"><h4>${t}</h4><div class="fxbox">${fxLinha(h)}</div></div>`).join('')}</div></details>` : ''}
+        ${resumoHTML(s.nome)}
       </section>`).join('')}
     ${outrasConsultas('formulario')}`;
   toTop();

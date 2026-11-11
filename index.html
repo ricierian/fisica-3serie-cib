@@ -375,12 +375,16 @@ body.com-calc .wrap{padding-bottom:96px}
 .fxbox{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
 .fx{white-space:nowrap;display:inline-block}
 .fx-sep{margin:0 .55em 0 .1em;color:var(--muted)}
-.form-leg{display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 10px;margin:10px 0 0;padding-top:8px;border-top:1px solid var(--line);font-size:13.5px;line-height:1.35}
-.form-leg dt{font-weight:700;white-space:nowrap;text-align:right}
-.form-leg dd{margin:0;color:var(--muted);min-width:0;overflow-wrap:anywhere}
-.form-leg .un{display:inline-block;margin-left:6px;padding:0 6px;border-radius:6px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-family:var(--f-mono);font-size:12px;white-space:nowrap}
-.tool.tool-extra .form-leg .un{background:var(--eq-bg)}
-.form-leg sub{font-size:.75em}
+.form-resumo{border-top:1.5px solid var(--line);padding-top:12px}
+.form-resumo .sect-label{margin:0 0 8px}
+.rs-lista{font-size:14px;line-height:1.4}
+.rs{display:grid;grid-template-columns:minmax(4.6em,auto) minmax(0,1fr);gap:10px;padding:4px 0;border-bottom:1px dashed var(--line);break-inside:avoid}
+.rs:last-child{border-bottom:0}
+.rs b{text-align:right;white-space:nowrap}
+.rs > span{color:var(--muted);overflow-wrap:anywhere}
+.rs .un{display:inline-block;margin-left:6px;padding:0 6px;border-radius:6px;background:var(--eq-bg);border:1px solid var(--line);color:var(--ink);font-family:var(--f-mono);font-size:12px;max-width:100%}
+.rs sub{font-size:.75em}
+@media (min-width:640px){.rs-lista{columns:2;column-gap:28px}}
 @media (max-width:360px){.formsec .fxbox{font-size:15px}.formsec .tool.tool-extra .fxbox{font-size:14.5px}}
 
 .install{border-color:var(--sign)}
@@ -2069,435 +2073,215 @@ const FORMULARIO = [
       ['Meia-vida', `m = ${f('m₀','2ⁿ')} <small>(n: número de meias-vidas)</small>`]] }
 ];
 
-/* ----- Legenda de cada bloco do formulário: símbolo | significado | unidade no SI (uma linha por símbolo) ----- */
-const LEG_TXT = {
-  'Velocidade e aceleração médias': `v<sub>m</sub> | velocidade média | m/s
+/* ----- Resumo de símbolos e unidades no fim de cada assunto do formulário: símbolo | significado | unidade no SI ----- */
+const RESUMO_TXT = {
+  'Cinemática': `s, s₀ | posição e posição inicial | m
 Δs | deslocamento | m
-Δt | intervalo de tempo | s
-a<sub>m</sub> | aceleração média | m/s²
-Δv | variação da velocidade | m/s`,
-  'Movimento uniforme': `s | posição no instante t | m
-s₀ | posição inicial | m
-v | velocidade (constante) | m/s
-t | tempo | s`,
-  'Movimento uniformemente variado': `v | velocidade no instante t | m/s
-v₀ | velocidade inicial | m/s
-a | aceleração (constante) | m/s²
-t | tempo | s
-s, s₀ | posição e posição inicial | m
-Δs | deslocamento | m`,
-  'Movimento circular': `ω | velocidade angular | rad/s
-Δφ | deslocamento angular | rad
-Δt | intervalo de tempo | s
-f | frequência | Hz
-T | período | s
-v | velocidade linear | m/s
-R | raio da trajetória | m`,
-  'Transmissão por correia ou corrente': `v | velocidade linear da borda das polias | m/s
-f | frequência de rotação (mesma unidade nos dois lados) | Hz (ou rpm)
-R | raio da polia | m
-N | número de dentes da engrenagem | sem unidade`,
-  'Lançamento vertical e oblíquo': `h<sub>máx</sub> | altura máxima | m
+t, Δt | tempo e intervalo de tempo | s
+v, v₀ | velocidade e velocidade inicial | m/s
+v<sub>m</sub> | velocidade média | m/s
 v<sub>0y</sub> | componente vertical da velocidade inicial | m/s
+Δv | variação da velocidade | m/s
+a, a<sub>m</sub> | aceleração e aceleração média | m/s²
 g | aceleração da gravidade | m/s²
-t<sub>subida</sub> | tempo de subida | s
+h, h<sub>máx</sub> | altura e altura máxima | m
 A | alcance horizontal | m
-v₀ | velocidade inicial | m/s
-θ | ângulo de lançamento com a horizontal | ° (grau)`,
-  'Queda livre': `v | velocidade no instante t | m/s
-g | aceleração da gravidade | m/s²
-t | tempo de queda | s
-h | altura percorrida na queda | m`,
-  'Movimento circular variado': `φ, φ₀ | posição angular e posição angular inicial | rad
+θ | ângulo de lançamento com a horizontal | ° (grau)
+R | raio da trajetória ou da polia | m
+φ, φ₀ | posição angular e posição angular inicial | rad
+Δφ | deslocamento angular | rad
 ω, ω₀ | velocidade angular e velocidade angular inicial | rad/s
 α | aceleração angular | rad/s²
-t | tempo | s
-Δφ | deslocamento angular | rad`,
-  'Transmissão por eixo': `ω | velocidade angular (igual nas polias do mesmo eixo) | rad/s
-v | velocidade linear da borda | m/s
-R | raio da polia | m`,
-
-  '2ª lei de Newton e peso': `F<sub>R</sub> | força resultante | N
-m | massa | kg
+f | frequência | Hz (também rpm)
+T | período | s
+N | número de dentes da engrenagem | sem unidade`,
+  'Dinâmica e energia': `m | massa | kg
 a | aceleração | m/s²
+g | aceleração da gravidade | m/s²
+F, F<sub>R</sub> | força e força resultante | N
 P | peso | N
-g | aceleração da gravidade | m/s²`,
-  'Lei de Hooke': `F | força elástica | N
+P<sub>x</sub>, P<sub>y</sub> | componentes do peso paralela e perpendicular ao plano | N
+N | força normal | N
+F<sub>at</sub>, F<sub>at,e</sub> | força de atrito e força de atrito estático | N
+μ, μ<sub>e</sub> | coeficientes de atrito | sem unidade
 k | constante elástica da mola | N/m
-x | deformação da mola | m`,
-  'Atrito': `F<sub>at</sub> | força de atrito | N
-μ | coeficiente de atrito | sem unidade
-N | força normal | N`,
-  'Resultante centrípeta': `F<sub>cp</sub> | resultante centrípeta | N
-m | massa | kg
+x | deformação da mola | m
+F<sub>cp</sub> | resultante centrípeta | N
 a<sub>cp</sub> | aceleração centrípeta | m/s²
 v | velocidade | m/s
-R | raio da curva | m`,
-  'Trabalho': `τ | trabalho | J
-F | força | N
-d | deslocamento | m
-θ | ângulo entre a força e o deslocamento | ° (grau)
-ΔE | variação de energia | J`,
-  'Potência e rendimento': `P | potência | W
+R | raio da curva | m
 τ | trabalho | J
-ΔE | energia transformada | J
-Δt | intervalo de tempo | s
-η | rendimento | sem unidade (ou %)`,
-  'Energias': `E<sub>c</sub> | energia cinética | J
-m | massa | kg
-v | velocidade | m/s
+d | deslocamento (no trabalho) ou braço da força (no momento) | m
+θ | ângulo entre a força e o deslocamento, ou inclinação do plano | ° (grau)
+E<sub>c</sub> | energia cinética | J
 E<sub>p</sub> | energia potencial gravitacional | J
-g | aceleração da gravidade | m/s²
-h | altura | m
 E<sub>el</sub> | energia potencial elástica | J
-k | constante elástica | N/m
-x | deformação | m
-E<sub>M</sub> | energia mecânica | J`,
-  'Quantidade de movimento e impulso': `Q | quantidade de movimento | kg·m/s
-m | massa | kg
-v | velocidade | m/s
-I | impulso | N·s
-F | força | N
-Δt | intervalo de tempo | s`,
-  'Momento de uma força (torque)': `M | momento da força | N·m
-F | força | N
-d | distância do ponto de apoio à linha de ação da força | m`,
-  'Atrito estático': `F<sub>at,e</sub> | força de atrito estático | N
-μ<sub>e</sub> | coeficiente de atrito estático | sem unidade
-N | força normal | N`,
-  'Potência e velocidade': `P | potência | W
-F | força | N
-v | velocidade | m/s`,
-  'Plano inclinado': `P | peso | N
-P<sub>x</sub> | componente do peso paralela ao plano | N
-P<sub>y</sub> | componente do peso perpendicular ao plano | N
-θ | inclinação do plano | ° (grau)`,
-  'Coeficiente de restituição': `e | coeficiente de restituição | sem unidade
-v<sub>afastamento</sub> | velocidade relativa depois da colisão | m/s
-v<sub>aproximação</sub> | velocidade relativa antes da colisão | m/s`,
-  'Centro de massa': `x<sub>CM</sub> | posição do centro de massa | m
-m₁, m₂ … | massas dos corpos | kg
-x₁, x₂ … | posições dos corpos | m`,
-
-  'Lei da gravitação universal': `F | força gravitacional | N
-G | constante da gravitação (6,67 × 10⁻¹¹) | N·m²/kg²
-M, m | massas dos corpos | kg
-d | distância entre os centros | m`,
-  '3ª lei de Kepler': `T | período da órbita | s
-r | raio médio da órbita | m
-k | constante (a mesma para os corpos que orbitam o mesmo astro) | s²/m³`,
-  'Velocidade de um satélite': `v | velocidade orbital | m/s
-G | constante da gravitação | N·m²/kg²
-M | massa do astro central | kg
-r | raio da órbita | m`,
-  'Gravidade na superfície': `g | aceleração da gravidade na superfície | m/s²
-G | constante da gravitação | N·m²/kg²
-M | massa do planeta | kg
-R | raio do planeta | m`,
-
-  'Pressão e densidade': `p | pressão | Pa (N/m²)
-F | força perpendicular à superfície | N
-A | área | m²
-d | densidade | kg/m³
-m | massa | kg
-V | volume | m³`,
-  'Princípio de Pascal (prensa hidráulica)': `F₁, F₂ | forças nos dois êmbolos | N
-A₁, A₂ | áreas dos dois êmbolos | m²`,
-  'Lei de Stevin': `p | pressão na profundidade h | Pa
-p₀ | pressão na superfície do líquido | Pa
-d | densidade do líquido | kg/m³
-g | aceleração da gravidade | m/s²
-h | profundidade | m`,
-  'Empuxo': `E | empuxo | N
-d<sub>líq</sub> | densidade do líquido | kg/m³
-V<sub>imerso</sub> | volume imerso do corpo | m³
-g | aceleração da gravidade | m/s²`,
-  'Vasos comunicantes': `d<sub>A</sub>, d<sub>B</sub> | densidades dos líquidos | kg/m³
-h<sub>A</sub>, h<sub>B</sub> | alturas das colunas acima da superfície de separação | m`,
-  'Peso aparente': `P<sub>ap</sub> | peso aparente | N
-P | peso | N
-E | empuxo | N`,
-  'Corpo flutuando': `d<sub>corpo</sub> | densidade do corpo | kg/m³
-V<sub>corpo</sub> | volume do corpo | m³
-d<sub>líq</sub> | densidade do líquido | kg/m³
-V<sub>imerso</sub> | volume imerso | m³`,
-  'Vazão e continuidade': `Z | vazão | m³/s
-V | volume | m³
+E<sub>M</sub> | energia mecânica | J
+ΔE | energia transformada | J
+h | altura | m
+P | potência | W
 Δt | intervalo de tempo | s
-A | área da seção do tubo | m²
-v | velocidade do fluido | m/s`,
-
-  'Escalas termométricas': `θ<sub>C</sub> | temperatura em Celsius | °C
-θ<sub>F</sub> | temperatura em Fahrenheit | °F
-T | temperatura absoluta | K`,
-  'Dilatação': `ΔL | variação do comprimento | m
-L₀ | comprimento inicial | m
-α | coeficiente de dilatação linear | °C⁻¹ (ou K⁻¹)
-ΔT | variação de temperatura | °C (ou K)
-β, γ | coeficientes de dilatação superficial e volumétrica | °C⁻¹`,
-  'Calor sensível': `Q | quantidade de calor | J (também cal)
+η | rendimento | sem unidade (ou %)
+Q | quantidade de movimento | kg·m/s
+I | impulso | N·s
+e | coeficiente de restituição | sem unidade
+M | momento de uma força (torque) | N·m
+x<sub>CM</sub> | posição do centro de massa | m`,
+  'Gravitação': `F | força gravitacional | N
+G | constante da gravitação universal (6,67 × 10⁻¹¹) | N·m²/kg²
+M, m | massas (M: astro central ou planeta) | kg
+d | distância entre os centros | m
+T | período da órbita | s
+r | raio da órbita | m
+k | constante da 3ª lei de Kepler | s²/m³
+v | velocidade orbital | m/s
+g | aceleração da gravidade na superfície | m/s²
+R | raio do planeta | m`,
+  'Fluidos': `p, p₀ | pressão e pressão na superfície do líquido | Pa (N/m²)
+F | força (F₁ e F₂: nos êmbolos da prensa) | N
+A | área (A₁ e A₂: dos êmbolos; na vazão, da seção do tubo) | m²
+d | densidade (d<sub>líq</sub>: do líquido; d<sub>corpo</sub>: do corpo) | kg/m³
 m | massa | kg
+V | volume (V<sub>imerso</sub>: parte do corpo dentro do líquido) | m³
+g | aceleração da gravidade | m/s²
+h | profundidade ou altura da coluna de líquido | m
+E | empuxo | N
+P, P<sub>ap</sub> | peso e peso aparente | N
+Z | vazão | m³/s
+Δt | intervalo de tempo | s
+v | velocidade do fluido | m/s`,
+  'Termologia': `θ<sub>C</sub>, θ<sub>F</sub> | temperaturas em Celsius e em Fahrenheit | °C, °F
+T | temperatura absoluta | K
+T₁, T₂ | temperaturas das fontes quente e fria | K
+ΔT | variação de temperatura | K (vale o mesmo em °C)
+ΔL, L₀ | variação do comprimento e comprimento inicial | m
+ΔA, A₀ | variação da área e área inicial | m²
+ΔV, V₀ | variação do volume e volume inicial | m³
+α, β, γ | coeficientes de dilatação linear, superficial e volumétrica | °C⁻¹ (ou K⁻¹)
+Q | quantidade de calor | J (também cal)
+m | massa | kg (também g)
 c | calor específico | J/(kg·K) (também cal/(g·°C))
-ΔT | variação de temperatura | K (ou °C)
-C | capacidade térmica | J/K`,
-  'Calor latente': `Q | quantidade de calor | J (também cal)
-m | massa que muda de fase | kg
-L | calor latente | J/kg (também cal/g)`,
-  'Potência térmica e condução': `P | potência térmica (fluxo de calor) | W
-Q | quantidade de calor | J
+C | capacidade térmica | J/K
+L | calor latente | J/kg (também cal/g)
+P | potência térmica (fluxo de calor) | W
 Δt | intervalo de tempo | s
 k | condutividade térmica | W/(m·K)
 A | área | m²
-ΔT | diferença de temperatura entre as faces | K (ou °C)
-e | espessura | m`,
-  'Gases ideais': `p | pressão | Pa
-V | volume | m³
-T | temperatura absoluta | K
-n | quantidade de matéria | mol
-R | constante dos gases (8,31) | J/(mol·K)`,
-  '1ª lei da termodinâmica': `Q | calor trocado pelo gás | J
-τ | trabalho realizado pelo gás | J
-ΔU | variação da energia interna | J`,
-  'Máquinas térmicas': `Q₁ | calor recebido da fonte quente | J
-τ | trabalho realizado | J
-Q₂ | calor rejeitado para a fonte fria | J
-η | rendimento | sem unidade (ou %)`,
-  'Máquina de Carnot': `T₁ (T<sub>quente</sub>) | temperatura da fonte quente | K
-T₂ (T<sub>fria</sub>) | temperatura da fonte fria | K
-Q₁, Q₂ | calores trocados com as fontes quente e fria | J
-η | rendimento | sem unidade (ou %)`,
-  'Capacidade térmica': `C | capacidade térmica | J/K
-Q | quantidade de calor | J
-ΔT | variação de temperatura | K (ou °C)`,
-  'Equilíbrio térmico': `Q₁, Q₂ … | calor trocado por cada corpo | J`,
-  'Dilatação superficial e volumétrica': `ΔA, A₀ | variação da área e área inicial | m²
-β | coeficiente de dilatação superficial | °C⁻¹
-ΔV, V₀ | variação do volume e volume inicial | m³
-γ | coeficiente de dilatação volumétrica | °C⁻¹
-ΔT | variação de temperatura | °C (ou K)`,
-  'Dilatação de líquidos': `ΔV<sub>real</sub> | dilatação real do líquido | m³
-ΔV<sub>aparente</sub> | volume que transborda | m³
-ΔV<sub>recipiente</sub> | dilatação do recipiente | m³`,
-  'Escala qualquer (x) e escala y': `T<sub>x</sub>, T<sub>y</sub> | a mesma temperatura lida nas escalas x e y | unidade de cada escala
-F<sub>x</sub>, F<sub>y</sub> | ponto de fusão do gelo em cada escala | unidade de cada escala
-E<sub>x</sub>, E<sub>y</sub> | ponto de ebulição da água em cada escala | unidade de cada escala`,
-  'Transformações gasosas': `τ | trabalho do gás | J
+e | espessura | m
 p | pressão | Pa
-ΔV | variação de volume | m³
+V | volume | m³
+n | quantidade de matéria | mol
+R | constante dos gases (8,31) | J/(mol·K)
+τ | trabalho do gás | J
 ΔU | variação da energia interna | J
-Q | calor trocado | J
-Q₁, Q₂ | calores recebido e cedido no ciclo | J`,
-
-  'Equação de Gauss (lentes e espelhos)': `f | distância focal | m
-p | distância do objeto à lente ou ao espelho | m
-p′ | distância da imagem à lente ou ao espelho | m`,
-  'Aumento da imagem': `A | aumento linear | sem unidade
-i | tamanho da imagem | m
-o | tamanho do objeto | m
-p, p′ | distâncias do objeto e da imagem | m`,
-  'Índice de refração': `n | índice de refração do meio | sem unidade
+Q₁, Q₂ | calor recebido da fonte quente e calor cedido à fonte fria | J
+η | rendimento | sem unidade (ou %)
+T<sub>x</sub>, F<sub>x</sub>, E<sub>x</sub> | temperatura, ponto de fusão e ponto de ebulição numa escala x | unidade da escala`,
+  'Óptica': `f | distância focal | m
+p, p′ | distâncias do objeto e da imagem (na câmara escura, p′ é a profundidade) | m
+i, o | tamanhos da imagem e do objeto | m
+A | aumento linear | sem unidade
+V | vergência (o “grau”) | di (1/m)
+R | raio de curvatura do espelho | m
+n, n₁, n₂ | índices de refração | sem unidade
 c | velocidade da luz no vácuo (3,0 × 10⁸) | m/s
-v | velocidade da luz no meio | m/s`,
-  'Lei de Snell': `n₁, n₂ | índices de refração dos meios | sem unidade
+v | velocidade da luz no meio | m/s
+λ | comprimento de onda | m
 θ₁, θ₂ | ângulos com a normal | ° (grau)
-v₁, v₂ | velocidades da luz nos meios | m/s
-λ₁, λ₂ | comprimentos de onda nos meios | m`,
-  'Vergência, o “grau”': `V | vergência | di (dioptria = 1/m)
-f | distância focal | m`,
-  'Associação de espelhos planos': `N | número de imagens | sem unidade
-α | ângulo entre os espelhos | ° (grau)`,
-  'Espelhos esféricos': `f | distância focal | m
-R | raio de curvatura | m`,
-  'Reflexão total (ângulo limite)': `L | ângulo limite | ° (grau)
-n<sub>menor</sub>, n<sub>maior</sub> | índices de refração dos dois meios | sem unidade`,
-  'Lâmina de faces paralelas': `d | desvio lateral do raio | m
-e | espessura da lâmina | m
-i | ângulo de incidência | ° (grau)
-r | ângulo de refração | ° (grau)`,
-  'Desvio num prisma': `δ | desvio total | ° (grau)
-i | ângulo de incidência na primeira face | ° (grau)
-i′ | ângulo de emergência na segunda face | ° (grau)
+L | ângulo limite | ° (grau)
+N | número de imagens | sem unidade
+α | ângulo entre os espelhos | ° (grau)
+d, e | desvio lateral e espessura da lâmina | m
+i, r | ângulos de incidência e de refração (lâmina e prisma) | ° (grau)
+i′ | ângulo de emergência (prisma) | ° (grau)
+δ | desvio (prisma) | ° (grau)
 A | ângulo de abertura do prisma | ° (grau)`,
-  'Câmara escura': `i | tamanho da imagem | m
-o | tamanho do objeto | m
-p′ | profundidade da câmara | m
-p | distância do objeto ao orifício | m`,
-  'Lentes justapostas': `V, V₁, V₂ | vergências da associação e de cada lente | di`,
-
-  'Equação fundamental': `v | velocidade de propagação | m/s
+  'Ondulatória': `v | velocidade de propagação da onda | m/s
 λ | comprimento de onda | m
 f | frequência | Hz
 T | período | s
-c | velocidade da luz no vácuo (3,0 × 10⁸) | m/s`,
-  'Corda vibrante': `f<sub>n</sub> | frequência do harmônico n | Hz
-n | número do harmônico (1, 2, 3 …) | sem unidade
-v | velocidade da onda na corda | m/s
-L | comprimento da corda | m`,
-  'Velocidade numa corda': `v | velocidade da onda na corda | m/s
-F | força de tração | N
-μ | densidade linear (massa por comprimento) | kg/m`,
-  'Tubos sonoros': `f<sub>n</sub> | frequência do harmônico n | Hz
+c | velocidade da luz no vácuo (3,0 × 10⁸) | m/s
+f<sub>n</sub> | frequência do harmônico n | Hz
 n | número do harmônico | sem unidade
-v | velocidade do som | m/s
-L | comprimento do tubo | m`,
-  'Intensidade e nível sonoro': `I | intensidade sonora | W/m²
+L | comprimento da corda, do tubo ou do pêndulo | m
+F | força de tração na corda | N
+μ | densidade linear da corda | kg/m
+I, I₀ | intensidade sonora e intensidade de referência (10⁻¹²) | W/m²
 P | potência da fonte | W
 A | área atravessada pela onda | m²
-β | nível de intensidade sonora | dB
-I₀ | intensidade de referência (10⁻¹²) | W/m²`,
-  'Efeito Doppler': `f′ | frequência percebida | Hz
-f | frequência emitida | Hz
-v | velocidade do som | m/s
-v<sub>o</sub> | velocidade do observador | m/s
-v<sub>f</sub> | velocidade da fonte | m/s`,
-  'Experiência de Young': `λ | comprimento de onda | m
+β | nível sonoro | dB
+f′ | frequência percebida (Doppler) | Hz
+v<sub>o</sub>, v<sub>f</sub> | velocidades do observador e da fonte | m/s
 d | distância entre as fendas | m
-y | distância entre franjas claras vizinhas | m
-D | distância das fendas ao anteparo | m`,
-  'MHS': `x | posição (elongação) | m
-A | amplitude | m
+y | distância entre franjas vizinhas | m
+D | distância das fendas ao anteparo | m
+x | elongação no MHS | m
+A | amplitude do MHS | m
 ω | pulsação | rad/s
-t | tempo | s
 θ₀ | fase inicial | rad
-T | período | s
+t | tempo | s
 m | massa | kg
 k | constante elástica | N/m
-L | comprimento do pêndulo | m
 g | aceleração da gravidade | m/s²`,
-
-  'Carga elétrica': `Q | carga elétrica | C
+  'Eletrostática': `Q, q | carga elétrica (q: carga de prova) | C
 n | número de elétrons em excesso ou em falta | sem unidade
-e | carga elementar (1,6 × 10⁻¹⁹) | C`,
-  'Lei de Coulomb': `F | força elétrica | N
-k | constante eletrostática (9,0 × 10⁹ no vácuo) | N·m²/C²
-Q₁, Q₂ | cargas | C
-d | distância entre as cargas | m`,
-  'Esferas condutoras em contato': `Q<sub>A</sub>, Q<sub>B</sub> | cargas antes do contato | C
-Q′ | cargas depois do contato | C
-R<sub>A</sub>, R<sub>B</sub> | raios das esferas | m`,
-  'Campo elétrico': `E | campo elétrico | N/C (ou V/m)
+e | carga elementar (1,6 × 10⁻¹⁹) | C
+Q′ | carga depois do contato | C
 F | força elétrica | N
-q | carga de prova | C
-k | constante eletrostática | N·m²/C²
-Q | carga que cria o campo | C
-d | distância à carga | m`,
-  'Potencial e energia potencial': `V | potencial elétrico | V
+k | constante eletrostática (9,0 × 10⁹ no vácuo) | N·m²/C²
+d | distância | m
+R<sub>A</sub>, R<sub>B</sub> | raios das esferas | m
+E | campo elétrico | N/C (= V/m)
+V | potencial elétrico | V
 E<sub>p</sub> | energia potencial elétrica | J
-k | constante eletrostática | N·m²/C²
-Q, q | cargas | C
-d | distância | m`,
-  'Trabalho e campo uniforme': `τ | trabalho da força elétrica | J
-q | carga | C
-U | diferença de potencial | V
-E | campo elétrico | V/m
-d | distância medida ao longo do campo | m`,
-  'Capacitores': `C | capacitância | F
-Q | carga armazenada | C
-U | tensão entre as placas | V
-E<sub>armazenada</sub> | energia armazenada | J
+τ | trabalho da força elétrica | J
+U | diferença de potencial (tensão) | V
+C | capacitância | F
+E<sub>armazenada</sub> | energia armazenada no capacitor | J
 ε | permissividade do meio | F/m
-A | área das placas | m²
-d | distância entre as placas | m`,
-
-  'Corrente elétrica': `i | corrente elétrica | A
+A | área das placas | m²`,
+  'Eletrodinâmica': `i | corrente elétrica | A
 ΔQ | carga que atravessa o fio | C
-Δt | intervalo de tempo | s`,
-  'Leis de Ohm': `U | tensão (diferença de potencial) | V
-R | resistência | Ω
-i | corrente | A
+Δt | intervalo de tempo | s
+U | tensão (diferença de potencial) | V
+R, R<sub>eq</sub> | resistência e resistência equivalente | Ω
 ρ | resistividade do material | Ω·m
 L | comprimento do fio | m
-A | área da seção do fio | m²`,
-  'Potência elétrica': `P | potência | W
-U | tensão | V
-i | corrente | A
-R | resistência | Ω`,
-  'Energia elétrica': `E | energia | J (também kWh = 3,6 × 10⁶ J)
+A | área da seção do fio | m²
 P | potência | W
-Δt | intervalo de tempo | s`,
-  'Associação de resistores': `R<sub>eq</sub> | resistência equivalente | Ω
-R₁, R₂ … | resistências associadas | Ω`,
-  'Gerador': `U | tensão nos terminais | V
-ε | força eletromotriz | V
-r | resistência interna | Ω
-i | corrente | A
-P | potências útil, total e dissipada | W`,
-  'Efeito Joule': `Q | calor dissipado | J
-R | resistência | Ω
-i | corrente | A
-Δt | intervalo de tempo | s`,
-  'Rendimento do gerador': `η | rendimento | sem unidade (ou %)
-U | tensão nos terminais | V
-ε | força eletromotriz | V`,
-  'Receptor': `U | tensão nos terminais | V
-ε′ | força contraeletromotriz | V
-r′ | resistência interna | Ω
-i | corrente | A
-η′ | rendimento | sem unidade (ou %)`,
-  'Circuito gerador–receptor': `i | corrente | A
-ε, ε′ | fem do gerador e fcem do receptor | V
-r, r′ | resistências internas | Ω
-R | resistência externa | Ω`,
-  'Custo da energia': `E | energia consumida | kWh (1 kWh = 3,6 × 10⁶ J)
+E | energia elétrica | J (também kWh = 3,6 × 10⁶ J)
+Q | calor dissipado (efeito Joule) | J
+ε | força eletromotriz do gerador | V
+ε′ | força contraeletromotriz do receptor | V
+r, r′ | resistências internas do gerador e do receptor | Ω
+η, η′ | rendimentos do gerador e do receptor | sem unidade (ou %)
 tarifa | preço de cada kWh | R$/kWh`,
-
-  'Força magnética': `F | força magnética | N
+  'Magnetismo': `B | campo magnético | T
+F | força magnética | N
 q | carga | C
-v | velocidade da carga | m/s
-B | campo magnético | T
-θ | ângulo entre v (ou o fio) e B | ° (grau)
+v | velocidade | m/s
+θ | ângulo entre v (ou o fio) e B; no fluxo, entre B e a normal à espira | ° (grau)
 i | corrente | A
-L | comprimento do fio dentro do campo | m`,
-  'Fluxo magnético': `Φ | fluxo magnético | Wb (T·m²)
-B | campo magnético | T
-A | área da espira | m²
-θ | ângulo entre B e a normal à espira | ° (grau)`,
-  'Lei de Faraday': `ε | força eletromotriz induzida | V
-N | número de espiras | sem unidade
-ΔΦ | variação do fluxo em cada espira | Wb
-Δt | intervalo de tempo | s`,
-  'Transformador ideal': `U₁, U₂ | tensões no primário e no secundário | V
-N₁, N₂ | números de espiras do primário e do secundário | sem unidade
-i₁, i₂ | correntes no primário e no secundário | A`,
-  'Campo de um fio longo': `B | campo magnético | T
-μ | permeabilidade do meio (vácuo: 4π × 10⁻⁷) | T·m/A
-i | corrente | A
-d | distância ao fio | m`,
-  'Campo no centro de espira e bobina': `B | campo magnético no centro | T
-μ | permeabilidade do meio | T·m/A
-i | corrente | A
+L | comprimento do fio, da barra ou do solenoide | m
+μ | permeabilidade magnética do meio (vácuo: 4π × 10⁻⁷) | T·m/A
+d | distância ao fio ou entre os fios | m
 R | raio da espira | m
-N | número de espiras | sem unidade`,
-  'Campo num solenoide': `B | campo magnético no interior | T
-μ | permeabilidade do meio | T·m/A
-N | número de espiras | sem unidade
-L | comprimento do solenoide | m
-i | corrente | A`,
-  'Força entre fios paralelos': `F | força entre os fios | N
-μ | permeabilidade do meio | T·m/A
-i₁, i₂ | correntes nos fios | A
-L | comprimento dos fios | m
-d | distância entre os fios | m`,
-  'fem de movimento': `ε | força eletromotriz induzida | V
-B | campo magnético | T
-L | comprimento da barra | m
-v | velocidade da barra | m/s`,
-
-  'Energia de um fóton': `E | energia do fóton | J
+N | número de espiras (N₁, N₂: do primário e do secundário) | sem unidade
+Φ, ΔΦ | fluxo magnético e variação do fluxo | Wb (T·m²)
+A | área da espira | m²
+ε | força eletromotriz induzida | V
+Δt | intervalo de tempo | s
+U₁, U₂ | tensões no primário e no secundário | V`,
+  'Física moderna': `E | energia | J
 h | constante de Planck (6,6 × 10⁻³⁴) | J·s
-f | frequência da radiação | Hz`,
-  'Efeito fotoelétrico': `E<sub>c,máx</sub> | energia cinética máxima dos elétrons emitidos | J
-h | constante de Planck | J·s
 f | frequência da radiação | Hz
-W | função trabalho do metal | J`,
-  'Massa e energia': `E | energia | J
-m | massa | kg
-c | velocidade da luz no vácuo (3,0 × 10⁸) | m/s`,
-  'Meia-vida': `m | massa restante | kg
-m₀ | massa inicial | kg
+E<sub>c,máx</sub> | energia cinética máxima dos elétrons emitidos | J
+W | função trabalho do metal | J
+c | velocidade da luz no vácuo (3,0 × 10⁸) | m/s
+m, m₀ | massa restante e massa inicial | kg
 n | número de meias-vidas | sem unidade`
 };
-const LEGENDA = Object.fromEntries(Object.entries(LEG_TXT).map(([k, v]) => [k, v.split('\n').map(l => l.split(' | '))]));
+const RESUMO = Object.fromEntries(Object.entries(RESUMO_TXT).map(([k, v]) => [k, v.split('\n').map(l => l.split(' | '))]));
 
 /* ----- Prefixos ----- */
 const PREFIXOS = [
@@ -3192,9 +2976,9 @@ function fxLinha(h){
     return (r ? `${r[1]} <span class="fx">${r[2]}</span>` : `<span class="fx">${fm}</span>`) + nota;
   }).join('<span class="fx-sep">;</span>')).join('<br>');
 }
-const legendaHTML = t => {
-  const L = LEGENDA[t]; if (!L) return '';
-  return `<dl class="form-leg">${L.map(([sb, ds, un]) => `<dt>${sb}</dt><dd>${ds}<span class="un">${un}</span></dd>`).join('')}</dl>`;
+const resumoHTML = nome => {
+  const L = RESUMO[nome]; if (!L) return '';
+  return `<div class="form-resumo"><p class="sect-label">Resumo: símbolos e unidades no SI</p><div class="rs-lista">${L.map(([sb, ds, un]) => `<div class="rs"><b>${sb}</b><span>${ds}<span class="un">${un}</span></span></div>`).join('')}</div></div>`;
 };
 function openFormulario(){
   abrirConsulta('Formulário', 'As fórmulas por assunto, das essenciais às complementares.', migConsulta('Formulário'));
@@ -3205,9 +2989,10 @@ function openFormulario(){
     <nav class="card formnav" aria-label="Assuntos do formulário"><p class="sect-label">Ir para</p><div class="row" style="gap:6px">${FORMULARIO.map((s, i) => `<a class="chip chip-link" href="#/consulta/formulario" data-sec="${i}">${s.nome}</a>`).join('')}</div></nav>
     ${FORMULARIO.map((s, i) => `<section class="card formsec" id="sec${i}"><h2 class="formh">${s.nome}</h2>
         <p class="form-tag"><span class="leg leg-main">Essenciais</span></p>
-        <div class="tools-grid form-grid">${s.ess.map(([t, h, a]) => `<div class="tool tool-main"><h4>${t}</h4><div class="fxbox">${fxLinha(h)}</div>${legendaHTML(t)}</div>`).join('')}</div>
+        <div class="tools-grid form-grid">${s.ess.map(([t, h, a]) => `<div class="tool tool-main"><h4>${t}</h4><div class="fxbox">${fxLinha(h)}</div></div>`).join('')}</div>
         ${s.ext.length ? `<details class="form-extra"><summary><span class="leg leg-extra">Para ir além</span><span class="small">${s.ext.length} ${s.ext.length > 1 ? 'fórmulas complementares' : 'fórmula complementar'}</span><span class="chev">›</span></summary>
-          <div class="tools-grid form-grid">${s.ext.map(([t, h]) => `<div class="tool tool-extra"><h4>${t}</h4><div class="fxbox">${fxLinha(h)}</div>${legendaHTML(t)}</div>`).join('')}</div></details>` : ''}
+          <div class="tools-grid form-grid">${s.ext.map(([t, h]) => `<div class="tool tool-extra"><h4>${t}</h4><div class="fxbox">${fxLinha(h)}</div></div>`).join('')}</div></details>` : ''}
+        ${resumoHTML(s.nome)}
       </section>`).join('')}
     ${outrasConsultas('formulario')}`;
   toTop();
