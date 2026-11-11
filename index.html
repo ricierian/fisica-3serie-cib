@@ -1,0 +1,1649 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Física 3ª Série CIB</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#7A1F2B">
+<meta name="description" content="Aulão de Física e listas interativas para a reta final do ENEM, 3ª série do Colégio Israelita Brasileiro.">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Física 3ª">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+:root{
+--bg:#EDF0F3; --surface:#FFFFFF; --ink:#141B22; --muted:#55616D; --line:#D2D9E0;
+--sign:#1D4E89; --sign-ink:#FFFFFF; --lane:#F2B705; --road:#2A3037; --road-ink:#F3F5F7;
+--ok:#1B7A45; --ok-bg:#E2F2E8; --bad:#B23A25; --bad-bg:#FAE8E3;
+--tip-bg:#FFF5D6; --tip-ink:#5E4500; --mark-ok:#2FA463; --mark-bad:#D9553B;
+--eq-bg:#F3F5F8;
+--f-display:'Barlow Condensed','Arial Narrow',sans-serif;
+--f-body:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',sans-serif;
+--f-mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+:root:not([data-theme="light"]){
+--bg:#0F141A; --surface:#17202A; --ink:#E6ECF2; --muted:#98A5B2; --line:#2A3542;
+--sign:#2C63A8; --sign-ink:#FFFFFF; --lane:#F2C230; --road:#0A0E12; --road-ink:#F3F5F7;
+--ok:#5CCB8D; --ok-bg:#15301F; --bad:#F28C74; --bad-bg:#3A1C16;
+--tip-bg:#2D2610; --tip-ink:#F2D27A; --mark-ok:#2FA463; --mark-bad:#D9553B;
+--eq-bg:#111922; color-scheme:dark;
+}
+}
+:root[data-theme="dark"]{
+--bg:#0F141A; --surface:#17202A; --ink:#E6ECF2; --muted:#98A5B2; --line:#2A3542;
+--sign:#2C63A8; --sign-ink:#FFFFFF; --lane:#F2C230; --road:#0A0E12; --road-ink:#F3F5F7;
+--ok:#5CCB8D; --ok-bg:#15301F; --bad:#F28C74; --bad-bg:#3A1C16;
+--tip-bg:#2D2610; --tip-ink:#F2D27A; --mark-ok:#2FA463; --mark-bad:#D9553B;
+--eq-bg:#111922; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.55}
+.wrap{max-width:720px;margin:0 auto;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,summary:focus-visible{outline:3px solid var(--lane);outline-offset:2px}
+.plate{background:var(--sign);color:var(--sign-ink);border-radius:12px;padding:6px}
+.plate-inner{border:2px solid var(--sign-ink);border-radius:8px;padding:14px 18px 16px;display:flex;flex-direction:column;gap:2px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.9}
+.plate h1{font-family:var(--f-display);font-weight:700;font-size:clamp(38px,9vw,52px);line-height:1;margin:6px 0 0;letter-spacing:.01em;text-wrap:balance}
+.plate p{margin:4px 0 0;font-size:17px;opacity:.95}
+.road{background:var(--road);color:var(--road-ink);border-radius:10px;padding:10px 10px 12px;position:relative;overflow:hidden}
+.road-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.85;margin-bottom:6px}
+.lane{position:relative;height:26px}
+.lane::before{content:"";position:absolute;left:0;right:0;top:50%;height:3px;transform:translateY(-50%);background:repeating-linear-gradient(90deg,var(--lane) 0 14px,transparent 14px 26px);opacity:.9}
+.car{position:absolute;top:50%;transform:translate(-50%,-50%);transition:left .5s ease;width:34px;height:20px}
+.marks{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin-top:6px}
+.mk{height:32px;border-radius:5px;border:1.5px solid rgba(243,245,247,.35);background:transparent;color:var(--road-ink);font-family:var(--f-mono);font-size:13px;font-weight:600;padding:0;min-width:0}
+.mk.ok{background:var(--mark-ok);border-color:var(--mark-ok)}
+.mk.bad{background:var(--mark-bad);border-color:var(--mark-bad)}
+.mk.cur{outline:2.5px solid var(--lane);outline-offset:1px}
+.tools{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.tools summary{padding:14px 18px;font-weight:700;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.tools summary::-webkit-details-marker{display:none}
+.tools summary .chev{font-family:var(--f-mono);color:var(--muted);transition:transform .2s}
+.tools[open] summary .chev{transform:rotate(90deg)}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:10px;padding:0 18px 18px}
+.tool{background:var(--eq-bg);border-radius:8px;padding:12px 14px;min-width:0}
+.tool h4{margin:0 0 6px;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.tool div{font-size:16px;line-height:1.9}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.qnum{font-family:var(--f-display);font-size:26px;font-weight:700;line-height:1}
+.qnum span{color:var(--muted);font-weight:600}
+.src{font-family:var(--f-mono);font-size:12.5px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.stmt{margin:0;font-size:18px;line-height:1.6}
+.opts{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:11px 14px;transition:border-color .15s,background .15s}
+.opt:hover:not(:disabled){border-color:var(--sign)}
+.opt:disabled{cursor:default}
+.letter{flex:none;width:30px;height:30px;border-radius:6px;display:grid;place-items:center;font-family:var(--f-mono);font-weight:600;font-size:14px;background:var(--eq-bg);color:var(--ink)}
+.opt.is-correct{border-color:var(--ok);background:var(--ok-bg)}
+.opt.is-correct .letter{background:var(--ok);color:var(--surface)}
+.opt.is-wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt.is-wrong .letter{background:var(--bad);color:var(--surface)}
+.opt.is-dim{opacity:.55}
+.opt .tag{margin-left:auto;font-size:13px;font-weight:700;white-space:nowrap}
+.opt.is-correct .tag{color:var(--ok)}
+.opt.is-wrong .tag{color:var(--bad)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{border-radius:9px;padding:11px 18px;font-weight:700;border:1.5px solid var(--line);background:var(--surface)}
+.btn:hover{border-color:var(--sign)}
+.btn.primary{background:var(--sign);color:var(--sign-ink);border-color:var(--sign)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--muted);padding-inline:8px;text-decoration:underline;text-underline-offset:3px}
+.spacer{flex:1}
+.tip{background:var(--tip-bg);color:var(--tip-ink);border-radius:10px;padding:12px 16px;font-size:16px}
+.tip b{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:2px}
+.feedback{border-radius:10px;padding:12px 16px;font-weight:700;display:flex;gap:10px;align-items:center}
+.feedback.good{background:var(--ok-bg);color:var(--ok)}
+.feedback.bad{background:var(--bad-bg);color:var(--bad)}
+.feedback .ico{font-family:var(--f-mono);font-size:18px}
+.sol{border-top:2px dashed var(--line);padding-top:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.sol h3{font-family:var(--f-display);font-size:28px;margin:0;line-height:1}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;counter-reset:st}
+.step{display:grid;grid-template-columns:30px 1fr;gap:12px;counter-increment:st;min-width:0}
+.step::before{content:counter(st);width:30px;height:30px;border-radius:50%;background:var(--sign);color:var(--sign-ink);display:grid;place-items:center;font-family:var(--f-mono);font-weight:600;font-size:14px}
+.step-body{min-width:0}
+.step-label{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:4px 0 4px}
+.step-body p{margin:0 0 8px}
+.step-body p:last-child{margin-bottom:0}
+.step-body ul{margin:0;padding-left:20px}
+.eq{background:var(--eq-bg);border-radius:8px;padding:10px 14px;margin:8px 0;overflow-x:auto;white-space:nowrap;font-size:17px;line-height:2.3;font-variant-numeric:tabular-nums}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;line-height:1.25;margin:0 .15em}
+.frac>span:first-child{border-bottom:1.5px solid currentColor;padding:0 .3em 1px}
+.frac>span:last-child{padding:2px .3em 0}
+.hl{background:var(--tip-bg);color:var(--tip-ink);padding:0 .25em;border-radius:3px;font-weight:700}
+.answer{display:flex;align-items:center;gap:12px;background:var(--ok-bg);color:var(--ok);border-radius:10px;padding:12px 16px;font-weight:700}
+.answer .letter{background:var(--ok);color:var(--surface)}
+.alt{border:1.5px solid var(--line);border-radius:10px;padding:12px 16px;font-size:16px}
+.alt b.lbl,.warn b.lbl{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:4px}
+.alt b.lbl{color:var(--sign)}
+.warn{background:var(--bad-bg);border-radius:10px;padding:12px 16px;font-size:16px}
+.warn b.lbl{color:var(--bad)}
+.tblwrap{overflow-x:auto;margin:8px 0}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:15px;min-width:100%}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:center;white-space:nowrap}
+th{background:var(--eq-bg);font-weight:700}
+td.meet{background:var(--ok-bg);color:var(--ok);font-weight:700}
+.intro p{margin:0}
+.intro ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.score{font-family:var(--f-display);font-size:72px;line-height:.9;font-weight:700}
+.score span{color:var(--muted);font-size:40px}
+.reslist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr));gap:8px}
+.res{display:flex;align-items:center;gap:8px;width:100%;border:1.5px solid var(--line);border-radius:9px;padding:9px 12px;background:var(--surface);text-align:left}
+.res:hover{border-color:var(--sign)}
+.res .st{margin-left:auto;font-family:var(--f-mono);font-weight:600;font-size:13px}
+.res.ok .st{color:var(--ok)} .res.bad .st{color:var(--bad)} .res.none .st{color:var(--muted)}
+.small{font-size:14px;color:var(--muted)}
+@media (max-width:480px){
+body{font-size:16px}
+.card{padding:18px 16px}
+.stmt{font-size:17px}
+.mk{font-size:11.5px;height:30px}
+.marks{gap:3px}
+}
+@media (prefers-reduced-motion: reduce){ .car,.tools summary .chev{transition:none} }
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-family:var(--f-mono);font-size:12.5px;letter-spacing:.04em;color:var(--muted)}
+.crumbs button{background:none;border:0;padding:4px 2px;color:var(--sign);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.crumbs .sep{opacity:.6}
+.crumbs .here{color:var(--ink);font-weight:600}
+.sect-label{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0}
+.cards{display:flex;flex-direction:column;gap:12px}
+.tile{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;width:100%;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;transition:border-color .15s,transform .15s}
+.tile:hover{border-color:var(--sign)}
+.tile:active{transform:scale(.99)}
+.tile .ico{width:52px;height:52px;border-radius:10px;background:var(--sign);color:var(--sign-ink);display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:24px;border:2px solid var(--sign-ink);outline:3px solid var(--sign)}
+.tile .ico.lane{background:var(--road);color:var(--lane);outline-color:var(--road);border-color:var(--lane);font-family:var(--f-mono);font-size:16px}
+.tile .tt{display:block;margin:0;font-family:var(--f-display);font-size:24px;line-height:1.05}
+.tile .ds{display:block;margin:4px 0 0;font-size:15px;color:var(--muted);line-height:1.4}
+.tile .go{font-family:var(--f-mono);font-weight:600;color:var(--sign);font-size:20px}
+.tile .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-family:var(--f-mono);font-size:11.5px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.chip.ok{border-color:var(--ok);color:var(--ok)}
+.note{font-size:14.5px;color:var(--muted);margin:0}
+@media (max-width:480px){.tile{grid-template-columns:44px 1fr auto;padding:14px}.tile .ico{width:44px;height:44px;font-size:20px}.tile .tt{display:block;font-size:21px}}
+:root{--lvi-bg:#E1EAF6;--lvi-ink:#1D4E89;--lva-bg:#2A3037;--lva-ink:#F2B705;--plot2:#B4540A;--lvb-line:#F2B705;--lvi-line:#8DB6EA;--lva-line:#F3F5F7}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--lvi-bg:#1A2B44;--lvi-ink:#9CC0EE;--lva-bg:#0A0E12;--lva-ink:#F2C230;--plot2:#F2A65A}}
+:root[data-theme="dark"]{--lvi-bg:#1A2B44;--lvi-ink:#9CC0EE;--lva-bg:#0A0E12;--lva-ink:#F2C230;--plot2:#F2A65A}
+.lvl{font-family:var(--f-mono);font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px;letter-spacing:.02em}
+.lvl-b{background:var(--tip-bg);color:var(--tip-ink)}
+.lvl-i{background:var(--lvi-bg);color:var(--lvi-ink)}
+.lvl-a{background:var(--lva-bg);color:var(--lva-ink);box-shadow:inset 0 0 0 1px var(--lva-ink)}
+.lvrow{display:grid;gap:4px;margin-top:6px}
+.lvrow span{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;text-align:center;padding-top:4px;border-top:2px solid;color:var(--road-ink);opacity:.85;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lv-b{border-color:var(--lvb-line)}.lv-i{border-color:var(--lvi-line)}.lv-a{border-color:var(--lva-line)}
+.stmt{display:block}
+.stmt>.fig,.stmt>.tblwrap{margin:12px 0}
+.fig{margin:4px 0 0;background:var(--eq-bg);border-radius:10px;padding:10px 8px 6px;max-width:400px;width:100%}
+.plot{display:block;width:100%;height:auto}
+.plot .pt{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
+.plot .pt-strong{fill:var(--ink);font-weight:600}
+.plot .pt-lab{font-size:14px;font-weight:600}
+.plot .pt-car{fill:#FFFFFF;font-size:12px;font-weight:600}
+.step-body .fig{margin:8px 0}
+.fld{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:15px}
+.fld input,.fld select{font:inherit;font-weight:400;font-size:17px;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);width:100%}
+.fld input:focus,.fld select:focus{outline:3px solid var(--lane);outline-offset:1px;border-color:var(--sign)}
+#loginErro{color:var(--bad);min-height:1em;margin:0}
+.fld-dica{font-weight:400;color:var(--muted);font-size:13.5px}
+.emailbox{display:flex;flex-direction:column;border:1.5px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.emailbox:focus-within{outline:3px solid var(--lane);outline-offset:1px;border-color:var(--sign)}
+.fld .emailbox input{border:0;border-radius:0;outline:none}
+.fld .emailbox input:focus{outline:none}
+.emailbox .dom{font-size:14px;font-weight:700;color:var(--muted);background:var(--eq-bg);padding:9px 14px;border-top:1px solid var(--line);overflow-wrap:anywhere}
+.note b{overflow-wrap:anywhere}
+/* ===== 3ª série CIB: identidade por tema ===== */
+:root{--sign:#7A1F2B;--ray:#B85C00}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sign:#9A3343;--ray:#FFC24A}}
+:root[data-theme="dark"]{--sign:#9A3343;--ray:#FFC24A}
+.th-enem, :root.th-enem{--sign:#7A1F2B;--lane:#F2B705;--road:#2A1C1E;--road-ink:#F7F0F1;--lvb-line:#F2B705}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]).th-enem, :root:not([data-theme="light"]) .th-enem{--sign:#9A3343;--road:#160E0F}}
+:root[data-theme="dark"].th-enem, :root[data-theme="dark"] .th-enem{--sign:#9A3343;--road:#160E0F}
+.th-inducao, :root.th-inducao{--sign:#8F4618;--lane:#F2B00A;--road:#23170F;--road-ink:#F8EFE6;--lvb-line:#F2B00A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]).th-inducao, :root:not([data-theme="light"]) .th-inducao{--sign:#A9561F;--road:#140C07}}
+:root[data-theme="dark"].th-inducao, :root[data-theme="dark"] .th-inducao{--sign:#A9561F;--road:#140C07}
+.th-form, :root.th-form{--sign:#1F4E5F}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]).th-form, :root:not([data-theme="light"]) .th-form{--sign:#2B6A80}}
+:root[data-theme="dark"].th-form, :root[data-theme="dark"] .th-form{--sign:#2B6A80}
+.plate{position:relative;overflow:hidden}
+.plate-inner{position:relative;z-index:1}
+.plate-deco{position:absolute;right:10px;bottom:8px;width:min(44%,220px);color:var(--sign-ink);opacity:.32;pointer-events:none}
+.plate-deco svg{display:block;width:100%;height:auto}
+.th-inducao .plate-deco{opacity:.5}
+/* Trilhas de progresso: onda numa corda e raio de luz */
+.lane2{position:relative;height:30px;margin:0 6px 0 22px;--p:0}
+.lane2 svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.lane2 .ln-base line{stroke:var(--road-ink);stroke-width:2;opacity:.3;vector-effect:non-scaling-stroke}
+.ln-raio .ln-base line{stroke-dasharray:4 6}
+.lane2 .ln-fill{clip-path:inset(0 100% 0 0);transition:clip-path .6s ease}
+.ln-onda .ln-fill path{fill:none;stroke:var(--lane);stroke-width:3;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.ln-raio .ln-fill line{stroke:var(--lane);stroke-width:4;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 3px var(--lane))}
+.ln-head{position:absolute;top:50%;left:calc(var(--p) * 1%);transition:left .6s ease}
+.ln-onda .ln-head{width:12px;height:12px;border-radius:50%;background:var(--lane);transform:translate(-50%,-50%);box-shadow:0 0 0 4px rgba(255,255,255,.12)}
+.ln-raio .ln-head{width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:12px solid var(--lane);transform:translate(-30%,-50%)}
+.ln-src{position:absolute;left:-18px;top:50%;transform:translateY(-50%)}
+.ln-onda .ln-src{width:4px;height:24px;border-radius:2px;background:var(--road-ink);opacity:.7}
+.ln-raio .ln-src{width:12px;height:12px;border-radius:50%;background:var(--lane);box-shadow:0 0 8px 2px var(--lane)}
+@media (prefers-reduced-motion: reduce){.lane2 .ln-fill,.ln-head{transition:none}}
+/* Revisão do professor */
+.mod{border:1.5px dashed var(--muted);border-radius:10px;padding:10px 14px;font-size:15px;color:var(--muted)}
+.mod b{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:2px;color:var(--ink)}
+.tbl-txt td,.tbl-txt th{white-space:normal}
+.tbl-txt table{min-width:0;width:100%}
+.tbl-esq td:last-child{text-align:left}
+.tbl-esq td{vertical-align:top}
+@media (max-width:480px){.tbl-txt table{font-size:13.5px}.tbl-txt td,.tbl-txt th{padding:6px 7px}}
+:root.th-enem .plate-inner, :root.th-inducao .plate-inner{padding-bottom:50px}
+.plate-deco{width:150px;bottom:12px;right:14px}
+/* Telas grandes (projetor): um pouco mais largo e maior */
+@media (min-width:1100px){.wrap{max-width:880px}body{font-size:19px}.stmt{font-size:20px}.fig{max-width:520px}}
+
+/* Nível Básico+ */
+:root{--lvbp-bg:#FDEECD;--lvbp-ink:#7D5200;--lvbp-line:#F7C97A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--lvbp-bg:#33270C;--lvbp-ink:#F5C566}}
+:root[data-theme="dark"]{--lvbp-bg:#33270C;--lvbp-ink:#F5C566}
+.lvl-bp{background:var(--lvbp-bg);color:var(--lvbp-ink);box-shadow:inset 0 0 0 1px var(--lvbp-ink)}
+.lv-bp{border-color:var(--lvbp-line)}
+/* Figuras com fundo claro (imagens e esquemas coloridos), legíveis também no tema escuro */
+.fig.figw{background:#FFFFFF;border:1px solid var(--line);padding:8px;margin-left:auto;margin-right:auto}
+.fig.figw img{display:block;width:100%;height:auto}
+.fig.figw .plot{max-width:100%}
+.stmt p{margin:0 0 10px}
+.stmt p:last-child{margin-bottom:0}
+.stmt .small{font-size:13.5px}
+/* Pegadinha: origem de cada alternativa errada */
+.erros{margin:6px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.erros b{white-space:nowrap}
+/* Tabelas das listas de indução */
+.dtab{width:auto;min-width:0;margin:0 auto}
+/* Formulário */
+.formnav{gap:10px}
+.chip-link{text-decoration:none;color:var(--sign);border-color:var(--sign);font-size:12.5px;padding:4px 10px}
+.formh{font-family:var(--f-display);font-size:28px;line-height:1;margin:0}
+.formsec{gap:12px;scroll-margin-top:12px}
+.form-grid{padding:0}
+.form-grid .tool div small{display:block;font-size:13px;line-height:1.4;color:var(--muted);margin-top:4px}
+.tile.th-form .ico{background:var(--sign);outline-color:var(--sign);font-style:italic;font-family:Georgia,serif}
+/* Contas longas quebram a linha no celular, em vez de ficarem escondidas */
+.eq{white-space:normal;overflow-wrap:anywhere}
+
+.install{border-color:var(--sign)}
+.install p{margin:0}
+@media (display-mode: standalone){.wrap{padding-top:max(20px,env(safe-area-inset-top,0px))}}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="plate"><div class="plate-deco" id="deco" aria-hidden="true"></div><div class="plate-inner"><div class="eyebrow" id="eyebrow"></div><h1 id="ptitle"></h1><p id="psub"></p></div></header>
+<nav class="crumbs" id="crumbs" aria-label="Você está em" hidden></nav>
+<main id="view" style="display:flex;flex-direction:column;gap:18px"></main>
+</div>
+<script>
+/* ===== Ajudantes usados em todas as listas ===== */
+const f = (n, d) => `<span class="frac"><span>${n}</span><span>${d}</span></span>`;
+const L = ['A','B','C','D','E'];
+const nf = v => String(v).replace('.', ',');
+let _uid = 0;
+
+/* Figura SVG genérica (segue o tema claro/escuro). vb = "0 0 L A" */
+const fig = (vb, aria, inner, w) => `<figure class="fig"${w ? ` style="max-width:${w}px"` : ''}><svg viewBox="${vb}" class="plot" role="img" aria-label="${aria}">${inner}</svg></figure>`;
+/* Ponta de seta: devolve [defs, url] com id único */
+function seta(cor){ const id = 'sa' + (++_uid); return [`<defs><marker id="${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="${cor}"/></marker></defs>`, `url(#${id})`]; }
+
+/* Pontos de uma senoide: y = A·sen(2π(x − x0)/λ + fase) */
+function sen(A, lam, xa, xb, fase, n){ n = n || 120; fase = fase || 0; const p = []; for (let k = 0; k <= n; k++){ const x = xa + (xb - xa) * k / n; p.push([+x.toFixed(4), +(A * Math.sin(2 * Math.PI * x / lam + fase)).toFixed(4)]); } return p; }
+
+/* Gráfico cartesiano. o = {aria, xmin, xmax, ymin, ymax, xt, yt, xl, yl, L:[{p, c, dash, w, lab, lp}], pts, ann:[[x,y,txt,anchor,cor]], dims:[[x1,y1,x2,y2,txt,dx,dy]], H, W} */
+function plot(o){
+  const W = o.W || 340, H = o.H || 236, l = o.l || 46, r = 18, t = 28, b = 40;
+  const x0 = o.xmin || 0, y0 = o.ymin || 0;
+  const sx = x => +(l + (x - x0) / (o.xmax - x0) * (W - l - r)).toFixed(1);
+  const sy = y => +(H - b - (y - y0) / (o.ymax - y0) * (H - t - b)).toFixed(1);
+  const [defs, mk] = seta('var(--ink)');
+  let s = `<svg viewBox="0 0 ${W} ${H}" class="plot" role="img" aria-label="${o.aria}">${defs}`;
+  (o.xt || []).forEach(x => { s += `<line x1="${sx(x)}" y1="${sy(y0)}" x2="${sx(x)}" y2="${sy(o.ymax)}" stroke="var(--line)"/>`; if (!o.noxl) s += `<text x="${sx(x)}" y="${sy(y0)+16}" text-anchor="middle" class="pt">${nf(x)}</text>`; });
+  (o.yt || []).forEach(y => { s += `<line x1="${sx(x0)}" y1="${sy(y)}" x2="${sx(o.xmax)}" y2="${sy(y)}" stroke="var(--line)"/><text x="${sx(x0)-7}" y="${sy(y)+4}" text-anchor="end" class="pt">${nf(y)}</text>`; });
+  const yax = (y0 < 0 && o.ymax > 0) ? 0 : y0;
+  s += `<line x1="${sx(x0)}" y1="${sy(yax)}" x2="${sx(o.xmax)}" y2="${sy(yax)}" stroke="var(--muted)" stroke-width="1.5"/><line x1="${sx(x0)}" y1="${sy(y0)}" x2="${sx(x0)}" y2="${sy(o.ymax)}" stroke="var(--muted)" stroke-width="1.5"/>`;
+  s += `<text x="${W-r}" y="${H-6}" text-anchor="end" class="pt">${o.xl}</text><text x="${sx(x0)}" y="16" text-anchor="middle" class="pt">${o.yl}</text>`;
+  o.L.forEach(ln => {
+    s += `<polyline points="${ln.p.map(([x,y]) => sx(x)+','+sy(y)).join(' ')}" fill="none" stroke="${ln.c}" stroke-width="${ln.w || 3}" stroke-linecap="round" stroke-linejoin="round"${ln.dash ? ` stroke-dasharray="${ln.dash}"` : ''}/>`;
+    if (ln.lab){ const [x, y] = ln.lp || ln.p[ln.p.length-1]; s += `<text x="${sx(x)}" y="${sy(y)}" class="pt pt-lab" fill="${ln.c}">${ln.lab}</text>`; }
+  });
+  (o.dims || []).forEach(([xa, ya, xb, yb, txt, dx, dy]) => {
+    s += `<line x1="${sx(xa)}" y1="${sy(ya)}" x2="${sx(xb)}" y2="${sy(yb)}" stroke="var(--ink)" stroke-width="1.4" marker-start="${mk}" marker-end="${mk}"/>`;
+    if (txt) s += `<text x="${(sx(xa)+sx(xb))/2 + (dx||0)}" y="${(sy(ya)+sy(yb))/2 + (dy||-6)}" text-anchor="middle" class="pt pt-strong">${txt}</text>`;
+  });
+  (o.pts || []).forEach(([x, y]) => { s += `<circle cx="${sx(x)}" cy="${sy(y)}" r="4.5" fill="var(--ink)" stroke="var(--surface)" stroke-width="2"/>`; });
+  (o.ann || []).forEach(([x, y, txt, a, c]) => { s += `<text x="${sx(x)}" y="${sy(y)}" text-anchor="${a || 'middle'}" class="pt pt-strong"${c ? ` fill="${c}"` : ''}>${txt}</text>`; });
+  return `<figure class="fig">${s}</svg></figure>`;
+}
+
+/* Tabela simples: cab = [..], linhas = [[..],[..]] */
+const tabela = (cab, linhas, esq) => `<div class="tblwrap tbl-txt${esq ? ' tbl-esq' : ''}"><table>${cab ? `<tr>${cab.map(c => `<th>${c}</th>`).join('')}</tr>` : ''}${linhas.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</table></div>`;
+
+/* ===== Revisão ENEM · listas do aulão (3 listas de 10, por área) ===== */
+/* Figura em imagem (pasta img/) com fundo claro, legível nos dois temas */
+const foto = (n, aria, w) => `<figure class="fig figw"${w ? ` style="max-width:${w}px"` : ''}><img src="img/${n}.png" alt="${aria}" loading="lazy"></figure>`;
+/* Pegadinha: de onde vem cada alternativa errada (gabarito comentado do professor) */
+const erros = linhas => `De onde vem cada alternativa errada:<ul class="erros">${linhas.map(([a, t]) => `<li><b>${a}</b> ${t}</li>`).join('')}</ul>`;
+const src = n => `Lista do aulão · Q${String(n).padStart(2, '0')}`;
+
+/* ---------- Lista 1 · Eletricidade e energia ---------- */
+const TOOLS_E1 = [
+  ['Leis de Ohm', `U = R · i<br>R = ρ · ${f('L','A')}`],
+  ['Potência e energia', `P = U · i = R · i² = ${f('U²','R')}<br>E = P · Δt (kWh: P em kW, Δt em h)`],
+  ['Associação de resistores', `Série: R<sub>eq</sub> = R₁ + R₂ + …<br>Paralelo: ${f('1','R<sub>eq</sub>')} = ${f('1','R₁')} + ${f('1','R₂')} + …`],
+  ['Transformador ideal', `${f('U₁','U₂')} = ${f('N₁','N₂')} = ${f('i₂','i₁')}`],
+  ['Energia mecânica', `E<sub>p</sub> = m · g · h<br>P = ${f('ΔE','Δt')} &nbsp;·&nbsp; d = ${f('m','V')}`],
+  ['Eletrostática', `F = k · ${f('|q₁| · |q₂|','d²')}<br>Esferas iguais em contato: Q′ = ${f('Q<sub>A</sub> + Q<sub>B</sub>','2')}`],
+  ['Conversões', `1 mA = 10⁻³ A · 1 kΩ = 10³ Ω<br>1 MW = 10⁶ W · 30 min = 0,5 h`]
+];
+
+const Q_E1 = [
+{ src: src(1), nivel: 'básico',
+  text: `<p>Ao reformar o banheiro, uma família comprou um chuveiro elétrico cuja embalagem traz os dados abaixo. O eletricista explicou que o disjuntor do circuito deve ter corrente nominal imediatamente acima da maior corrente de operação do aparelho: um disjuntor abaixo desse valor desarma durante o banho, e um muito acima deixa de proteger a fiação contra superaquecimento.</p>
+${tabela(['Dado do chuveiro','Valor'],[['Tensão','220 V'],['Potência na posição verão','4 400 W'],['Potência na posição inverno','6 600 W']])}
+<p>Os disjuntores disponíveis na loja são de 16 A, 20 A, 25 A, 32 A e 40 A. Qual deles deve ser instalado?</p>`,
+  opts: ['16 A','20 A','25 A','32 A','40 A'], ans: 3,
+  hint: 'Em qual posição a corrente é maior? Calcule essa corrente com P = U · i.',
+  steps: [['Maior corrente', '<p>A maior potência (6 600 W) é a da posição inverno: é nela que a corrente é máxima.</p>'],
+          ['Cálculo', `<div class="eq">i = ${f('P','U')} = ${f('6 600','220')} = 30 A</div>`],
+          ['Escolha', '<p>O disjuntor imediatamente acima de 30 A é o de <b>32 A</b>.</p>']],
+  alt: 'Com a tensão fixa, corrente e potência são proporcionais: 4 400 W dão 20 A; 6 600 W (1,5 vez mais) dão 1,5 × 20 = 30 A.',
+  warn: erros([['A) 16 A:','muito abaixo da corrente de operação; desarma em qualquer posição.'],['B) 20 A:','dimensiona pela posição verão (4 400/220 = 20 A).'],['C) 25 A:','abaixo de 30 A; desarma no inverno.'],['E) 40 A:','superdimensionado; não protege a fiação.']]) },
+
+{ src: src(6), nivel: 'básico',
+  text: '<p>Um LED vermelho funciona corretamente com tensão de 2,0 V e corrente de 20 mA. Para ligá-lo a uma bateria de 9,0 V, um estudante coloca um resistor em série com o LED, que fica com a parte da tensão que o LED não deve receber. Qual deve ser a resistência desse resistor?</p>',
+  opts: ['100 Ω','350 Ω','450 Ω','550 Ω','3 500 Ω'], ans: 1,
+  hint: 'Em série, a corrente é a mesma no LED e no resistor, e as tensões se somam. Que tensão sobra para o resistor?',
+  steps: [['Tensão no resistor', '<div class="eq">U<sub>R</sub> = 9,0 − 2,0 = 7,0 V</div>'],
+          ['Corrente', '<p>Em série, a corrente no resistor é a do LED: 20 mA = 0,020 A.</p>'],
+          ['Resistência', `<div class="eq">R = ${f('U','i')} = ${f('7,0','0,020')} = 350 Ω</div>`]],
+  alt: 'O resistor “segura” o excesso: a bateria fornece 9 V, o LED aceita 2 V e o resistor fica com os 7 V restantes, deixando passar só os 20 mA que o LED suporta.',
+  warn: erros([['A) 100 Ω:','usa a tensão do LED (2,0/0,020).'],['C) 450 Ω:','usa a tensão total da bateria (9,0/0,020).'],['D) 550 Ω:','soma as tensões em vez de subtrair (11/0,020).'],['E) 3 500 Ω:','converte 20 mA para 0,002 A.']]) },
+
+{ src: src(26), nivel: 'básico',
+  text: '<p>Em um carregador antigo de celular, um transformador reduz a tensão alternada da tomada, de 220 V, para 5 V. O enrolamento primário tem 880 espiras. Considerando o transformador ideal, o número de espiras do enrolamento secundário é</p>',
+  opts: ['20.','44.','176.','880.','38 720.'], ans: 0,
+  hint: 'No transformador ideal, a razão entre as tensões é igual à razão entre os números de espiras.',
+  steps: [['Relação', `<div class="eq">${f('U₁','U₂')} = ${f('N₁','N₂')} → ${f('220','5')} = ${f('880','N₂')}</div>`],
+          ['Cálculo', `<div class="eq">N₂ = ${f('880 × 5','220')} = 20 espiras</div>`],
+          ['Por que corrente alternada', '<p>O transformador só funciona com corrente alternada: a tensão no secundário é induzida pela <b>variação</b> do fluxo magnético (lei de Faraday).</p>']],
+  alt: 'A tensão foi reduzida 44 vezes (220 ÷ 5). O número de espiras do secundário é 44 vezes menor que o do primário: 880 ÷ 44 = 20.',
+  warn: erros([['B) 44:','dá a razão entre as tensões (220/5).'],['C) 176:','divide as espiras pela tensão de saída (880/5).'],['D) 880:','acha que o número de espiras não muda.'],['E) 38 720:','inverte a proporção (880 × 220/5).']]) },
+
+{ src: src(2), nivel: 'intermediário',
+  text: `<p>Ao receber uma conta de luz mais alta que o esperado, um estudante decidiu estimar o consumo dos principais aparelhos de casa. Ele anotou a potência de cada um e o tempo diário de funcionamento. No caso da geladeira, cujo compressor liga e desliga ao longo do dia, usou a potência média informada pelo fabricante.</p>
+${tabela(['Aparelho','Potência','Uso diário'],[['Chuveiro','5 000 W','30 min'],['Geladeira (potência média)','150 W','24 h'],['Televisor','100 W','5 h'],['6 lâmpadas LED','10 W cada','5 h']])}
+<p>Considere um mês de 30 dias e a tarifa de R$ 0,80 por kWh. O custo mensal estimado para esses aparelhos é</p>`,
+  opts: ['R$ 5,52.','R$ 60,00.','R$ 79,20.','R$ 141,60.','R$ 165,60.'], ans: 4,
+  hint: 'Calcule a energia de cada aparelho em kWh por dia (P em kW, tempo em horas). Cuidado: 30 min não é 0,3 h.',
+  steps: [['Energia por dia', '<p>Chuveiro: 5,0 × 0,5 = 2,5 kWh · Geladeira: 0,15 × 24 = 3,6 kWh · Televisor: 0,1 × 5 = 0,5 kWh · Lâmpadas: 0,06 × 5 = 0,3 kWh</p>'],
+          ['Total', '<p>Por dia: 6,9 kWh. No mês: 6,9 × 30 = 207 kWh.</p>'],
+          ['Custo', '<div class="eq">207 × 0,80 = R$ 165,60</div>']],
+  alt: 'A geladeira tem potência pequena, mas fica ligada 24 h: é o aparelho que mais gasta na tabela (3,6 kWh por dia, mais que o chuveiro). Potência baixa não significa consumo baixo; o que conta é P × tempo.',
+  warn: erros([['A) R$ 5,52:','calcula o custo de um só dia.'],['B) R$ 60,00:','considera apenas o chuveiro.'],['C) R$ 79,20:','esquece a geladeira (ou acha que ela gasta pouco por ter potência baixa).'],['D) R$ 141,60:','converte 30 min em 0,3 h no chuveiro.']]) },
+
+{ src: src(3), nivel: 'intermediário',
+  text: `<p>A corrente elétrica que atravessa o corpo humano depende da tensão aplicada e da resistência elétrica do corpo, que diminui muito quando a pele está molhada. O quadro relaciona a intensidade da corrente aos danos físicos.</p>
+${tabela(['Corrente elétrica','Dano físico'],[['Até 10 mA','Dor e contração muscular'],['De 10 mA até 20 mA','Aumento das contrações musculares'],['De 20 mA até 100 mA','Parada respiratória'],['De 100 mA até 3 A','Fibrilação ventricular'],['Acima de 3 A','Parada cardíaca e queimaduras']], true)}
+<p class="small">DURAN, J. E. R. <i>Biofísica: fundamentos e aplicações</i>. São Paulo: Pearson Prentice Hall, 2003 (adaptado).</p>
+<p>Um técnico, com as mãos molhadas, toca ao mesmo tempo os terminais extremos de um conjunto de baterias de 9 V associadas em série. Considere que, com a pele molhada, a resistência elétrica do corpo entre as mãos seja de 1 kΩ. Qual é o número mínimo de baterias para que o choque já possa provocar parada respiratória?</p>`,
+  opts: ['1','2','3','11','12'], ans: 2,
+  hint: 'Ache a tensão que produz 20 mA em 1 kΩ. Quantas baterias de 9 V em série são necessárias para chegar a ela?',
+  steps: [['Limite', '<p>A parada respiratória começa em 20 mA = 0,020 A.</p>'],
+          ['Tensão mínima', '<div class="eq">U = R · i = 1 000 × 0,020 = 20 V</div>'],
+          ['Baterias', '<p>Em série, as tensões se somam: 2 baterias dão 18 V (não bastam); 3 baterias dão 27 V, que produzem 27 mA, já na faixa de parada respiratória. Resposta: <b>3</b>.</p>']],
+  alt: 'Teste direto: com n baterias, a corrente é 9n/1 000 A, ou seja, 9n mA. Com n = 2, 18 mA (ainda contrações); com n = 3, 27 mA (parada respiratória).',
+  warn: erros([['A) 1:','9 V geram 9 mA: só dor e contração.'],['B) 2:','arredonda 20/9 ≈ 2,2 para baixo (18 V não bastam).'],['D) 11:','usa o limite superior, 100 mA (100/9 ≈ 11).'],['E) 12:','usa 100 mA e arredonda para cima.']]) },
+
+{ src: src(7), nivel: 'intermediário',
+  text: '<p>A resistência de um chuveiro é um fio metálico enrolado em espiral, com três terminais. Na posição verão, a corrente percorre o fio inteiro, cuja resistência é 22 Ω. Na posição inverno, a corrente percorre apenas metade do comprimento do mesmo fio. O chuveiro é ligado em 220 V. Qual é a potência do chuveiro na posição inverno?</p>',
+  opts: ['1 100 W','2 200 W','3 300 W','4 400 W','8 800 W'], ans: 3,
+  hint: 'Metade do comprimento do fio dá que resistência? E, com a tensão fixa, qual fórmula de potência é a mais direta?',
+  steps: [['Resistência', `<p>Pela segunda lei de Ohm, R = ρ · ${f('L','A')}: com metade do comprimento, R = 11 Ω.</p>`],
+          ['Potência', `<div class="eq">P = ${f('U²','R')} = ${f('220²','11')} = 4 400 W</div>`],
+          ['Conferência', '<p>No verão: 220²/22 = 2 200 W. Menor resistência, maior potência.</p>']],
+  alt: 'Com U constante, P é inversamente proporcional a R: se R cai pela metade, P dobra (2 200 W → 4 400 W). Por isso o inverno usa o pedaço menor do fio.',
+  warn: erros([['A) 1 100 W:','acha que P é proporcional a R (metade da potência).'],['B) 2 200 W:','calcula a potência da posição verão.'],['C) 3 300 W:','estima um aumento de 50% sem usar P = U²/R.'],['E) 8 800 W:','acha que P é proporcional a 1/R².']]) },
+
+{ src: src(27), nivel: 'intermediário',
+  text: '<p>Em uma usina hidrelétrica, 100 m³ de água passam pelas turbinas a cada segundo, depois de descer um desnível de 50 m. O conjunto turbina-gerador converte 80% da energia potencial gravitacional da água em energia elétrica. Considere a densidade da água igual a 1 000 kg/m³ e g = 10 m/s². A potência elétrica gerada é</p>',
+  opts: ['40 MW.','50 MW.','62,5 MW.','400 MW.','500 MW.'], ans: 0,
+  hint: 'Calcule a massa de água que desce a cada segundo e a energia potencial que ela perde nesse segundo. Depois aplique os 80%.',
+  steps: [['Massa por segundo', '<p>100 m³ × 1 000 kg/m³ = 1,0 × 10⁵ kg a cada segundo.</p>'],
+          ['Potência disponível', `<div class="eq">${f('m · g · h','Δt')} = 1,0 × 10⁵ × 10 × 50 = 5,0 × 10⁷ W = 50 MW</div>`],
+          ['Potência elétrica', '<div class="eq">0,80 × 50 = 40 MW</div>']],
+  alt: 'O rendimento sempre reduz: a potência elétrica tem de ser menor que os 50 MW disponíveis. Isso já elimina 50; 62,5; 400 e 500 MW.',
+  warn: erros([['B) 50 MW:','ignora o rendimento.'],['C) 62,5 MW:','divide pelo rendimento em vez de multiplicar.'],['D) 400 MW:','converte W em MW com 1 MW = 10⁵ W.'],['E) 500 MW:','ignora o rendimento e erra a conversão para MW.']]) },
+
+{ src: src(4), nivel: 'avançado',
+  text: `<p>Para iluminar uma maquete, uma estudante montou o circuito da figura, ligado a uma fonte de 12 V de resistência interna desprezível.</p>
+${foto('q04', 'Circuito: fonte de 12 V em série com R1 = 4 ohms; em seguida, R3 = 6 ohms e R2 = 12 ohms ligados em paralelo entre si.', 340)}
+<p>A intensidade da corrente elétrica no resistor R₃ é</p>`,
+  opts: ['0,5 A.','1,0 A.','1,5 A.','2,0 A.','3,0 A.'], ans: 1,
+  hint: 'Resolva primeiro o paralelo entre R₂ e R₃ e some R₁. Com a corrente total, ache a tensão no paralelo.',
+  steps: [['Paralelo', `<div class="eq">R₂₃ = ${f('12 · 6','12 + 6')} = 4 Ω</div>`],
+          ['Corrente total', '<div class="eq">R<sub>eq</sub> = 4 + 4 = 8 Ω → i = 12/8 = 1,5 A</div>'],
+          ['Tensão no paralelo', '<div class="eq">U = 4 × 1,5 = 6 V</div>'],
+          ['Corrente em R₃', '<div class="eq">i₃ = 6/6 = 1,0 A</div><p>(e 0,5 A em R₂)</p>']],
+  alt: 'No paralelo, a corrente se divide na razão inversa das resistências: R₃ (6 Ω) tem metade da resistência de R₂ (12 Ω), então leva o dobro da corrente. Os 1,5 A se dividem em 1,0 A e 0,5 A.',
+  warn: erros([['A) 0,5 A:','corrente em R₂, e não em R₃.'],['C) 1,5 A:','corrente total do circuito.'],['D) 2,0 A:','aplica os 12 V inteiros sobre R₃ (12/6).'],['E) 3,0 A:','divide 12 V por R₁ (12/4).']]) },
+
+{ src: src(5), nivel: 'avançado',
+  text: `<p>Em uma aula de laboratório, alunos mediram a tensão e a corrente elétrica em dois componentes: um resistor comum e uma lâmpada de filamento, cuja resistência aumenta com a temperatura. Os resultados estão no gráfico, mas a turma esqueceu de anotar qual curva corresponde a cada componente.</p>
+${foto('q05', 'Gráfico de tensão U, em volts, em função da corrente i, em ampères, de 0 a 0,3 A. A curva 1 é uma reta que parte da origem e chega a 9 V em 0,3 A. A curva 2 é curvada para cima e chega a 6 V em 0,3 A.', 380)}
+<p>Qual curva corresponde ao componente ôhmico, e qual é a resistência elétrica da lâmpada quando submetida a 6 V?</p>`,
+  opts: ['Curva 1; 20 Ω','Curva 1; 30 Ω','Curva 2; 20 Ω','Curva 2; 30 Ω','Curva 1; 1,8 Ω'], ans: 0,
+  hint: 'Componente ôhmico tem U proporcional a i: no gráfico, uma reta pela origem. A lâmpada é a outra curva; leia nela o ponto de 6 V.',
+  steps: [['Componente ôhmico', '<p>A curva 1 é uma reta pela origem: R constante = 6/0,2 = 30 Ω. É o resistor.</p>'],
+          ['Lâmpada', '<p>A curva 2 é a lâmpada. Em U = 6 V, i = 0,3 A:</p><div class="eq">R = 6/0,3 = 20 Ω</div>'],
+          ['Coerência', '<p>A resistência da lâmpada cresce com a corrente (10 Ω em 0,1 A; 15 Ω em 0,2 A), coerente com o aquecimento do filamento.</p>']],
+  alt: 'Num gráfico U × i, a resistência em cada ponto é U/i: a inclinação da reta que liga a origem ao ponto. Na curva 2, essa inclinação aumenta conforme a corrente cresce.',
+  warn: erros([['B) Curva 1; 30 Ω:','dá a resistência do resistor, não a da lâmpada.'],['C) Curva 2; 20 Ω:','acha que a curva é o comportamento ôhmico.'],['D) Curva 2; 30 Ω:','troca as duas curvas.'],['E) Curva 1; 1,8 Ω:','multiplica U · i (isso é a potência, 1,8 W).']]) },
+
+{ src: src(29), nivel: 'avançado',
+  text: '<p>Duas pequenas esferas metálicas idênticas, A e B, estão a uma distância d uma da outra, com cargas +6q e −2q, e se atraem com uma força de intensidade F. Usando luvas isolantes, um estudante coloca as esferas em contato e depois as recoloca nas posições iniciais. A nova força elétrica entre elas tem intensidade e natureza</p>',
+  opts: ['3F, de repulsão.','F/3, de atração.','4F/3, de repulsão.','4F/3, de atração.','F/3, de repulsão.'], ans: 4,
+  hint: 'No contato entre esferas idênticas, a carga total, com sinal, se divide igualmente. Depois compare o produto das cargas antes e depois.',
+  steps: [['Contato', `<div class="eq">${f('(+6q) + (−2q)','2')} = +2q em cada esfera</div>`],
+          ['Antes e depois', `<div class="eq">F = k · ${f('6q · 2q','d²')} = ${f('12kq²','d²')}</div><div class="eq">F′ = k · ${f('2q · 2q','d²')} = ${f('4kq²','d²')} = ${f('F','3')}</div>`],
+          ['Natureza', '<p>As duas esferas ficam positivas: <b>repulsão</b>.</p>']],
+  alt: 'A distância não muda, então só importa o produto das cargas: 6 × 2 = 12 antes e 2 × 2 = 4 depois. A força cai para 4/12 = 1/3 da original.',
+  warn: erros([['A) 3F, de repulsão:','inverte a razão entre as forças.'],['B) F/3, de atração:','calcula a intensidade, mas esquece que os sinais mudaram.'],['C) 4F/3, de repulsão:','soma as cargas sem sinal: (6q + 2q)/2 = 4q em cada.'],['D) 4F/3, de atração:','soma sem sinal e mantém a atração.']]) }
+];
+
+/* ---------- Lista 2 · Calor, ondas e luz ---------- */
+const TOOLS_E2 = [
+  ['Calorimetria', `Q = m · c · ΔT<br>Q = m · L`],
+  ['Rendimento e potência', `η = ${f('útil','total')} &nbsp;·&nbsp; P = ${f('Q','Δt')}<br>1 cal = 4,2 J`],
+  ['Escalas', `${f('θ<sub>C</sub>','5')} = ${f('θ<sub>F</sub> − 32','9')} = ${f('T − 273','5')}`],
+  ['Gases ideais', `p · V = n · R · T<br>${f('p₁V₁','T₁')} = ${f('p₂V₂','T₂')} (T em K)`],
+  ['Máquina térmica', `Q₁ = W + Q₂ &nbsp;·&nbsp; η = ${f('W','Q₁')}<br>η<sub>Carnot</sub> = 1 − ${f('T<sub>fria</sub>','T<sub>quente</sub>')}`],
+  ['Ondas', `v = λ · f &nbsp;·&nbsp; f<sub>n</sub> = ${f('n · v','2L')}<br>Luz: c = λ · f (c = 3,0 × 10⁸ m/s)`]
+];
+
+const Q_E2 = [
+{ src: src(13), nivel: 'básico',
+  text: `<p>Em uma feira de ciências, estudantes prenderam uma corda longa a um vibrador ajustado em 5,0 Hz. Uma foto da corda, tirada com uma régua ao fundo, permitiu montar o gráfico do perfil da onda em um instante.</p>
+${foto('q13', 'Perfil da onda na corda: deslocamento y, em centímetros, entre −10 e 10, em função da posição x, de 0 a 1,6 m. Há cristas em x = 0,2 m e x = 1,0 m e vales em x = 0,6 m e x = 1,4 m.', 400)}
+<p>A velocidade de propagação da onda na corda é</p>`,
+  opts: ['0,16 m/s.','0,50 m/s.','2,0 m/s.','4,0 m/s.','8,0 m/s.'], ans: 3,
+  hint: 'O comprimento de onda é a distância entre duas cristas consecutivas. Leia no eixo das posições.',
+  steps: [['Comprimento de onda', '<p>Cristas consecutivas em x = 0,2 m e x = 1,0 m:</p><div class="eq">λ = 1,0 − 0,2 = 0,8 m</div>'],
+          ['Velocidade', '<div class="eq">v = λ · f = 0,8 × 5,0 = 4,0 m/s</div>']],
+  alt: 'Entre um zero e o seguinte há só meia onda (0,4 m). O gráfico mostra duas ondas completas em 1,6 m, o que confirma λ = 0,8 m.',
+  warn: erros([['A) 0,16 m/s:','divide λ por f.'],['B) 0,50 m/s:','usa a amplitude (0,10 m) no lugar de λ.'],['C) 2,0 m/s:','lê λ como a distância entre dois zeros seguidos (0,4 m).'],['E) 8,0 m/s:','usa o trecho inteiro do gráfico (1,6 m) como λ.']]) },
+
+{ src: src(14), nivel: 'básico',
+  text: '<p>Fones de ouvido com cancelamento ativo de ruído têm microfones que captam sons constantes do ambiente, como o ronco das turbinas de um avião. Um circuito eletrônico analisa esse som e faz o alto-falante do fone emitir, além da música, uma onda sonora que reduz o ruído que chega ao ouvido. Com isso, a pessoa pode ouvir música em volume mais baixo e sente menos cansaço ao longo de um voo.</p><p>Para reduzir o ruído, a onda emitida pelo fone deve ter, em relação ao ruído,</p>',
+  opts: ['frequência maior e mesma fase.','mesma frequência e mesma fase.','mesma frequência e fase oposta.','frequência menor e fase oposta.','qualquer frequência, desde que tenha maior amplitude.'], ans: 2,
+  hint: 'Para que crista encontre vale o tempo todo, as duas ondas precisam “andar no mesmo ritmo”.',
+  steps: [['Fenômeno', '<p>O cancelamento é uma <b>interferência destrutiva</b>: as cristas da onda emitida devem coincidir com os vales do ruído.</p>'],
+          ['Condições', '<p>Isso exige a mesma frequência (para que a coincidência se mantenha) e oposição de fase: <b>mesma frequência e fase oposta</b>.</p>']],
+  alt: 'Some o gráfico do ruído com o mesmo gráfico “de cabeça para baixo”: o resultado é uma linha reta, silêncio. Uma onda de frequência diferente não consegue ser esse espelho.',
+  warn: erros([['A)','acha que um som “mais forte” ou mais agudo encobre o ruído.'],['B)','produz interferência construtiva: o ruído aumenta.'],['D)','com frequências diferentes, a oposição de fase não se mantém.'],['E)','confunde cancelamento com mascaramento do som.']]) },
+
+{ src: src(16), nivel: 'básico',
+  text: '<p>Quem está parado na calçada percebe que o som da sirene de uma ambulância fica mais agudo enquanto ela se aproxima e mais grave depois que ela passa, embora o motorista ouça sempre o mesmo som. Enquanto a ambulância se aproxima, o som parece mais agudo para o pedestre porque</p>',
+  opts: ['a velocidade do som aumenta no sentido em que a ambulância se move.','a sirene emite frequências maiores enquanto o veículo acelera.','a amplitude da onda aumenta e, por isso, o som fica mais agudo.','o comprimento de onda que chega ao ouvido do pedestre aumenta.','a frequência percebida aumenta, e a emitida continua a mesma.'], ans: 4,
+  hint: 'O motorista ouve sempre o mesmo som. O que muda, então: o som emitido ou o som percebido?',
+  steps: [['Efeito Doppler', '<p>Com a fonte se aproximando, as frentes de onda ficam mais próximas à frente dela.</p>'],
+          ['Consequência', '<p>O comprimento de onda percebido diminui e a <b>frequência percebida aumenta</b>: som mais agudo. A frequência emitida e a velocidade do som no ar não mudam.</p>']],
+  alt: 'A ambulância “persegue” as próprias ondas: cada nova crista é emitida mais perto da anterior. Crista mais perto de crista significa λ menor e som mais agudo.',
+  warn: erros([['A)','a velocidade do som depende do meio, não da fonte.'],['B)','a sirene emite sempre a mesma frequência (o motorista não percebe mudança).'],['C)','amplitude se relaciona à intensidade (volume), não à altura.'],['D)','o comprimento de onda percebido diminui, não aumenta.']]) },
+
+{ src: src(8), nivel: 'intermediário',
+  text: `<p>Em uma aula experimental de calorimetria, um professor queimou completamente 2,0 g de amendoim para aquecer 200 g de água, em um recipiente que reduz as perdas de calor. A embalagem do amendoim traz a informação nutricional abaixo.</p>
+${tabela(['Porção','Valor energético'],[['20 g','120 kcal']])}
+<p>Ao medir a temperatura da água no fim do experimento, ele concluiu que apenas 40% da energia do alimento foi aproveitada no aquecimento. O calor específico da água é 1 cal/(g·°C), e sua temperatura inicial era 20 °C. Qual foi a temperatura final da água?</p>`,
+  opts: ['24 °C','44 °C','56 °C','60 °C','80 °C'], ans: 1,
+  hint: 'Descubra a energia de 2,0 g de amendoim em calorias, aplique os 40% e use Q = m · c · ΔT. A pergunta é a temperatura final, não a variação.',
+  steps: [['Energia do amendoim', '<p>120 kcal/20 g = 6 kcal/g. Em 2,0 g: 12 kcal = 12 000 cal.</p>'],
+          ['Energia aproveitada', '<div class="eq">0,40 × 12 000 = 4 800 cal</div>'],
+          ['Aquecimento', '<div class="eq">4 800 = 200 × 1 × ΔT → ΔT = 24 °C</div><p>Temperatura final: 20 + 24 = <b>44 °C</b>.</p>']],
+  alt: 'Sem perdas, os 12 000 cal aqueceriam a água em 60 °C. Como só 40% foram aproveitados: 0,4 × 60 = 24 °C de aumento, de 20 °C para 44 °C.',
+  warn: erros([['A) 24 °C:','responde a variação, não a temperatura final.'],['C) 56 °C:','usa os 60% perdidos no lugar dos 40% aproveitados.'],['D) 60 °C:','ignora o rendimento e dá só a variação.'],['E) 80 °C:','ignora o rendimento (100% aproveitado).']]) },
+
+{ src: src(11), nivel: 'intermediário',
+  text: '<p>Rótulos de aerossóis trazem o aviso: não perfure nem exponha ao calor. Considere uma lata fechada, de volume constante, com gás a 3,0 atm e 27 °C, deixada perto de uma churrasqueira, onde atinge 127 °C. Tratando o conteúdo como gás ideal, a pressão interna passa a ser</p>',
+  opts: ['0,64 atm.','2,25 atm.','3,0 atm.','4,0 atm.','14 atm.'], ans: 3,
+  hint: 'Com volume constante, p/T é constante, com T em kelvin.',
+  steps: [['Temperaturas em kelvin', '<p>27 °C = 300 K e 127 °C = 400 K.</p>'],
+          ['Lei dos gases', `<div class="eq">${f('p₁','T₁')} = ${f('p₂','T₂')} → p₂ = 3,0 × ${f('400','300')} = 4,0 atm</div>`]],
+  alt: 'A temperatura absoluta aumentou 1/3 (de 300 K para 400 K); a pressão aumenta na mesma proporção: 3,0 + 1,0 = 4,0 atm.',
+  warn: erros([['A) 0,64 atm:','usa Celsius e inverte a proporção (3 × 27/127).'],['B) 2,25 atm:','inverte a proporção (3 × 300/400).'],['C) 3,0 atm:','acha que a pressão não muda com volume constante.'],['E) 14 atm:','usa temperaturas em Celsius (3 × 127/27).']]) },
+
+{ src: src(15), nivel: 'intermediário',
+  text: `<p>Em um instrumento de cordas, a parte vibrante de uma corda mede 50 cm e, tocada solta, emite a nota lá de 440 Hz no modo fundamental, ilustrado na figura. O músico então pressiona a corda contra o braço do instrumento, reduzindo o comprimento vibrante para 40 cm, sem alterar a tensão.</p>
+${foto('q15', 'Corda vibrando no modo fundamental: um único ventre entre dois nós, nas extremidades, separados por L = 50 cm.', 380)}
+<p>A nova frequência fundamental emitida pela corda é</p>`,
+  opts: ['352 Hz.','440 Hz.','550 Hz.','687,5 Hz.','880 Hz.'], ans: 2,
+  hint: 'Mesma corda e mesma tensão: a velocidade da onda não muda. No modo fundamental, λ = 2L.',
+  steps: [['Velocidade na corda', '<div class="eq">λ = 2 × 0,50 = 1,0 m → v = 1,0 × 440 = 440 m/s</div>'],
+          ['Novo comprimento de onda', '<div class="eq">λ′ = 2 × 0,40 = 0,80 m</div>'],
+          ['Nova frequência', `<div class="eq">f′ = ${f('v','λ′')} = ${f('440','0,80')} = 550 Hz</div>`]],
+  alt: 'Com v fixa, f é inversamente proporcional a L: f′ = 440 × 50/40 = 550 Hz. Corda mais curta, som mais agudo, como ao apertar uma casa do violão.',
+  warn: erros([['A) 352 Hz:','acha que f é proporcional a L (440 × 40/50).'],['B) 440 Hz:','acha que a frequência depende só da corda, não do comprimento.'],['D) 687,5 Hz:','acha que f é proporcional a 1/L².'],['E) 880 Hz:','confunde com o segundo harmônico (dobro da frequência).']]) },
+
+{ src: src(21), nivel: 'intermediário',
+  text: `<p>Discos ópticos guardam dados em cavidades microscópicas, lidas por um laser. Quanto menores as cavidades, mais dados cabem na mesma área do disco. O fator limitante é o espalhamento da luz por difração, que se torna importante quando as cavidades têm dimensões da ordem do comprimento de onda do laser. Por isso, cada nova geração de disco passou a usar lasers de comprimento de onda menor.</p>
+${tabela(['Tecnologia','Comprimento de onda do laser'],[['CD','780 nm'],['DVD','650 nm'],['Blu-ray','405 nm']])}
+<p>Considere c = 3,0 × 10⁸ m/s. A tecnologia que permite armazenar mais dados na mesma área e a frequência aproximada de seu laser são</p>`,
+  opts: ['CD; 3,8 × 10¹⁴ Hz.','DVD; 4,6 × 10¹⁴ Hz.','Blu-ray; 7,4 × 10¹⁴ Hz.','Blu-ray; 1,35 × 10⁻¹⁵ Hz.','CD; 7,4 × 10¹⁴ Hz.'], ans: 2,
+  hint: 'Menor λ permite cavidades menores. Depois use c = λ · f, com λ em metros (1 nm = 10⁻⁹ m).',
+  steps: [['Tecnologia', '<p>Menor comprimento de onda, cavidades menores, mais dados: <b>Blu-ray</b> (405 nm).</p>'],
+          ['Frequência', `<div class="eq">f = ${f('c','λ')} = ${f('3,0 × 10⁸','405 × 10⁻⁹')} ≈ 7,4 × 10¹⁴ Hz</div>`]],
+  alt: 'Frequência e comprimento de onda são inversamente proporcionais: o laser de menor λ tem, obrigatoriamente, a maior frequência. A alternativa E erra justamente ao associar a maior frequência ao CD, que tem o maior λ.',
+  warn: erros([['A) CD; 3,8 × 10¹⁴ Hz:','acha que maior λ lê cavidades menores.'],['B) DVD; 4,6 × 10¹⁴ Hz:','escolhe a tecnologia intermediária.'],['D) Blu-ray; 1,35 × 10⁻¹⁵ Hz:','divide λ por c (inverte a fórmula).'],['E) CD; 7,4 × 10¹⁴ Hz:','calcula certo a frequência, mas associa ao disco errado.']]) },
+
+{ src: src(9), nivel: 'avançado',
+  text: '<p>Para preparar um chá, uma pessoa aquece em um forno de micro-ondas 400 g de água em uma caneca de vidro de 200 g. A caneca e a água estavam a 10 °C e chegaram a 60 °C após 2 min, com o forno funcionando a 1 000 W. Considere os calores específicos do vidro e da água iguais a 0,2 cal/(g·°C) e 1,0 cal/(g·°C), respectivamente, e 1 cal = 4,2 J. Que percentual da energia consumida pelo forno foi efetivamente usado no aquecimento?</p>',
+  opts: ['18%','70%','77%','92%','130%'], ans: 2,
+  hint: 'Some o calor recebido pela água e pela caneca, converta para joules e compare com a energia que o forno consumiu (P · Δt).',
+  steps: [['Calor útil', '<p>Água: 400 × 1,0 × 50 = 20 000 cal · Caneca: 200 × 0,2 × 50 = 2 000 cal</p><div class="eq">Q = 22 000 cal = 92 400 J</div>'],
+          ['Energia consumida', '<div class="eq">E = P · Δt = 1 000 × 120 = 120 000 J</div>'],
+          ['Rendimento', `<div class="eq">${f('92 400','120 000')} = 0,77 = 77%</div>`]],
+  alt: 'Rendimento nunca passa de 100%: um resultado como 130% denuncia a razão invertida. E calor e energia elétrica precisam estar na mesma unidade (J) antes da divisão.',
+  warn: erros([['A) 18%:','não converte calorias em joules.'],['B) 70%:','esquece o calor absorvido pela caneca.'],['D) 92%:','usa ΔT = 60 °C (ignora a temperatura inicial).'],['E) 130%:','inverte a razão (total/útil).']]) },
+
+{ src: src(10), nivel: 'avançado',
+  text: `<p>Materiais de mudança de fase são usados em embalagens que mantêm refeições quentes: ao se solidificarem, liberam calor sem variar a temperatura. Para caracterizar um desses materiais, um laboratório aqueceu 200 g de uma amostra sólida, inicialmente a 20 °C, e registrou a temperatura em função do calor recebido.</p>
+${foto('q10', 'Gráfico de temperatura, em graus Celsius, em função do calor recebido Q, em calorias. A temperatura sobe de 20 °C a 80 °C entre 0 e 2 400 cal, fica constante em 80 °C entre 2 400 e 6 400 cal e depois sobe até 100 °C em 8 400 cal.', 400)}
+<p>O calor latente de fusão e o calor específico do material no estado sólido são, respectivamente,</p>`,
+  opts: ['12 cal/g e 0,20 cal/(g·°C).','20 cal/g e 0,15 cal/(g·°C).','32 cal/g e 0,20 cal/(g·°C).','32 cal/g e 0,15 cal/(g·°C).','20 cal/g e 0,20 cal/(g·°C).'], ans: 4,
+  hint: 'O patamar horizontal é a fusão: o calor recebido nele é m · L. O primeiro trecho inclinado é o sólido esquentando.',
+  steps: [['Calor latente', '<p>Patamar a 80 °C, de 2 400 cal a 6 400 cal: Q = 4 000 cal.</p><div class="eq">L = 4 000/200 = 20 cal/g</div>'],
+          ['Calor específico do sólido', '<p>De 20 °C a 80 °C (ΔT = 60 °C) com 2 400 cal:</p><div class="eq">2 400 = 200 × c × 60 → c = 0,20 cal/(g·°C)</div>']],
+  alt: 'Em um gráfico T × Q, o calor de cada etapa é a “largura” do trecho no eixo Q, não o valor onde o trecho termina. O patamar vai de 2 400 a 6 400: largura de 4 000 cal.',
+  warn: erros([['A) 12 cal/g e 0,20:','usa o trecho do sólido (2 400/200) como calor latente.'],['B) 20 cal/g e 0,15:','usa ΔT = 80 °C, lendo a temperatura a partir de zero.'],['C) 32 cal/g e 0,20:','usa 6 400 cal sem descontar o aquecimento do sólido.'],['D) 32 cal/g e 0,15:','comete os dois erros anteriores.']]) },
+
+{ src: src(12), nivel: 'avançado',
+  text: `<p>Em uma usina termelétrica, o vapor produzido na caldeira a 527 °C movimenta uma turbina ligada a um gerador. Ao sair da turbina, o vapor é condensado com água de um rio, a 27 °C, que volta mais quente ao leito, um impacto ambiental conhecido como poluição térmica. O esquema mostra o fluxo de energia a cada segundo.</p>
+${foto('q12', 'Esquema: a caldeira, fonte quente a 527 °C, fornece Q1 = 1 000 MW à turbina; a turbina entrega W = 350 MW à rede elétrica e rejeita Q2, desconhecido, para o rio, fonte fria a 27 °C.', 360)}
+<p>A potência térmica rejeitada para o rio e o rendimento máximo teórico (de Carnot) para essas temperaturas são, respectivamente,</p>`,
+  opts: ['650 MW e 62,5%.','650 MW e 95%.','350 MW e 62,5%.','650 MW e 35%.','1 350 MW e 37,5%.'], ans: 0,
+  hint: 'O calor rejeitado sai da conservação da energia. No rendimento de Carnot, as temperaturas têm de estar em kelvin.',
+  steps: [['Calor rejeitado', '<div class="eq">Q₂ = Q₁ − W = 1 000 − 350 = 650 MW</div>'],
+          ['Carnot', `<p>800 K e 300 K:</p><div class="eq">η = 1 − ${f('300','800')} = 0,625 = 62,5%</div>`],
+          ['Coerência', '<p>O rendimento real (350/1 000 = 35%) fica abaixo do máximo teórico, como exige a segunda lei.</p>']],
+  alt: 'Toda máquina térmica rejeita calor para a fonte fria. É esse calor (650 MW, quase o dobro da energia elétrica gerada) que esquenta o rio: a poluição térmica do enunciado.',
+  warn: erros([['B) 650 MW e 95%:','usa Celsius no rendimento de Carnot (1 − 27/527).'],['C) 350 MW e 62,5%:','confunde o calor rejeitado com o trabalho útil.'],['D) 650 MW e 35%:','dá o rendimento real, não o máximo teórico.'],['E) 1 350 MW e 37,5%:','soma Q₁ e W e calcula T<sub>fria</sub>/T<sub>quente</sub>.']]) }
+];
+
+/* ---------- Lista 3 · Movimento, forças e óptica ---------- */
+const TOOLS_E3 = [
+  ['Movimento uniforme', `v<sub>m</sub> = ${f('Δs','Δt')} &nbsp;·&nbsp; s = s₀ + v · t`],
+  ['Movimento uniformemente variado', `v = v₀ + a · t<br>s = s₀ + v₀ · t + ${f('a · t²','2')}<br>v² = v₀² + 2 · a · Δs`],
+  ['Rotação e transmissão', `v = 2π · R · f<br>f₁ · N₁ = f₂ · N₂ (N = nº de dentes)`],
+  ['Dinâmica', `F<sub>R</sub> = m · a &nbsp;·&nbsp; P = m · g<br>F<sub>at</sub> = μ · N &nbsp;·&nbsp; M = F · d`],
+  ['Fluidos', `d = ${f('m','V')}<br>E = d<sub>líq</sub> · V<sub>imerso</sub> · g`],
+  ['Óptica', `n₁ · sen θ₁ = n₂ · sen θ₂<br>V = ${f('1','f')} (f em metros)<br>Miopia: lente divergente`],
+  ['Conversão', `km/h ÷ 3,6 = m/s`]
+];
+
+const Q_E3 = [
+{ src: src(19), nivel: 'básico',
+  text: `<p>Um professor lança uma esfera verticalmente para cima e a apanha de volta no ponto de lançamento. Desprezando a resistência do ar, ele pede aos alunos que analisem as grandezas cinemáticas no instante em que a esfera, já descendo, passa pela metade da altura máxima. Para isso, apresenta o quadro de possibilidades.</p>
+${tabela(['Grandeza','Módulo','Sentido'],[['Velocidade (v)','nulo (v = 0) ou não nulo (v ≠ 0)','para cima ou para baixo'],['Aceleração (a)','nulo (a = 0) ou não nulo (a ≠ 0)','para cima ou para baixo']])}
+<p>Grandezas com módulo nulo não têm sentido definido. A combinação correta para esse instante é</p>`,
+  opts: ['v ≠ 0 para baixo e a ≠ 0 para baixo.','v ≠ 0 para baixo e a = 0.','v = 0 e a ≠ 0 para baixo, como no ponto mais alto.','v ≠ 0 para cima e a ≠ 0 para baixo.','v ≠ 0 para baixo e a ≠ 0 para cima.'], ans: 0,
+  hint: 'Durante todo o voo, só uma força age sobre a esfera (sem resistência do ar). O que isso diz sobre a aceleração?',
+  steps: [['Velocidade', '<p>Na descida, a esfera se move para baixo e ainda não parou: <b>v ≠ 0, para baixo</b>.</p>'],
+          ['Aceleração', '<p>A aceleração é a da gravidade em todo o movimento: constante, <b>não nula e para baixo</b>.</p>']],
+  alt: 'A aceleração é a mesma na subida, no ponto mais alto e na descida: g, para baixo. Só a velocidade muda de sentido.',
+  warn: erros([['B)','acha que a aceleração é nula porque a gravidade “já agiu”.'],['C)','repete a resposta do ponto mais alto.'],['D)','usa o sentido do movimento de subida.'],['E)','acha que a aceleração se opõe à velocidade em qualquer caso.']]) },
+
+{ src: src(22), nivel: 'básico',
+  text: `<p>Um raio de luz monocromática passa do ar para um bloco de plástico transparente de índice de refração √2, incidindo com ângulo de 45° em relação à normal, como mostra a figura.</p>
+${foto('q22', 'Raio de luz no ar incidindo na superfície de um bloco de plástico com índice de refração raiz de 2, formando 45 graus com a normal; o raio refratado está indicado com interrogação.', 300)}
+<p>Considere o índice de refração do ar igual a 1, sen 45° = √2/2 e sen 30° = 1/2. O ângulo de refração, medido em relação à normal, é</p>`,
+  opts: ['15°.','30°.','45°.','60°.','90°.'], ans: 1,
+  hint: 'Use n₁ · sen θ₁ = n₂ · sen θ₂, com os dois ângulos medidos a partir da normal.',
+  steps: [['Lei de Snell', '<div class="eq">1 × sen 45° = √2 × sen r</div>'],
+          ['Cálculo', `<div class="eq">sen r = ${f('√2/2','√2')} = ${f('1','2')} → r = 30°</div>`],
+          ['Coerência', '<p>Ao entrar no meio mais refringente, o raio se aproxima da normal (30° &lt; 45°).</p>']],
+  alt: 'Antes da conta, dá para descartar 45° (o raio não desviaria) e também 60° e 90° (o raio se afastaria da normal ao entrar em um meio mais refringente).',
+  warn: erros([['A) 15°:','responde o desvio (45° − 30°).'],['C) 45°:','acha que a luz não muda de direção.'],['D) 60°:','mede o ângulo em relação à superfície.'],['E) 90°:','inverte os índices (sen r = √2 × √2/2 = 1).']]) },
+
+{ src: src(17), nivel: 'básico',
+  text: '<p>Um ciclista vai de casa até um parque, a 12 km de distância, mantendo 24 km/h. Na volta, cansado e contra o vento, faz o mesmo trajeto a 12 km/h. A velocidade escalar média do ciclista no percurso de ida e volta foi</p>',
+  opts: ['12 km/h.','16 km/h.','18 km/h.','24 km/h.','36 km/h.'], ans: 1,
+  hint: 'Velocidade média é a distância total dividida pelo tempo total. Calcule o tempo de cada trecho.',
+  steps: [['Tempos', '<p>Ida: 12/24 = 0,5 h · Volta: 12/12 = 1,0 h</p>'],
+          ['Velocidade média', `<div class="eq">v<sub>m</sub> = ${f('24 km','1,5 h')} = 16 km/h</div>`]],
+  alt: 'O ciclista passa o dobro do tempo no trecho lento, por isso a média fica mais perto de 12 do que de 24. A média aritmética (18 km/h) daria o mesmo peso aos dois trechos.',
+  warn: erros([['A) 12 km/h:','usa só a velocidade da volta.'],['C) 18 km/h:','faz a média aritmética das velocidades.'],['D) 24 km/h:','usa só a velocidade da ida.'],['E) 36 km/h:','soma as velocidades.']]) },
+
+{ src: src(23), nivel: 'intermediário',
+  text: '<p>Ao fazer um exame de vista, uma estudante descobriu que enxerga bem objetos próximos, mas só vê com nitidez objetos até 50 cm de distância (seu ponto remoto). A lente corretiva deve formar, de um objeto muito distante, uma imagem virtual nesse ponto remoto. O defeito da estudante e a lente indicada na receita são</p>',
+  opts: ['hipermetropia, corrigida com lente convergente de +2,0 di.','miopia, corrigida com lente convergente de +2,0 di.','hipermetropia, corrigida com lente divergente de −2,0 di.','miopia, corrigida com lente divergente de −0,5 di.','miopia, corrigida com lente divergente de −2,0 di.'], ans: 4,
+  hint: 'Vê bem de perto e mal de longe: qual é o defeito? Depois, a lente deve ter o foco no ponto remoto, e a vergência usa f em metros.',
+  steps: [['Defeito', '<p>Ponto remoto próximo do olho (50 cm) caracteriza a <b>miopia</b>.</p>'],
+          ['Lente', '<p>Para um objeto no infinito, a imagem fica no foco: foco virtual a 50 cm, f = −0,50 m (lente divergente).</p>'],
+          ['Vergência', `<div class="eq">V = ${f('1','f')} = ${f('1','−0,50')} = −2,0 di</div><p>É o “−2,00 graus” da receita.</p>`]],
+  alt: 'Grau negativo na receita é sempre lente divergente, a marca da miopia. O número sai de 1 dividido pelo ponto remoto em metros: 1/0,5 = 2.',
+  warn: erros([['A)','confunde o defeito e o tipo de lente.'],['B)','acerta o defeito, mas usa lente convergente.'],['C)','acerta a lente, mas troca o defeito.'],['D)','responde a distância focal (0,5 m) no lugar da vergência.']]) },
+
+{ src: src(24), nivel: 'intermediário',
+  text: `<p>Em um dia sem vento, um paraquedista salta de um avião e cai verticalmente até atingir uma velocidade limite. No instante t₁, ele abre o paraquedas, e sua velocidade de queda diminui até o instante t₂, a partir do qual passa a cair com uma nova velocidade constante, bem menor, que permite um pouso seguro. O gráfico representa a velocidade de queda ao longo do tempo.</p>
+${foto('q24', 'Gráfico da velocidade de queda em função do tempo: a velocidade cresce e se estabiliza; em t1 cai rapidamente e, a partir de t2, fica constante em um valor bem menor.', 400)}
+<p>Entre os instantes t₁ e t₂, a força de resistência do ar sobre o conjunto paraquedista + paraquedas é</p>`,
+  opts: ['maior que o peso, com resultante para cima.','menor que o peso, com resultante para baixo.','igual ao peso, com resultante nula.','maior que o peso, com resultante para baixo.','menor que o peso, com resultante para cima.'], ans: 0,
+  hint: 'Entre t₁ e t₂ o conjunto continua descendo, mas cada vez mais devagar. Para que lado aponta a aceleração?',
+  steps: [['Aceleração', '<p>A velocidade de queda diminui: a aceleração aponta <b>para cima</b>.</p>'],
+          ['Segunda lei de Newton', '<p>A resultante tem o sentido da aceleração. Resultante para cima: a resistência do ar é <b>maior que o peso</b>.</p>'],
+          ['Comparação', '<p>Nos trechos de velocidade constante (velocidade limite), a resistência do ar se iguala ao peso e a resultante é nula.</p>']],
+  alt: 'É como numa freada de carro: o carro ainda anda para a frente, mas a força resultante aponta para trás. Aqui, o paraquedista ainda desce, mas a resultante aponta para cima.',
+  warn: erros([['B)','acha que, se ainda desce, a resultante aponta para baixo.'],['C)','confunde o trecho de frenagem com o de velocidade constante.'],['D)','associa a resultante ao sentido do movimento.'],['E)','combinação impossível: com resistência menor que o peso, a resultante seria para baixo.']]) },
+
+{ src: src(25), nivel: 'intermediário',
+  text: '<p>Um carro trafega a 72 km/h por uma pista horizontal quando o motorista freia bruscamente e as rodas travam. Nesse caso, a força que faz o carro parar é o atrito cinético entre os pneus e o asfalto. Com a pista seca, o coeficiente de atrito cinético é 0,8; com a pista molhada, cai para 0,4. Considere g = 10 m/s². Na pista molhada, a distância percorrida desde o travamento das rodas até a parada é</p>',
+  opts: ['5,0 m.','25 m.','50 m.','100 m.','500 m.'], ans: 2,
+  hint: 'A desaceleração causada pelo atrito é a = μ · g (a massa se cancela). Converta 72 km/h para m/s e use Torricelli.',
+  steps: [['Desaceleração', '<div class="eq">F<sub>at</sub> = μ · m · g = m · a → a = μ · g = 0,4 × 10 = 4 m/s²</div>'],
+          ['Velocidade inicial', '<p>72 km/h ÷ 3,6 = 20 m/s</p>'],
+          ['Torricelli', '<div class="eq">0 = 20² − 2 × 4 × d → d = 400/8 = 50 m</div>']],
+  alt: 'A distância de frenagem é inversamente proporcional a μ: com metade do atrito, o dobro da distância. Na pista seca seriam 25 m; na molhada, 50 m.',
+  warn: erros([['A) 5,0 m:','calcula o tempo de frenagem (v₀/a = 5 s) e o toma por distância.'],['B) 25 m:','usa o coeficiente da pista seca.'],['D) 100 m:','esquece o fator 2 de Torricelli (v²/a).'],['E) 500 m:','usa a = μ, sem multiplicar por g.']]) },
+
+{ src: src(30), nivel: 'intermediário',
+  text: `<p>O carrinho de mão funciona como uma alavanca: o eixo da roda é o ponto de apoio, e a carga fica entre o apoio e as mãos de quem o empurra. Um pedreiro transporta areia; o peso total do carrinho com a carga é 600 N, aplicado a 0,40 m do eixo da roda, e ele segura os cabos a 1,20 m do eixo (distâncias horizontais), como mostra o esquema.</p>
+${foto('q30', 'Carrinho de mão: o peso P = 600 N atua a 0,40 m do eixo da roda; a força F, vertical e para cima, é aplicada nos cabos a 1,20 m do eixo.', 380)}
+<p>Para manter o carrinho em equilíbrio nessa posição, a força vertical que o pedreiro aplica nos cabos é</p>`,
+  opts: ['150 N.','200 N.','300 N.','600 N.','1 800 N.'], ans: 1,
+  hint: 'Calcule os momentos em relação ao eixo da roda: o momento do peso deve ser equilibrado pelo momento da força das mãos.',
+  steps: [['Momentos', '<div class="eq">F × 1,20 = 600 × 0,40</div>'],
+          ['Cálculo', '<div class="eq">F = 240/1,20 = 200 N</div>'],
+          ['Interpretação', '<p>A roda sustenta os outros 400 N. Quanto mais perto da roda estiver a carga, menor o esforço.</p>']],
+  alt: 'O braço das mãos (1,20 m) é 3 vezes o braço do peso (0,40 m), então a força nas mãos é 3 vezes menor que o peso: 600/3 = 200 N.',
+  warn: erros([['A) 150 N:','soma as distâncias e usa 1,60 m como braço da força.'],['C) 300 N:','acha que o peso se divide igualmente entre a roda e as mãos.'],['D) 600 N:','acha que o pedreiro sustenta todo o peso.'],['E) 1 800 N:','inverte os braços de alavanca.']]) },
+
+{ src: src(18), nivel: 'avançado',
+  text: `<p>O gráfico mostra a velocidade de um carro desde o instante em que o motorista, atento, vê um obstáculo na pista até o carro parar. Durante o tempo de reação, o carro segue com velocidade constante; depois, freia com desaceleração constante.</p>
+${foto('q18', 'Gráfico da velocidade, em m/s, em função do tempo, em segundos: 20 m/s constantes de 0 a 0,8 s; depois a velocidade cai em linha reta até zero em 4,8 s.', 400)}
+<p>Suponha que, distraído com o celular, o motorista demore 1,0 s a mais para reagir e depois freie da mesma forma. Nessa situação, a distância total percorrida desde a visão do obstáculo até a parada seria</p>`,
+  opts: ['16 m.','20 m.','36 m.','56 m.','76 m.'], ans: 4,
+  hint: 'Distância é a área sob o gráfico v × t. Só o trecho de reação muda com a distração; a frenagem continua igual.',
+  steps: [['Reação do distraído', '<div class="eq">20 × (0,8 + 1,0) = 36 m</div>'],
+          ['Frenagem', `<p>Triângulo de 4,0 s de base:</p><div class="eq">${f('20 × 4,0','2')} = 40 m</div>`],
+          ['Total', '<div class="eq">36 + 40 = 76 m</div><p>Contra 56 m do motorista atento.</p>']],
+  alt: 'Atalho: o motorista atento percorre 16 + 40 = 56 m. Cada segundo a mais de reação, a 20 m/s, acrescenta 20 m: 56 + 20 = 76 m.',
+  warn: erros([['A) 16 m:','dá só a distância de reação do motorista atento.'],['B) 20 m:','dá só o acréscimo causado pela distração.'],['C) 36 m:','dá só a distância de reação do distraído.'],['D) 56 m:','calcula a situação do motorista atento.']]) },
+
+{ src: src(20), nivel: 'avançado',
+  text: '<p>Em uma bicicleta, a coroa, ligada aos pedais, tem 48 dentes, e a catraca, presa à roda traseira, tem 16 dentes; as duas são ligadas pela corrente. Um ciclista pedala com frequência de 1 volta por segundo. A roda traseira tem raio de 0,35 m e gira em rotação uniforme junto com a catraca. Considere π = 3 e que a roda não desliza no chão. A velocidade da bicicleta é</p>',
+  opts: ['0,7 m/s.','2,1 m/s.','3,15 m/s.','6,3 m/s.','12,6 m/s.'], ans: 3,
+  hint: 'A corrente transmite o mesmo número de dentes por segundo na coroa e na catraca. A roda gira junto com a catraca.',
+  steps: [['Catraca', '<div class="eq">f<sub>coroa</sub> · N<sub>coroa</sub> = f<sub>catraca</sub> · N<sub>catraca</sub> → f<sub>catraca</sub> = 1 × 48/16 = 3 Hz</div>'],
+          ['Roda', '<p>A roda tem a mesma frequência da catraca: 3 Hz.</p>'],
+          ['Velocidade', '<div class="eq">v = 2π · R · f = 2 × 3 × 0,35 × 3 = 6,3 m/s</div><p>Cerca de 23 km/h.</p>']],
+  alt: 'Uma pedalada faz a roda dar 3 voltas (48/16). Cada volta avança uma circunferência: 2 × 3 × 0,35 = 2,1 m. Uma pedalada por segundo dá 3 × 2,1 = 6,3 m por segundo.',
+  warn: erros([['A) 0,7 m/s:','inverte a relação de dentes (f = 1/3 Hz).'],['B) 2,1 m/s:','usa a frequência dos pedais (1 Hz) na roda.'],['C) 3,15 m/s:','esquece o fator 2 em v = 2πRf.'],['E) 12,6 m/s:','usa o diâmetro (0,70 m) como raio.']]) },
+
+{ src: src(28), nivel: 'avançado',
+  text: `<p>Um bloco maciço de madeira flutua em água, em equilíbrio, com 60% de sua altura submersa, como mostra a figura. Considere a densidade da água igual a 1,0 g/cm³.</p>
+${foto('q28', 'Bloco de madeira flutuando na água com 60% da altura submersa.', 280)}
+<p>Se o mesmo bloco for colocado em um óleo de densidade 0,80 g/cm³, a fração de sua altura que ficará submersa será</p>`,
+  opts: ['40%.','48%.','60%.','75%.','80%.'], ans: 3,
+  hint: 'No equilíbrio, peso = empuxo. Daí sai que a fração submersa é d<sub>bloco</sub>/d<sub>líquido</sub>.',
+  steps: [['Equilíbrio', `<div class="eq">d<sub>bloco</sub> · V · g = d<sub>líq</sub> · V<sub>imerso</sub> · g → ${f('V<sub>imerso</sub>','V')} = ${f('d<sub>bloco</sub>','d<sub>líq</sub>')}</div>`],
+          ['Densidade do bloco', '<p>Na água, 60% submerso: d<sub>bloco</sub> = 0,60 g/cm³.</p>'],
+          ['No óleo', `<div class="eq">${f('0,60','0,80')} = 0,75 = 75%</div>`]],
+  alt: 'Um líquido menos denso empurra menos por volume submerso: o bloco precisa afundar mais para gerar o mesmo empuxo (que continua igual ao peso). Por isso a resposta tem de ser maior que 60%.',
+  warn: erros([['A) 40%:','dá a fração emersa na água.'],['B) 48%:','multiplica as densidades (0,60 × 0,80).'],['C) 60%:','acha que a fração submersa não depende do líquido.'],['E) 80%:','usa a densidade do óleo como fração submersa.']]) }
+];
+
+/* ===== Formulário do aulão (página de consulta) ===== */
+const FORMULARIO = [
+  ['Eletrodinâmica', [
+    ['Leis de Ohm', `U = R · i &nbsp;;&nbsp; R = ρ · ${f('L','A')}`],
+    ['Potência elétrica', `P = U · i = R · i² = ${f('U²','R')}`],
+    ['Energia elétrica', `E = P · Δt <small>(kWh: P em kW, Δt em h)</small>`],
+    ['Resistores em série e em paralelo', `R<sub>eq</sub> = R₁ + R₂ + … <br>${f('1','R<sub>eq</sub>')} = ${f('1','R₁')} + ${f('1','R₂')} + …`],
+    ['Gerador real e geradores em série', `U = ε − r · i &nbsp;;&nbsp; ε<sub>eq</sub> = ε₁ + ε₂`]]],
+  ['Magnetismo', [
+    ['Transformador ideal', `${f('U₁','U₂')} = ${f('N₁','N₂')} = ${f('i₂','i₁')}<br><small>U₁ · i₁ = U₂ · i₂: i é inversamente proporcional a U e a N</small>`],
+    ['Lei de Faraday e fluxo magnético', `ε = −N · ${f('ΔΦ','Δt')} &nbsp;;&nbsp; Φ = B · A · cos θ<br><small>N espiras; θ entre B e a normal</small>`]]],
+  ['Termologia', [
+    ['Calor sensível e latente', `Q = m · c · ΔT &nbsp;;&nbsp; Q = m · L`],
+    ['Potência térmica e condução', `P = ${f('Q','Δt')} = ${f('k · A · ΔT','e')}<br><small>k: condutividade; e: espessura</small>`],
+    ['Escalas termométricas', `${f('θ<sub>C</sub>','5')} = ${f('θ<sub>F</sub> − 32','9')} = ${f('T − 273','5')}`],
+    ['Dilatação linear', `ΔL = L₀ · α · ΔT`],
+    ['Gases ideais', `p · V = n · R · T &nbsp;;&nbsp; ${f('p₁V₁','T₁')} = ${f('p₂V₂','T₂')}<br><small>T em K; R = 0,082 atm·L/(mol·K) = 8,31 J/(mol·K)</small>`],
+    ['Máquina térmica', `Q₁ = W + Q₂ &nbsp;;&nbsp; η = ${f('W','Q₁')}<br>η<sub>Carnot</sub> = 1 − ${f('T<sub>fria</sub>','T<sub>quente</sub>')}`]]],
+  ['Ondulatória', [
+    ['Equação fundamental e corda vibrante', `v = λ · f &nbsp;;&nbsp; f<sub>n</sub> = ${f('n · v','2L')}<br><small>harmônico n</small>`]]],
+  ['Cinemática', [
+    ['Velocidade média e movimento uniforme', `v<sub>m</sub> = ${f('Δs','Δt')} &nbsp;;&nbsp; s = s₀ + v · t`],
+    ['Movimento uniformemente variado', `v = v₀ + a · t<br>s = s₀ + v₀ · t + ${f('a · t²','2')}<br>v² = v₀² + 2 · a · Δs`],
+    ['Rotação uniforme e transmissão', `v = 2π · R · f &nbsp;;&nbsp; f₁N₁ = f₂N₂<br><small>N = nº de dentes</small>`]]],
+  ['Dinâmica e energia', [
+    ['Newton, peso e atrito', `F<sub>R</sub> = m · a &nbsp;;&nbsp; P = m · g<br>F<sub>at</sub> = μ · N`],
+    ['Trabalho e potência', `τ = F · d · cos θ &nbsp;;&nbsp; P = ${f('ΔE','Δt')}`],
+    ['Energias', `E<sub>c</sub> = ${f('m · v²','2')} &nbsp;;&nbsp; E<sub>p</sub> = m · g · h<br>E<sub>el</sub> = ${f('k · x²','2')} &nbsp;;&nbsp; E<sub>M</sub> = E<sub>c</sub> + E<sub>p</sub><br><small>sem atrito, a energia mecânica se conserva</small>`],
+    ['Quantidade de movimento e impulso', `Q = m · v &nbsp;;&nbsp; I = F · Δt = ΔQ<br><small>sistema isolado: Q se conserva</small>`],
+    ['Momento de uma força', `M = F · d<br><small>equilíbrio: soma dos momentos nula</small>`]]],
+  ['Fluidos', [
+    ['Pressão e densidade', `p = ${f('F','A')} &nbsp;;&nbsp; d = ${f('m','V')}`],
+    ['Stevin e prensa hidráulica', `p = p₀ + d · g · h &nbsp;;&nbsp; ${f('F₁','A₁')} = ${f('F₂','A₂')}`],
+    ['Empuxo', `E = d<sub>líq</sub> · V<sub>imerso</sub> · g`]]],
+  ['Eletrostática', [
+    ['Lei de Coulomb', `F = k · ${f('|q₁| · |q₂|','d²')}`],
+    ['Esferas condutoras em contato', `Q′ = ${f('Q<sub>A</sub> + Q<sub>B</sub>','2')} &nbsp;;&nbsp; ${f('Q′<sub>A</sub>','R<sub>A</sub>')} = ${f('Q′<sub>B</sub>','R<sub>B</sub>')}<br><small>iguais: carga dividida igualmente; raios diferentes: carga proporcional ao raio</small>`]]],
+  ['Óptica', [
+    ['Luz e refração', `c = λ · f &nbsp;;&nbsp; n = ${f('c','v')}<br>n₁ · sen θ₁ = n₂ · sen θ₂<br><small>c = 3,0 × 10⁸ m/s</small>`],
+    ['Lentes e espelhos', `${f('1','f')} = ${f('1','p')} + ${f('1','p′')} &nbsp;;&nbsp; A = ${f('i','o')} = −${f('p′','p')}<br><small>f &gt; 0: convergente ou côncavo; f &lt; 0: divergente ou convexo; p′ &lt; 0: imagem virtual</small>`],
+    ['Vergência, o “grau”', `V = ${f('1','f')}<br><small>V em dioptrias, f em metros</small>`],
+    ['Defeitos da visão', `Miopia (não vê bem de longe) → lente divergente<br>Hipermetropia e presbiopia (não vê bem de perto) → lente convergente<br>Astigmatismo → lente cilíndrica`]]],
+  ['Gravitação e física moderna', [
+    ['Gravitação universal', `F = G · ${f('M · m','d²')}<br><small>G = 6,7 × 10⁻¹¹ N·m²/kg²</small>`],
+    ['Energia de um fóton', `E = h · f<br><small>h = 6,6 × 10⁻³⁴ J·s</small>`]]]
+];
+
+/* ===== Indução eletromagnética · Listas 1 e 2 (vindas do site do 3º ano) ===== */
+/* ===== figuras ===== */
+/* ----- campo entrando no papel (marcas ×) ----- */
+const campoX = (xs, ys) => xs.map(x => ys.map(y => `<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" font-size="14" fill="#9aa0aa">×</text>`).join('')).join('');
+const SETA = id => `<defs><marker id="${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1d2433"/></marker></defs>`;
+
+/* Lista 1 · Q2 — espira quadrada em campo uniforme */
+const FIG_ESPIRA_Q = `<figure class="fig figw"><svg class="plot" viewBox="0 0 260 210" role="img" aria-label="Espira quadrada de lado 20 cm em campo magnético uniforme de 0,50 T entrando no papel">
+  ${campoX([25,55,85,115,145,175,205,235],[35,65,95,125,155,185])}
+  <rect x="70" y="50" width="120" height="120" fill="none" stroke="#b5602a" stroke-width="4"/>
+  <path d="M70 196 H190 M70 190 V202 M190 190 V202" stroke="#1d2433" stroke-width="1.3"/>
+  <rect x="104" y="188" width="52" height="16" fill="#fffdf9"/>
+  <text x="130" y="200" text-anchor="middle" font-size="13" fill="#1d2433">20 cm</text>
+  <rect x="150" y="6" width="104" height="18" rx="4" fill="#fffdf9" stroke="#e2dbcf"/>
+  <text x="202" y="19" text-anchor="middle" font-size="12" fill="#1d2433">B = 0,50 T (⊗)</text>
+</svg></figure>`;
+
+/* trilhos com barra móvel e resistor (Lista 1 · Q7 e Lista 2 · Q3) */
+function figTrilhos(id, o){
+  const forca = o.F ? `<path d="M204 112 L250 112" stroke="#d2433a" stroke-width="2.5" marker-end="url(#${id}f)"/><text x="256" y="117" font-size="13" font-weight="700" fill="#d2433a">F</text>
+    <defs><marker id="${id}f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#d2433a"/></marker></defs>` : '';
+  return `<figure class="fig figw"><svg class="plot" viewBox="0 0 300 180" role="img" aria-label="Barra condutora deslizando sobre trilhos ligados por um resistor, em campo magnético entrando no papel">
+  ${SETA(id)}
+  ${campoX([112,142,172],[70,100,128])}
+  <path d="M40 45 H290 M40 135 H290" stroke="#1d2433" stroke-width="3"/>
+  <path d="M40 45 V70 l-8 4 l16 8 l-16 8 l16 8 l-16 8 l8 4 V135" fill="none" stroke="#1d2433" stroke-width="2.5"/>
+  <text x="52" y="94" font-size="12" fill="#1d2433">R = ${o.R}</text>
+  <rect x="196" y="38" width="8" height="104" rx="2" fill="#b5602a"/>
+  <text x="212" y="88" font-size="12" fill="#1d2433">L = ${o.L}</text>
+  <path d="M200 28 L250 28" stroke="#1d2433" stroke-width="2" marker-end="url(#${id})"/>
+  <text x="224" y="20" text-anchor="middle" font-size="12" fill="#1d2433">v = ${o.v}</text>
+  ${forca}
+  <text x="150" y="166" text-anchor="middle" font-size="12" fill="#5b6475">B = ${o.B}, entrando no papel (⊗)</text>
+</svg></figure>`;
+}
+const FIG_TRILHOS_L1 = figTrilhos('tr1', { R:'2,0 Ω', L:'0,40 m', v:'5,0 m/s', B:'0,50 T' });
+const FIG_TRILHOS_L2 = figTrilhos('tr2', { R:'4,0 Ω', L:'0,50 m', v:'5,0 m/s', B:'0,80 T', F:true });
+
+/* Lista 1 · Q10 — transformador */
+const FIG_TRAFO = `<figure class="fig figw"><svg class="plot" viewBox="0 0 320 180" role="img" aria-label="Transformador: primário de 1000 espiras ligado a 220 V alternados; secundário de 50 espiras ligado a uma lâmpada percorrida por 2,0 A">
+  <path d="M100 35 H220 V145 H100 Z M125 60 V120 H195 V60 Z" fill="#cfc9bf" fill-rule="evenodd"/>
+  <text x="160" y="27" text-anchor="middle" font-size="11" fill="#5b6475">núcleo de ferro</text>
+  <g fill="none" stroke="#b5602a" stroke-width="2.5">${[66,76,86,96,106,116].map(y=>`<ellipse cx="112.5" cy="${y}" rx="17" ry="4"/>`).join('')}
+  ${[78,96,114].map(y=>`<ellipse cx="207.5" cy="${y}" rx="17" ry="4"/>`).join('')}</g>
+  <path d="M96 66 H50 V82 M50 108 V124 H96 V116" fill="none" stroke="#1d2433" stroke-width="2"/>
+  <circle cx="50" cy="95" r="13" fill="#fffdf9" stroke="#1d2433" stroke-width="2"/><text x="50" y="100" text-anchor="middle" font-size="16" fill="#1d2433">~</text>
+  <path d="M224 78 H270 V88 M270 112 V124 H224 V114" fill="none" stroke="#1d2433" stroke-width="2"/>
+  <circle cx="270" cy="100" r="12" fill="#fff6dc" stroke="#1d2433" stroke-width="2"/><path d="M262 92 L278 108 M278 92 L262 108" stroke="#1d2433" stroke-width="1.5"/>
+  <text x="50" y="146" text-anchor="middle" font-size="12" fill="#1d2433">U₁ = 220 V</text>
+  <text x="112" y="164" text-anchor="middle" font-size="12" fill="#1d2433">N₁ = 1000</text>
+  <text x="208" y="164" text-anchor="middle" font-size="12" fill="#1d2433">N₂ = 50</text>
+  <text x="272" y="146" text-anchor="middle" font-size="12" fill="#1d2433">i₂ = 2,0 A</text>
+</svg></figure>`;
+
+/* Lista 2 · Q1 — campo inclinado em relação ao plano da espira */
+const FIG_ANGULO = `<figure class="fig figw"><svg class="plot" viewBox="0 0 300 175" role="img" aria-label="Espira vista de lado; linhas de campo inclinadas formando 60 graus com o plano da espira">
+  ${SETA('ang')}
+  <path d="M110 112 V22" stroke="#5b6475" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="114" y="24" font-size="12" fill="#5b6475">normal</text>
+  <g stroke="#2f66c6" stroke-width="2" marker-end="url(#ang)">
+    <path d="M65 153 L135 32"/><path d="M145 153 L215 32"/><path d="M225 153 L285 49"/>
+  </g>
+  <text x="222" y="30" font-size="13" font-weight="700" fill="#2f66c6">B</text>
+  <path d="M60 110 H260" stroke="#b5602a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M195 110 A25 25 0 0 0 182.5 88.4" fill="none" stroke="#1d2433" stroke-width="1.5"/>
+  <text x="199" y="99" font-size="12" fill="#1d2433">60°</text>
+  <text x="160" y="170" text-anchor="middle" font-size="12" fill="#5b6475">espira de raio 10 cm (vista de lado) · B = 0,40 T</text>
+</svg></figure>`;
+
+/* Lista 2 · Q5 — duas bobinas, pilha, chave e galvanômetro */
+const FIG_BOBINAS = `<figure class="fig figw"><svg class="plot" viewBox="40 12 230 160" role="img" aria-label="Bobina 1 ligada a uma pilha e a uma chave; bobina 2, ao lado, ligada a um galvanômetro">
+  <g fill="none" stroke="#b5602a" stroke-width="2.5">${[70,80,90,100,110].map(x=>`<ellipse cx="${x}" cy="60" rx="5" ry="22"/>`).join('')}
+  ${[190,200,210,220,230].map(x=>`<ellipse cx="${x}" cy="60" rx="5" ry="22"/>`).join('')}</g>
+  <text x="90" y="28" text-anchor="middle" font-size="12" fill="#1d2433">bobina 1</text>
+  <text x="210" y="28" text-anchor="middle" font-size="12" fill="#1d2433">bobina 2</text>
+  <path d="M70 82 V130 H82 M90 130 H98 M111 130 V82" fill="none" stroke="#1d2433" stroke-width="2"/>
+  <path d="M82 118 V142" stroke="#1d2433" stroke-width="2.5"/><path d="M90 124 V136" stroke="#1d2433" stroke-width="4"/>
+  <circle cx="98" cy="130" r="2.5" fill="#1d2433"/><circle cx="111" cy="130" r="2.5" fill="#1d2433"/>
+  <path d="M98 130 L110 119" stroke="#1d2433" stroke-width="2"/>
+  <text x="74" y="160" text-anchor="middle" font-size="11" fill="#5b6475">pilha</text>
+  <text x="118" y="160" text-anchor="middle" font-size="11" fill="#5b6475">chave</text>
+  <path d="M190 82 V130 H199 M221 130 H230 V82" fill="none" stroke="#1d2433" stroke-width="2"/>
+  <circle cx="210" cy="130" r="11" fill="#fffdf9" stroke="#1d2433" stroke-width="2"/><text x="210" y="135" text-anchor="middle" font-size="12" font-weight="700" fill="#1d2433">G</text>
+  <text x="210" y="160" text-anchor="middle" font-size="11" fill="#5b6475">galvanômetro</text>
+</svg></figure>`;
+
+/* Lista 2 · Q6 — tabela de transmissão */
+const TAB_TRANSMISSAO = `<div class="tblwrap tbl-txt"><table class="dtab"><thead><tr><th>Tensão de transmissão</th><th>Corrente na linha</th><th>Potência perdida na linha</th></tr></thead>
+<tbody><tr><td>1 000 V</td><td>100 A</td><td>20 kW</td></tr><tr><td>10 000 V<br><small>(elevada por transformador)</small></td><td>?</td><td>?</td></tr></tbody></table></div>`;
+
+const FIG_LENZ = `<figure class="fig figw"><svg class="plot" viewBox="0 0 300 110" role="img" aria-label="Ímã com o polo norte voltado para uma espira, aproximando-se dela">
+  <text x="4" y="40" font-size="12" fill="#5b6475">observador</text>
+  <path d="M10 50 L48 50" stroke="#5b6475" stroke-width="1.5" marker-end="url(#ah)"/>
+  <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5b6475"/></marker>
+  <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1d2433"/></marker></defs>
+  <rect x="68" y="44" width="40" height="22" fill="#2f66c6"/><text x="88" y="60" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">S</text>
+  <rect x="108" y="44" width="40" height="22" fill="#d2433a"/><text x="128" y="60" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">N</text>
+  <path d="M158 55 L198 55" stroke="#1d2433" stroke-width="2" marker-end="url(#ah2)"/><text x="176" y="47" font-size="13" font-style="italic" fill="#1d2433">v</text>
+  <ellipse cx="240" cy="55" rx="14" ry="42" fill="none" stroke="#b5602a" stroke-width="4"/>
+  <text x="262" y="102" font-size="12" fill="#5b6475">espira</text>
+</svg></figure>`;
+
+const FIG_GRAF = `<figure class="fig figw"><svg class="plot" viewBox="0 0 280 160" role="img" aria-label="Gráfico de B em função de t: B sobe linearmente de 0 a 0,6 T entre 0 e 0,3 s e fica constante em 0,6 T até 0,5 s">
+  <defs><marker id="ax" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1d2433"/></marker></defs>
+  <path d="M40 130 L262 130" stroke="#1d2433" stroke-width="1.5" marker-end="url(#ax)"/>
+  <path d="M40 130 L40 14" stroke="#1d2433" stroke-width="1.5" marker-end="url(#ax)"/>
+  <text x="46" y="18" font-size="12" fill="#1d2433">B (T)</text>
+  <text x="252" y="122" font-size="12" fill="#1d2433">t (s)</text>
+  <path d="M40 40 L160 40 M160 40 L160 130" stroke="#8a8f99" stroke-dasharray="4 4"/>
+  <path d="M40 130 L160 40 L240 40" fill="none" stroke="#b5602a" stroke-width="3"/>
+  <text x="34" y="44" text-anchor="end" font-size="12" fill="#1d2433">0,6</text>
+  <text x="34" y="134" text-anchor="end" font-size="12" fill="#1d2433">0</text>
+  <text x="160" y="146" text-anchor="middle" font-size="12" fill="#1d2433">0,3</text>
+  <text x="240" y="146" text-anchor="middle" font-size="12" fill="#1d2433">0,5</text>
+  <path d="M240 40 L240 130" stroke="#8a8f99" stroke-dasharray="4 4"/>
+</svg></figure>`;
+
+
+
+/* ===== caixa de ferramentas ===== */
+const TOOLS_INDUCAO = [
+  ['Fluxo magnético', `Φ = B · A · cos θ<br><small>θ é o ângulo entre o campo B e a reta normal (perpendicular) ao plano da espira. Unidade: weber (1 Wb = 1 T·m²).</small>`],
+  ['Lei de Faraday', `ε = N · ${f('|ΔΦ|','Δt')}<br><small>N = número de espiras. 1 Wb/s = 1 V.</small>`],
+  ['Lei de Lenz', `A corrente induzida tem sentido tal que <b>se opõe à variação</b> do fluxo que a produziu.`],
+  ['Barra em movimento', `ε = B · L · v &nbsp;&nbsp;e&nbsp;&nbsp; i = ${f('ε','R')}`],
+  ['Transformador ideal', `${f('U<sub>1</sub>','U<sub>2</sub>')} = ${f('N<sub>1</sub>','N<sub>2</sub>')} &nbsp;&nbsp;e&nbsp;&nbsp; U<sub>1</sub>·i<sub>1</sub> = U<sub>2</sub>·i<sub>2</sub>`],
+  ['Conversões', `1 cm = 10<sup>−2</sup> m &nbsp;·&nbsp; 1 cm² = 10<sup>−4</sup> m²`]
+];
+
+/* ===== questões — Indução, Lista 1 ===== */
+const Q_INDUCAO_1 = [
+{ src:'Original', nivel:'básico',
+  text:`Uma bobina está ligada a um galvanômetro (amperímetro bem sensível), formando um circuito fechado. Em qual das situações abaixo o galvanômetro <b>não</b> indica corrente?`,
+  opts:[`Um ímã é aproximado rapidamente da bobina.`,`Um ímã é afastado da bobina.`,`Um ímã permanece parado dentro da bobina.`,`A bobina é girada perto de um ímã fixo.`,`A corrente em uma bobina vizinha é ligada ou desligada.`],
+  ans:2,
+  hint:`Em cada caso, pergunte-se: o fluxo magnético através da bobina está <b>mudando</b>?`,
+  steps:[['Ideia central',`Só há corrente induzida quando o <b>fluxo magnético varia</b> (Lei de Faraday).`],
+         ['Analisando',`Aproximar, afastar, girar e ligar/desligar uma corrente vizinha fazem o fluxo mudar. Com o ímã parado, o campo dentro da bobina é intenso, mas <b>constante</b>: ΔΦ = 0.`],
+         ['Conclusão',`Sem variação de fluxo, não há fem induzida → alternativa C.`]],
+  alt:`Pense no dínamo de bicicleta: se a roda para, a lâmpada apaga, mesmo com o ímã lá dentro. O que gera energia é o <i>movimento</i> (a variação), não a simples presença do ímã.`,
+  warn:`Campo intenso não é o mesmo que campo variando. Um ímã forte parado não induz corrente nenhuma.` },
+
+{ src:'Original', nivel:'básico',
+  text:`Uma espira quadrada de lado 20 cm está em uma região de campo magnético uniforme de intensidade 0,50 T, perpendicular ao plano da espira e entrando no papel, como mostra a figura.${FIG_ESPIRA_Q}O fluxo magnético através da espira vale:`,
+  opts:[`1,0 × 10<sup>−1</sup> Wb`,`2,0 × 10<sup>−2</sup> Wb`,`1,0 × 10<sup>−2</sup> Wb`,`2,0 × 10<sup>−1</sup> Wb`,`4,0 × 10<sup>−2</sup> Wb`],
+  ans:1,
+  hint:`Converta o lado para metros antes de calcular a área. Campo perpendicular ao plano → cos 0° = 1.`,
+  steps:[['Dados',`L = 20 cm = 0,20 m &nbsp;·&nbsp; B = 0,50 T &nbsp;·&nbsp; θ = 0° (campo na direção da normal)`],
+         ['Área',`A = L² = (0,20)² = 0,040 m²`],
+         ['Fluxo',`Φ = B · A · cos θ = 0,50 · 0,040 · 1 = 0,020 Wb = <b>2,0 × 10<sup>−2</sup> Wb</b>`]],
+  alt:`Fluxo é a “quantidade de linhas de campo” que atravessa a espira. Com o campo perpendicular, todas as linhas atravessam: basta fazer B × A.`,
+  warn:`Esquecer de elevar o lado ao quadrado dá 0,50 · 0,20 = 0,10 Wb (alternativa A). A área de um quadrado é L², não L.` },
+
+{ src:'Original', nivel:'básico',
+  text:`O fluxo magnético através de uma espira diminui de 0,08 Wb para 0,02 Wb em 0,2 s. O módulo da força eletromotriz (fem) média induzida na espira é:`,
+  opts:[`0,1 V`,`0,3 V`,`0,4 V`,`0,5 V`,`0,012 V`],
+  ans:1,
+  hint:`Primeiro calcule <b>quanto</b> o fluxo variou; depois divida pelo tempo.`,
+  steps:[['Variação do fluxo',`ΔΦ = Φ<sub>final</sub> − Φ<sub>inicial</sub> = 0,02 − 0,08 = −0,06 Wb`],
+         ['Lei de Faraday',`|ε| = ${f('|ΔΦ|','Δt')} = ${f('0,06','0,2')} = <b>0,3 V</b>`]],
+  alt:`A fem mede a <i>rapidez</i> com que o fluxo muda: 0,06 Wb em 0,2 s equivale a 0,3 Wb por segundo, ou seja, 0,3 V.`,
+  warn:`Usar só o fluxo inicial (0,08 ÷ 0,2 = 0,4 V) ou somar os fluxos (0,10 ÷ 0,2 = 0,5 V) são erros comuns: o que importa é a <b>variação</b>. Multiplicar pelo tempo (0,012) inverte a ideia de taxa.` },
+
+{ src:'Original', nivel:'básico',
+  text:`Uma bobina tem 50 espiras. O fluxo magnético através de cada espira aumenta uniformemente 4,0 × 10<sup>−3</sup> Wb em 0,02 s. O módulo da fem induzida na bobina é:`,
+  opts:[`0,2 V`,`2 V`,`10 V`,`20 V`,`100 V`],
+  ans:2,
+  hint:`Cada espira se comporta como uma pequena “pilha” ligada em série com as outras.`,
+  steps:[['Uma espira',`ε<sub>1</sub> = ${f('4,0 × 10<sup>−3</sup>','0,02')} = 0,2 V`],
+         ['A bobina toda',`ε = N · ε<sub>1</sub> = 50 · 0,2 = <b>10 V</b>`]],
+  alt:`As espiras estão em série: é como enfileirar 50 pilhas de 0,2 V — as tensões se somam e dão 10 V.`,
+  warn:`0,2 V é a fem de <b>uma</b> espira só — faltou multiplicar por N = 50.` },
+
+{ src:'Original', nivel:'básico',
+  text:`O polo norte de um ímã é aproximado de uma espira condutora fechada, deslocando-se ao longo do eixo dela, como na figura. Para um observador do lado do ímã, olhando para a espira, a corrente induzida tem sentido:${FIG_LENZ}`,
+  opts:[`horário, e a espira atrai o ímã.`,`anti-horário, e a espira repele o ímã.`,`horário, e a espira repele o ímã.`,`anti-horário, e a espira atrai o ímã.`,`nenhum: não há corrente, pois o ímã não toca a espira.`],
+  ans:1,
+  hint:`Lei de Lenz: a espira “reage” contra a mudança. O ímã está chegando — ela vai querer empurrá-lo ou puxá-lo?`,
+  steps:[['O que muda',`O polo norte se aproxima: o fluxo através da espira (linhas saindo do polo N) <b>aumenta</b>.`],
+         ['Reação (Lenz)',`A corrente induzida cria um campo que se opõe a esse aumento: a face da espira voltada para o ímã vira um <b>polo norte</b> — e norte repele norte.`],
+         ['Sentido',`Pela regra da mão direita, para o campo da espira apontar para o observador, a corrente deve circular no sentido <b>anti-horário</b> (visto do lado do ímã).`]],
+  alt:`A Lei de Lenz funciona como um freio: a espira sempre dificulta o movimento. Ímã chegando → a espira repele; ímã se afastando → a espira atrai.`,
+  warn:`“O ímã não toca a espira, então não há corrente” — errado: a interação acontece pelo campo magnético, não pelo contato.` },
+
+{ src:'Original', nivel:'básico',
+  text:`Uma barra condutora de 0,50 m de comprimento desliza com velocidade constante de 4,0 m/s sobre dois trilhos condutores, movendo-se perpendicularmente a um campo magnético uniforme de 0,20 T. A fem induzida entre as extremidades da barra é:`,
+  opts:[`0,04 V`,`0,10 V`,`0,40 V`,`1,6 V`,`4,0 V`],
+  ans:2,
+  hint:`Para uma barra que “corta” linhas de campo existe uma fórmula direta com B, L e v.`,
+  steps:[['Dados',`B = 0,20 T &nbsp;·&nbsp; L = 0,50 m &nbsp;·&nbsp; v = 4,0 m/s`],
+         ['Cálculo',`ε = B · L · v = 0,20 · 0,50 · 4,0 = <b>0,40 V</b>`]],
+  alt:`Pela Lei de Faraday: a cada segundo, a área do circuito aumenta 0,50 × 4,0 = 2,0 m². O fluxo cresce 0,20 × 2,0 = 0,40 Wb por segundo → 0,40 V.`,
+  warn:`As três grandezas entram multiplicando. Usar só B · L dá 0,10 V (alternativa B) — esqueceu a velocidade.` },
+
+{ src:'Original', nivel:'básico+',
+  text:`Uma barra metálica de 0,40 m desliza a 5,0 m/s sobre trilhos condutores ligados por um resistor de 2,0 Ω. O conjunto está em um campo magnético uniforme de 0,50 T, perpendicular ao plano dos trilhos, como mostra a figura.${FIG_TRILHOS_L1}Desprezando as demais resistências, a intensidade da corrente induzida no circuito é:`,
+  opts:[`0,20 A`,`0,50 A`,`1,0 A`,`2,0 A`,`2,5 A`],
+  ans:1,
+  hint:`São duas etapas: primeiro a fem (B · L · v); depois a Lei de Ohm.`,
+  steps:[['fem induzida',`ε = B · L · v = 0,50 · 0,40 · 5,0 = 1,0 V`],
+         ['Corrente',`i = ${f('ε','R')} = ${f('1,0','2,0')} = <b>0,50 A</b>`]],
+  alt:`A barra em movimento funciona como uma pilha de 1,0 V ligada a um resistor de 2,0 Ω — vira um circuito simples.`,
+  warn:`Parar na fem e responder 1,0 A confunde volt com ampère. Multiplicar por R (1,0 × 2,0 = 2,0 A) inverte a Lei de Ohm.` },
+
+{ src:'Original', nivel:'básico+',
+  text:`Uma espira de área 0,020 m² está inicialmente com seu plano perpendicular a um campo magnético uniforme de 0,40 T. Em 0,10 s, ela é girada até que seu plano fique <b>paralelo</b> às linhas de campo. O módulo da fem média induzida nesse intervalo é:`,
+  opts:[`zero, pois o campo não mudou`,`0,008 V`,`0,08 V`,`0,16 V`,`0,8 V`],
+  ans:2,
+  hint:`Quando o plano da espira fica paralelo às linhas de campo, quantas linhas a atravessam?`,
+  steps:[['Fluxo inicial',`Plano ⟂ campo (máximo): Φ<sub>i</sub> = B · A = 0,40 · 0,020 = 0,0080 Wb`],
+         ['Fluxo final',`Plano ∥ campo: nenhuma linha atravessa (θ = 90° entre B e a normal) → Φ<sub>f</sub> = 0`],
+         ['Faraday',`|ε| = ${f('0,0080','0,10')} = <b>0,080 V</b>`]],
+  alt:`Pense numa peneira na chuva: de frente, pega toda a água; de lado, nenhuma. Girar a espira muda o fluxo mesmo com B constante.`,
+  warn:`O campo não mudou, mas o <b>fluxo</b> mudou — por isso a fem não é zero. E 0,16 V corresponderia a um giro de 180° (fluxo de +Φ a −Φ), não de 90°.` },
+
+{ src:'Original', nivel:'básico+',
+  text:`Uma bobina de 100 espiras, cada uma com área de 0,010 m², está em um campo magnético perpendicular ao seu plano. O gráfico mostra a intensidade do campo em função do tempo.${FIG_GRAF}O módulo da fem induzida nos intervalos de 0 a 0,3 s e de 0,3 s a 0,5 s é, respectivamente:`,
+  opts:[`2,0 V e zero`,`2,0 V e 2,0 V`,`0,020 V e zero`,`zero e 2,0 V`,`0,60 V e 0,60 V`],
+  ans:0,
+  hint:`A fem depende da <b>inclinação</b> do gráfico (rapidez da variação), não da altura.`,
+  steps:[['De 0 a 0,3 s',`ΔΦ por espira = ΔB · A = 0,60 · 0,010 = 0,0060 Wb<br>ε = N · ${f('ΔΦ','Δt')} = 100 · ${f('0,0060','0,3')} = <b>2,0&nbsp;V</b>`],
+         ['De 0,3 s a 0,5 s',`B constante → ΔΦ = 0 → <b>ε = 0</b>`]],
+  alt:`Leitura rápida do gráfico: rampa = há fem; trecho horizontal = não há fem. Quanto mais inclinada a rampa, maior a fem.`,
+  warn:`No trecho horizontal o campo é o maior possível, mas a fem é zero. E 0,020 V esqueceu as 100 espiras.` },
+
+{ src:'Original', nivel:'básico+',
+  text:`Um transformador ideal tem 1000 espiras no primário, ligado à rede de 220 V (corrente alternada), e 50 espiras no secundário. Uma lâmpada ligada ao secundário é percorrida por corrente de 2,0 A, como no esquema.${FIG_TRAFO}A tensão no secundário e a corrente no primário valem, respectivamente:`,
+  opts:[`11 V e 0,10 A`,`11 V e 40 A`,`11 V e 2,0 A`,`4400 V e 0,10 A`,`4400 V e 40 A`],
+  ans:0,
+  hint:`A tensão segue a razão entre as espiras. Para a corrente, lembre que o transformador ideal não cria nem perde energia: a potência é a mesma nos dois lados.`,
+  steps:[['Tensão',`U<sub>2</sub> = U<sub>1</sub> · ${f('N<sub>2</sub>','N<sub>1</sub>')} = 220 · ${f('50','1000')} = <b>11 V</b>`],
+         ['Potência',`P = U<sub>2</sub> · i<sub>2</sub> = 11 · 2,0 = 22 W`],
+         ['Corrente no primário',`i<sub>1</sub> = ${f('P','U<sub>1</sub>')} = ${f('22','220')} = <b>0,10 A</b>`],
+         ['Por que CA?',`O transformador só funciona com corrente alternada: é a <b>variação</b> do fluxo no núcleo que induz tensão no secundário.`]],
+  alt:`O transformador “troca” tensão por corrente: a tensão caiu 20 vezes (220 → 11 V), então a corrente no primário é 20 vezes menor que a do secundário (2,0 → 0,10 A).`,
+  warn:`Usar a razão de espiras do mesmo jeito para a corrente dá 40 A — a corrente varia ao <b>contrário</b> da tensão. Inverter a razão na tensão dá 4400 V.` }
+];
+
+/* ===== Indução, Lista 2 — intermediário ===== */
+const FIG_LENZ2 = `<figure class="fig figw"><svg class="plot" viewBox="0 0 300 122" role="img" aria-label="Ímã com o polo norte voltado para a espira, aproximando-se dela; a espira está parada">
+  <defs><marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1d2433"/></marker></defs>
+  <rect x="40" y="44" width="40" height="22" fill="#2f66c6"/><text x="60" y="60" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">S</text>
+  <rect x="80" y="44" width="40" height="22" fill="#d2433a"/><text x="100" y="60" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">N</text>
+  <path d="M130 55 L172 55" stroke="#1d2433" stroke-width="2" marker-end="url(#ah3)"/><text x="148" y="47" font-size="13" font-style="italic" fill="#1d2433">v</text>
+  <ellipse cx="220" cy="55" rx="14" ry="42" fill="none" stroke="#b5602a" stroke-width="4"/>
+  <text x="240" y="30" font-size="13" font-style="italic" fill="#b5602a">i</text>
+  <text x="220" y="116" text-anchor="middle" font-size="12" fill="#5b6475">espira parada</text>
+</svg></figure>`;
+
+const TOOLS_INDUCAO_2 = [
+  ['Fluxo magnético', `Φ = B · A · cos θ<br><small>θ é o ângulo entre B e a <b>normal</b> ao plano da espira (não entre B e o plano!).</small>`],
+  ['Lei de Faraday', `ε = N · ${f('|ΔΦ|','Δt')} &nbsp;·&nbsp; <small>se B inverte de sentido, |ΔB| = 2B</small>`],
+  ['Lei de Lenz', `A corrente induzida se opõe à <b>variação</b> do fluxo: aproximação → repulsão; afastamento → atração.`],
+  ['Barra em trilhos', `ε = B · L · v &nbsp;·&nbsp; i = ${f('ε','R')} &nbsp;·&nbsp; F<sub>mag</sub> = B · i · L &nbsp;·&nbsp; P = ε · i = R · i²`],
+  ['Gerador', `ε<sub>máx</sub> = N · B · A · ω &nbsp;·&nbsp; R<sub>fio</sub> = ρ · ${f('comprimento','área da seção')}`],
+  ['Transformador e transmissão', `${f('U<sub>1</sub>','U<sub>2</sub>')} = ${f('N<sub>1</sub>','N<sub>2</sub>')} &nbsp;·&nbsp; P = U · i &nbsp;·&nbsp; P<sub>perdida</sub> = R<sub>linha</sub> · i²`],
+  ['Valores úteis', `π ≈ 3 &nbsp;·&nbsp; √3 ≈ 1,7 &nbsp;·&nbsp; cos 30° = ${f('√3','2')} &nbsp;·&nbsp; cos 60° = 0,5`]
+];
+
+const Q_INDUCAO_2 = [
+{ src:'Original', nivel:'intermediário',
+  text:`Uma espira circular de raio 10 cm está em um campo magnético uniforme de 0,40 T. As linhas de campo formam um ângulo de <b>60° com o plano</b> da espira, como na figura (vista de lado).${FIG_ANGULO}Usando π ≈ 3 e √3 ≈ 1,7, o fluxo magnético através da espira é aproximadamente:`,
+  opts:[`6,0 × 10<sup>−3</sup> Wb`,`1,0 × 10<sup>−2</sup> Wb`,`1,2 × 10<sup>−2</sup> Wb`,`2,4 × 10<sup>−2</sup> Wb`,`1,2 × 10<sup>−1</sup> Wb`],
+  ans:1,
+  hint:`Cuidado com o ângulo: a fórmula usa o ângulo entre B e a <b>normal</b> ao plano. Se o campo faz 60° com o plano, quanto faz com a normal?`,
+  steps:[['Área',`r = 10 cm = 0,10 m → A = π · r² ≈ 3 · 0,010 = 0,030 m²`],
+         ['Ângulo certo',`60° com o plano → θ = 90° − 60° = 30° com a normal → cos 30° = ${f('√3','2')} ≈ 0,85`],
+         ['Fluxo',`Φ = B · A · cos θ ≈ 0,40 · 0,030 · 0,85 ≈ <b>1,0 × 10<sup>−2</sup> Wb</b>`]],
+  alt:`Pense na “sombra” da espira vista na direção do campo. Se o campo fosse rente ao plano (0° com o plano), não passaria nada; se fosse perpendicular ao plano, passaria tudo. 60° com o plano é bem perto de perpendicular, então o fluxo é quase o máximo (B · A = 1,2 × 10<sup>−2</sup> Wb), só um pouco menor.`,
+  warn:`Usar cos 60° direto dá 6,0 × 10<sup>−3</sup> Wb (alternativa A) — é o erro clássico de medir o ângulo a partir do plano. Ignorar o ângulo dá 1,2 × 10<sup>−2</sup> Wb (C).` },
+
+{ src:'Original', nivel:'intermediário',
+  text:`Uma bobina de 20 espiras, cada uma com área de 0,020 m², está em um campo magnético perpendicular ao seu plano, de intensidade 0,30 T. Em 0,05 s, o campo tem seu <b>sentido invertido</b>, passando a valer 0,30 T no sentido oposto. O módulo da fem média induzida é:`,
+  opts:[`zero`,`0,24 V`,`2,4 V`,`4,8 V`,`9,6 V`],
+  ans:3,
+  hint:`O campo não foi a zero: foi de +0,30 T a −0,30 T. Qual é a variação total?`,
+  steps:[['Variação do campo',`ΔB = (−0,30) − (+0,30) = −0,60 T → |ΔB| = 0,60 T`],
+         ['Variação do fluxo (uma espira)',`|ΔΦ| = |ΔB| · A = 0,60 · 0,020 = 0,012 Wb`],
+         ['Faraday',`ε = N · ${f('|ΔΦ|','Δt')} = 20 · ${f('0,012','0,05')} = <b>4,8 V</b>`]],
+  alt:`Divida em duas etapas: de 0,30 T até zero o fluxo cai 0,006 Wb; de zero até 0,30 T no outro sentido, cai mais 0,006 Wb. Total: 0,012 Wb por espira.`,
+  warn:`“A intensidade inicial e a final são iguais, então não variou” leva a zero (A). Usar só 0,30 T de variação dá 2,4 V (C) — metade do valor certo.` },
+
+{ src:'Original', nivel:'intermediário',
+  text:`Uma barra condutora de 0,50 m desliza sem atrito sobre trilhos ligados por um resistor de 4,0 Ω, em um campo magnético uniforme de 0,80 T perpendicular ao plano dos trilhos. Para que a barra mantenha velocidade constante de 5,0 m/s, um agente externo deve puxá-la com uma força F, como na figura.${FIG_TRILHOS_L2}A intensidade da força aplicada pelo agente e a potência dissipada no resistor são, respectivamente:`,
+  opts:[`zero e 1,0 W`,`0,20 N e 0,50 W`,`0,20 N e 1,0 W`,`0,40 N e 2,0 W`,`1,0 N e 0,20 W`],
+  ans:2,
+  hint:`Calcule a corrente; a força magnética sobre a barra (B · i · L) freia o movimento. Com velocidade constante, a força do agente equilibra exatamente essa força.`,
+  steps:[['fem e corrente',`ε = B · L · v = 0,80 · 0,50 · 5,0 = 2,0 V &nbsp;→&nbsp; i = ${f('2,0','4,0')} = 0,50 A`],
+         ['Força magnética',`F<sub>mag</sub> = B · i · L = 0,80 · 0,50 · 0,50 = 0,20 N, oposta à velocidade (Lenz). O agente aplica <b>0,20 N</b>.`],
+         ['Potência',`P = R · i² = 4,0 · 0,50² = <b>1,0 W</b>`],
+         ['Conferindo pela energia',`Potência do agente = F · v = 0,20 · 5,0 = 1,0 W — igual à dissipada no resistor.`]],
+  alt:`Lenz em termos de energia: a corrente só existe porque alguém está empurrando a barra. Todo o trabalho do agente vira calor no resistor (1,0 W).`,
+  warn:`“Velocidade constante, então a força é zero” (A) vale sem campo; aqui existe a força magnética de frenagem, que precisa ser equilibrada.` },
+
+{ src:'Original', nivel:'intermediário',
+  text:`Um pequeno ímã é solto dentro de um tubo vertical de cobre e leva vários segundos para atravessá-lo. Um bloco de madeira idêntico, solto no mesmo tubo, atravessa quase instantaneamente. Sabe-se que o cobre <b>não</b> é atraído por ímãs. A explicação para a queda lenta do ímã é que:`,
+  opts:[`o cobre é atraído pelo ímã, que fica “grudando” nas paredes do tubo.`,`o ar dentro do tubo é comprimido pelo ímã, que é mais denso que a madeira.`,`correntes induzidas no tubo geram campos que freiam o ímã.`,`o ímã fica eletricamente carregado pelo atrito e é atraído pelo tubo.`,`dentro do tubo metálico a gravidade fica blindada e atua com menor intensidade.`],
+  ans:2,
+  hint:`O fluxo magnético através de cada “anel” do tubo muda enquanto o ímã passa. O que a Lei de Lenz diz sobre isso?`,
+  steps:[['Fluxo variando',`Cada trecho do tubo funciona como uma espira fechada. Com o ímã passando, o fluxo nesses anéis varia.`],
+         ['Correntes induzidas',`Surgem correntes induzidas no cobre (correntes de Foucault), que é bom condutor.`],
+         ['Lenz',`Essas correntes geram campos que repelem o ímã acima e o atraem por trás: o efeito sempre se opõe ao movimento, e o ímã cai devagar.`],
+         ['Energia',`A energia potencial perdida pelo ímã vira principalmente calor no tubo, e não energia cinética.`]],
+  alt:`É o mesmo princípio do freio magnético de trens e de algumas montanhas-russas: metal condutor + ímã em movimento = frenagem sem contato.`,
+  warn:`O cobre não é ferromagnético — ele não é atraído por ímãs parados (A é falsa). O efeito só aparece porque o ímã está em <b>movimento</b>; um ímã parado no tubo não sofre força nenhuma.` },
+
+{ src:'Original', nivel:'intermediário',
+  text:`Duas bobinas estão lado a lado, sem contato. A bobina 1 está ligada a uma pilha e a uma chave; a bobina 2, a um galvanômetro de zero central, como no esquema.${FIG_BOBINAS}O que se observa no galvanômetro ao <b>fechar</b> a chave, ao <b>mantê-la fechada</b> e ao <b>abri-la</b>?`,
+  opts:[`Desvia ao fechar e permanece desviado enquanto a chave estiver fechada; volta a zero ao abrir.`,`Desvia rapidamente ao fechar, volta a zero e desvia ao contrário ao abrir.`,`Desvia momentaneamente ao fechar e ao abrir, sempre no mesmo sentido.`,`Não desvia em nenhum momento, pois as bobinas não estão ligadas entre si.`,`Permanece em zero ao fechar e só desvia quando a chave é aberta.`],
+  ans:1,
+  hint:`O galvanômetro só registra corrente enquanto o fluxo na bobina 2 está <b>mudando</b>. Em qual desses momentos a corrente na bobina 1 está variando?`,
+  steps:[['Fechar a chave',`A corrente na bobina 1 sobe de zero ao valor final → o fluxo na bobina 2 <b>aumenta</b> → pulso de corrente induzida.`],
+         ['Chave fechada',`Corrente constante na bobina 1 → fluxo constante → <b>nenhuma</b> corrente induzida.`],
+         ['Abrir a chave',`O fluxo <b>diminui</b> até zero → pulso em sentido <b>oposto</b> ao do fechamento (Lenz).`]],
+  alt:`Esse foi o experimento de Faraday em 1831: ele esperava corrente contínua na segunda bobina, mas só viu “trancos” do ponteiro ao ligar e ao desligar.`,
+  warn:`A alternativa A troca “campo existindo” por “campo variando”. E o sentido não é o mesmo nos dois pulsos (C): aumentar e diminuir o fluxo provocam reações opostas.` },
+
+{ src:'Original', nivel:'intermediário',
+  text:`Uma usina deve enviar 100 kW a uma cidade por uma linha de transmissão de resistência total 2,0 Ω. A tabela mostra o que acontece com a transmissão em 1 000 V e propõe elevar a tensão para 10 000 V com um transformador, mantendo a potência enviada.${TAB_TRANSMISSAO}Com a transmissão em 10 000 V, a potência perdida na linha passa a ser:`,
+  opts:[`20 kW`,`2,0 kW`,`200 W`,`20 W`,`200 kW`],
+  ans:2,
+  hint:`Com a potência fixa, a corrente na linha depende da tensão (P = U · i). E a perda depende do <b>quadrado</b> da corrente.`,
+  steps:[['Corrente em 10 kV',`i = ${f('P','U')} = ${f('100 000','10 000')} = 10 A (antes era 100 A)`],
+         ['Perda',`P<sub>perdida</sub> = R · i² = 2,0 · 10² = <b>200 W</b>`]],
+  alt:`Tensão 10 vezes maior → corrente 10 vezes menor → perda 10² = 100 vezes menor: 20 kW ÷ 100 = 200 W. É por isso que as linhas de transmissão operam em altíssima tensão — e por isso precisamos de transformadores (e de corrente alternada).`,
+  warn:`Dividir a perda só por 10 dá 2,0 kW (B). A perda cai com o <b>quadrado</b> da corrente. E não use U²/R com a tensão da usina: a queda de tensão na linha não é 10 000 V.` },
+
+{ src:'Baseada no ENEM 2011', nivel:'intermediário',
+  text:`O captador de um baixo elétrico é formado por uma bobina enrolada em torno de um ímã permanente, posicionada logo abaixo das cordas. Um músico trocou as cordas de aço por cordas de <b>cobre</b>, que é excelente condutor elétrico, e o amplificador praticamente deixou de emitir som. Isso aconteceu porque a corda de cobre:`,
+  opts:[`conduz tão bem a eletricidade que a corrente induzida escapa por ela antes de chegar à bobina.`,`quase não se magnetiza, e sua vibração pouco altera o fluxo na bobina.`,`vibra com frequência alta demais para ser percebida pelo captador.`,`desmagnetiza o ímã do captador por estar muito próxima dele.`,`precisaria estar ligada eletricamente à bobina para transmitir a vibração.`],
+  ans:1,
+  hint:`Para induzir corrente, algo precisa fazer o fluxo magnético na bobina variar. Uma corda de aço vibrando faz isso. Por quê? O cobre tem essa mesma propriedade?`,
+  steps:[['Como funciona o captador',`O ímã magnetiza a corda de aço logo acima dele: a corda vira um pequeno ímã.`],
+         ['Vibração → fluxo variando',`Quando a corda magnetizada vibra, o fluxo na bobina varia no mesmo ritmo, induzindo uma corrente que vai ao amplificador.`],
+         ['Com cobre',`O cobre não é ferromagnético: quase não se magnetiza. A corda vibra, mas o fluxo na bobina praticamente não muda → quase nenhuma corrente induzida.`]],
+  alt:`O captador “escuta” o magnetismo da corda, não a eletricidade dela. Ser bom condutor não ajuda; o que importa é ser magnetizável (ferro, aço, níquel).`,
+  warn:`A armadilha é achar que “bom condutor = bom para eletricidade = bom para o captador”. A corda não faz parte do circuito; a ligação dela com a bobina é só magnética.` },
+
+{ src:'Baseada no ENEM 2014', nivel:'intermediário',
+  text:`Na figura, um ímã com o polo norte voltado para uma espira parada se aproxima dela, e surge na espira uma corrente induzida i.${FIG_LENZ2}Usando os mesmos materiais, qual procedimento também produz na espira uma corrente de <b>mesmo sentido</b> que i?`,
+  opts:[`Afastar o ímã da espira, mantendo a polaridade.`,`Inverter a polaridade do ímã e aproximá-lo da espira.`,`Inverter a polaridade do ímã e afastá-lo da espira.`,`Mover o ímã e a espira juntos, para a direita, com a mesma velocidade.`,`Deixar o ímã parado bem perto da espira, com a mesma polaridade.`],
+  ans:2,
+  hint:`Na figura, o fluxo através da espira (linhas saindo do N, apontando para a direita) está <b>aumentando</b>. Procure a situação em que a corrente induzida precise criar o mesmo campo que na figura.`,
+  steps:[['Situação da figura',`O campo do ímã na espira aponta para a direita e cresce. Pela Lei de Lenz, a corrente i cria na espira um campo para a <b>esquerda</b>.`],
+         ['Polaridade invertida e afastando',`Com o S voltado para a espira, o campo do ímã nela aponta para a esquerda (entrando no polo S). Afastando o ímã, esse campo para a esquerda <b>diminui</b>.`],
+         ['Reação',`Para compensar a perda, a corrente induzida cria um campo para a <b>esquerda</b> — o mesmo da figura → mesmo sentido de i. Alternativa C.`]],
+  alt:`Duas inversões se cancelam: inverter a polaridade troca o sentido da corrente, e trocar aproximar por afastar troca de novo. Inverter só uma das duas coisas (A ou B) dá o sentido oposto.`,
+  warn:`Em D o ímã e a espira andam juntos: não há movimento <b>relativo</b>, o fluxo não muda e não há corrente. Em E o ímã parado também não induz nada.` },
+
+{ src:'Baseada no ENEM 2020', nivel:'intermediário',
+  text:`Em um pequeno gerador de uma usina, a tensão de pico nos terminais das bobinas é de 60 V quando o eixo gira a 900 rotações por minuto. Durante uma cheia, a turbina passou a girar a 1 200 rotações por minuto. Mantidos o ímã, as bobinas e as demais características, a nova tensão de pico é:`,
+  opts:[`45 V`,`60 V`,`80 V`,`107 V`,`120 V`],
+  ans:2,
+  hint:`A fem depende da <b>rapidez</b> com que o fluxo varia. O fluxo máximo através das bobinas mudou? E a rapidez?`,
+  steps:[['O que não muda',`O fluxo máximo (N · B · A) é o mesmo: mesmo ímã, mesmas bobinas.`],
+         ['O que muda',`Girando mais rápido, o fluxo vai do máximo ao mínimo em menos tempo: ε<sub>máx</sub> = N · B · A · ω é proporcional à rotação.`],
+         ['Proporção',`ε = 60 · ${f('1 200','900')} = 60 · ${f('4','3')} = <b>80 V</b>`]],
+  alt:`Mesma variação de fluxo em 3/4 do tempo → fem 4/3 maior. É a Lei de Faraday aplicada ao gerador: ΔΦ igual, Δt menor.`,
+  warn:`Achar que a tensão não muda porque “o ímã é o mesmo” (B) confunde fluxo com variação de fluxo. Elevar a razão ao quadrado dá ≈ 107 V (D) — a dependência com a rotação é linear.` },
+
+{ src:'Baseada no ENEM 2017', nivel:'intermediário',
+  text:`Um estudante montou um gerador com um fio de cobre de diâmetro D enrolado em N espiras circulares de área A, que giram com frequência f entre dois ímãs que produzem um campo uniforme B. Ele mediu a tensão máxima V e a corrente de curto-circuito i (terminais ligados diretamente). Ele quer <b>aumentar a corrente de curto-circuito sem alterar a tensão máxima</b>. Para isso, deve:`,
+  opts:[`dobrar o número N de espiras, mantendo o mesmo fio.`,`dobrar a frequência f com que as espiras giram.`,`dobrar a intensidade B do campo entre os ímãs.`,`usar fio mais grosso, com as mesmas N espiras.`,`dobrar a área A de cada uma das N espiras.`],
+  ans:3,
+  hint:`Separe as grandezas em dois grupos: as que mudam a tensão (fem) e as que mudam só a resistência do fio. Em curto-circuito, i = V/R.`,
+  steps:[['Tensão',`V = N · B · A · ω → depende de N, B, A e f. Para não mudar V, nenhuma delas pode mudar.`],
+         ['Resistência',`R = ρ · ${f('comprimento do fio','área da seção do fio')}. Um fio mais grosso tem seção maior → R menor.`],
+         ['Corrente',`i = V/R: V igual e R menor → <b>i maior</b>. Alternativa D.`]],
+  alt:`Por que dobrar N não serve? Dobra a tensão, mas o fio fica com o dobro do comprimento e a resistência também dobra: a corrente de curto fica igual. Já f, B e A mudam a tensão — o estudante queria V constante.`,
+  warn:`Dobrar N é a resposta de uma pergunta parecida (dobrar V mantendo i). Leia com atenção o que deve mudar e o que deve ficar constante.` }
+];
+
+
+/* ===== Estrutura do site: temas e listas. Para adicionar material, inclua um item em "listas" ou um novo tema. ===== */
+const SITE = {
+  escola: 'Colégio Israelita Brasileiro',
+  turma: '3ª série',
+  turmas: 'Turmas 301 e 302',
+  prof: 'Prof. Ricieri',
+  temas: [
+    {
+      id: 'enem', ico: 'E', nome: 'Revisão ENEM', cls: 'th-enem', estilo: 'estrada', deco: 'enem',
+      resumo: 'As 30 questões do aulão de Física, divididas em três listas por área.',
+      listas: [
+        { id: 'eletricidade', key: 'cib3-enem-eletricidade-v1', num: 1,
+          titulo: 'Eletricidade e energia',
+          resumo: 'Disjuntor, conta de luz, choque, circuitos, LED, chuveiro, transformador, hidrelétrica e cargas elétricas.',
+          intro: 'São as questões 1 a 7, 26, 27 e 29 da lista impressa do aulão, em ordem de dificuldade.',
+          tools: TOOLS_E1, Q: Q_E1 },
+        { id: 'calor-ondas', key: 'cib3-enem-calor-ondas-v1', num: 2,
+          titulo: 'Calor, ondas e luz',
+          resumo: 'Calorimetria, mudança de fase, gases, máquinas térmicas, ondas, som e luz.',
+          intro: 'São as questões 8 a 16 e 21 da lista impressa do aulão, em ordem de dificuldade.',
+          tools: TOOLS_E2, Q: Q_E2 },
+        { id: 'mecanica-optica', key: 'cib3-enem-mecanica-optica-v1', num: 3,
+          titulo: 'Movimento, forças e óptica',
+          resumo: 'Velocidade média, gráficos, lançamento vertical, transmissão, Newton, atrito, empuxo, alavancas, refração e visão.',
+          intro: 'São as questões 17 a 20, 22 a 25, 28 e 30 da lista impressa do aulão, em ordem de dificuldade.',
+          tools: TOOLS_E3, Q: Q_E3 }
+      ]
+    },
+    {
+      id: 'inducao', ico: 'Φ', nome: 'Indução eletromagnética', cls: 'th-inducao', estilo: 'onda', deco: 'bobina',
+      resumo: 'Fluxo magnético, leis de Faraday e de Lenz, fem de movimento, geradores e transformadores.',
+      listas: [
+        { id: 'basica', key: 'cib3-inducao-basica-v1', num: 1,
+          titulo: 'Nível básico',
+          resumo: '6 questões básicas e 4 que já puxam para o intermediário (Básico+).',
+          intro: 'Comece por aqui se indução ainda não está firme.',
+          tools: TOOLS_INDUCAO, Q: Q_INDUCAO_1 },
+        { id: 'intermediaria', key: 'cib3-inducao-intermediaria-v1', num: 2,
+          titulo: 'Nível intermediário',
+          resumo: '6 questões originais e 4 baseadas em questões do ENEM (2011, 2014, 2017 e 2020).',
+          intro: 'As 4 últimas foram montadas a partir de questões reais do ENEM, com outro contexto e outros números.',
+          tools: TOOLS_INDUCAO_2, Q: Q_INDUCAO_2 }
+      ]
+    }
+  ]
+};
+
+/* ===== Configuração do registro (preencher ao publicar) ===== */
+const CONFIG = {
+  dominio: 'aluno.colegioisraelita.com.br',      // domínio do e-mail dos alunos do CIB. Vazio = não pede identificação
+  registro: '',     // URL do App da Web do Google Apps Script
+  turmas: ['301', '302']
+};
+const $ = id => document.getElementById(id);
+const ID_KEY = 'fis3cib-aluno', FILA_KEY = 'fis3cib-fila', DIA_KEY = 'fis3cib-ultimo-acesso';
+const getAluno = () => { try { const a = JSON.parse(localStorage.getItem(ID_KEY) || 'null'); return a && a.email ? a : null; } catch(e){ return null; } };
+const setAluno = a => { try { if (a) localStorage.setItem(ID_KEY, JSON.stringify(a)); else localStorage.removeItem(ID_KEY); } catch(e){} };
+const precisaLogin = () => !!CONFIG.dominio && !getAluno();
+function emailValido(e){ const d = CONFIG.dominio.toLowerCase().replace(/^@/, ''); return new RegExp('^[a-z0-9._%+-]+@' + d.replace(/[.]/g, '\\.') + '$').test(e); }
+function enviar(ev){
+  const a = getAluno(); if (!CONFIG.registro || !a) return;
+  const item = Object.assign({ email: a.email, turma: a.turma, quando: new Date().toISOString(), dispositivo: /mobi|android|iphone|ipad/i.test(navigator.userAgent) ? 'celular/tablet' : 'computador' }, ev);
+  let fila = []; try { fila = JSON.parse(localStorage.getItem(FILA_KEY) || '[]'); } catch(e){}
+  fila.push(item); try { localStorage.setItem(FILA_KEY, JSON.stringify(fila.slice(-60))); } catch(e){}
+  enviarFila();
+}
+let enviando = false;
+async function enviarFila(){
+  if (!CONFIG.registro || enviando || navigator.onLine === false) return;
+  enviando = true;
+  try {
+    let fila = []; try { fila = JSON.parse(localStorage.getItem(FILA_KEY) || '[]'); } catch(e){}
+    while (fila.length){
+      await fetch(CONFIG.registro, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(fila[0]) });
+      fila.shift(); try { localStorage.setItem(FILA_KEY, JSON.stringify(fila)); } catch(e){}
+    }
+  } catch(e){} finally { enviando = false; }
+}
+window.addEventListener('online', enviarFila);
+function registrarAcessoDoDia(){
+  const a = getAluno(); if (!CONFIG.registro || !a) return;
+  const marca = a.email + '|' + new Date().toLocaleDateString('sv-SE');
+  let ult = null; try { ult = localStorage.getItem(DIA_KEY); } catch(e){}
+  if (ult !== marca){ enviar({ evento: 'acesso' }); try { localStorage.setItem(DIA_KEY, marca); } catch(e){} }
+}
+/* Tempo ativo: conta só com a lista aberta, a tela visível e o aluno interagindo (pausa após 3 min parado) */
+let tMarca = null, tInter = Date.now();
+['click','keydown','scroll','touchstart'].forEach(ev => window.addEventListener(ev, () => {
+  const agora = Date.now();
+  // Voltou depois de mais de 3 min parado: fecha a contagem anterior (só até 3 min após a última interação) antes de recomeçar
+  if (LI && tMarca !== null && agora - tInter > 180000) contarTempo();
+  if (LI && tMarca === null && document.visibilityState === 'visible') tMarca = agora;
+  tInter = agora;
+}, { passive: true }));
+function contarTempo(){
+  if (!LI || !st || tMarca === null) return;
+  const fim = Math.min(Date.now(), tInter + 180000);
+  if (fim > tMarca) st.tempo = (st.tempo || 0) + (fim - tMarca) / 1000;
+  tMarca = Date.now() <= tInter + 180000 ? Date.now() : null;
+  store(LI.key, st);
+}
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden'){ contarTempo(); tMarca = null; } else if (LI){ tMarca = Date.now(); tInter = Date.now(); } });
+const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const toTop = () => window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+const load = k => { try { const s = JSON.parse(localStorage.getItem(k) || 'null'); if (s && typeof s === 'object') return Object.assign({ answers:{}, hints:{}, cur:-1 }, s); } catch(e){} return { answers:{}, hints:{}, cur:-1 }; };
+const store = (k, s) => { try { localStorage.setItem(k, JSON.stringify(s)); } catch(e){} };
+
+let T = null, LI = null, st = null; // tema, lista e progresso atuais
+
+function stats(l){ const s = load(l.key); let n = 0, c = 0; l.Q.forEach((q,i)=>{ const a = s.answers[i]; if (a !== undefined){ n++; if (a === q.ans) c++; } }); return { n, c, total: l.Q.length }; }
+
+function plate(eyebrow, title, sub){
+  $('eyebrow').textContent = eyebrow; $('ptitle').textContent = title; $('psub').textContent = sub;
+  const r = document.documentElement;
+  SITE.temas.forEach(t => t.cls && r.classList.remove(t.cls));
+  if (T && T.cls) r.classList.add(T.cls);
+  $('deco').innerHTML = T ? decoTema(T.deco || T.estilo) : '';
+}
+/* Enfeite do cabeçalho de cada tema */
+function decoTema(e){
+  if (e === 'enem'){
+    return `<svg viewBox="0 0 220 80" aria-hidden="true"><path d="M8 74 L92 30 L132 30 L212 74 Z" fill="currentColor" opacity=".35"/><path d="M110 70 L110 62 M110 54 L110 47 M110 41 L110 36 M110 32 L110 30" stroke="currentColor" stroke-width="3"/><path d="M150 30 V2" stroke="currentColor" stroke-width="2.5"/><path d="M150 2 h22 v5 h-22 z M150 7 h22 v5 h-22 z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M150 2 h5.5 v5 h-5.5 z M161 2 h5.5 v5 h-5.5 z M155.5 7 h5.5 v5 h-5.5 z M166.5 7 h5.5 v5 h-5.5 z" fill="currentColor"/></svg>`;
+  }
+  if (e === 'bobina'){
+    let esp = ''; for (let k = 0; k < 6; k++) esp += `<ellipse cx="${118 + k * 14}" cy="40" rx="7" ry="26" fill="none" stroke="currentColor" stroke-width="3"/>`;
+    return `<svg viewBox="0 0 220 80" aria-hidden="true"><rect x="6" y="30" width="34" height="20" fill="currentColor" opacity=".55"/><rect x="40" y="30" width="34" height="20" fill="none" stroke="currentColor" stroke-width="2.5"/><text x="23" y="45" text-anchor="middle" font-size="14" font-weight="700" fill="var(--sign)">N</text><text x="57" y="45" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">S</text><path d="M80 40 H104" stroke="currentColor" stroke-width="2.5"/><path d="M98 34 L106 40 L98 46" fill="none" stroke="currentColor" stroke-width="2.5"/>${esp}</svg>`;
+  }
+  if (e === 'onda'){
+    let d = 'M0 40'; for (let x = 0; x <= 220; x += 4) d += ` L${x} ${(40 - 14 * Math.sin(2 * Math.PI * x / 55)).toFixed(1)}`;
+    return `<svg viewBox="0 0 220 80" aria-hidden="true"><path d="${d}" fill="none" stroke="currentColor" stroke-width="3"/><path d="${d}" transform="translate(0 22)" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".5"/></svg>`;
+  }
+  if (e === 'raio'){
+    const cores = ['#FF5A4F','#FF9F40','#FFE24D','#55D17A','#4FA3FF','#8B6CFF'];
+    return `<svg viewBox="0 0 220 80" aria-hidden="true"><line x1="0" y1="52" x2="104" y2="40" stroke="#FFFFFF" stroke-width="3"/><polygon points="96,70 128,14 160,70" fill="none" stroke="currentColor" stroke-width="2.5"/>${cores.map((c, i) => `<line x1="140" y1="44" x2="220" y2="${30 + i * 8}" stroke="${c}" stroke-width="2.5"/>`).join('')}</svg>`;
+  }
+  return '';
+}
+/* Trilha de progresso: estrada (carro), onda (corda) ou raio de luz */
+function trilha(n){
+  const e = (T && T.estilo) || 'estrada';
+  if (e === 'onda'){
+    let d = 'M0 15'; for (let x = 0; x <= 1000; x += 4) d += ` L${x} ${(15 - 10 * Math.sin(2 * Math.PI * x * n / 1000)).toFixed(2)}`;
+    return `<div class="lane2 ln-onda" id="lane" data-estilo="onda">
+      <svg class="ln-base" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="15" x2="1000" y2="15"/></svg>
+      <svg class="ln-fill" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><path d="${d}"/></svg>
+      <span class="ln-src" aria-hidden="true"></span><span class="ln-head" aria-hidden="true"></span></div>`;
+  }
+  if (e === 'raio'){
+    return `<div class="lane2 ln-raio" id="lane" data-estilo="raio">
+      <svg class="ln-base" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="15" x2="1000" y2="15"/></svg>
+      <svg class="ln-fill" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="15" x2="1000" y2="15"/></svg>
+      <span class="ln-src" aria-hidden="true"></span><span class="ln-head" aria-hidden="true"></span></div>`;
+  }
+  return `<div class="lane" id="lane" data-estilo="estrada">
+        <svg class="car" id="car" viewBox="0 0 34 20" aria-hidden="true">
+          <path d="M3 13 L5 8 Q6 6 9 6 L21 6 Q23 6 25 8 L29 11 Q32 11.5 32 14 L32 15 L2 15 L2 14 Q2 13 3 13 Z" fill="var(--lane)"/>
+          <path d="M8 8 L12 8 L12 11 L6.5 11 Z M14 8 L20 8 Q21.5 8 23 9.5 L24.5 11 L14 11 Z" fill="var(--road)"/>
+          <circle cx="9" cy="15.5" r="3" fill="var(--road-ink)"/><circle cx="25" cy="15.5" r="3" fill="var(--road-ink)"/>
+        </svg>
+      </div>`;
+}
+function crumbs(items){
+  const c = $('crumbs');
+  if (!items){ c.hidden = true; c.innerHTML = ''; return; }
+  c.hidden = false;
+  c.innerHTML = items.map((it, i) => {
+    const last = i === items.length - 1;
+    return (i ? '<span class="sep">›</span>' : '') + (last ? `<span class="here">${it.label}</span>` : `<button data-nav="${it.nav}">${it.label}</button>`);
+  }).join('');
+}
+
+/* ===== Nível 1: início da turma ===== */
+function openHome(){
+  contarTempo(); tMarca = null;
+  T = LI = null;
+  plate(`Física · ${SITE.escola}`, SITE.turma, `${SITE.turmas} · ${SITE.prof}`);
+  crumbs(null);
+  $('view').innerHTML = `
+    <section class="card intro">
+      <p class="sect-label">Como usar</p>
+      <p>Aqui ficam os materiais do aulão de Física e as listas para a reta final do ENEM. Escolha um tema e depois a lista. Cada lista mostra uma questão por vez, com dica e resolução detalhada logo depois de responder.</p>
+    </section>
+    <p class="sect-label">Material de consulta</p>
+    <div class="cards">
+      <button class="tile th-form" data-form="1">
+        <span class="ico">ƒ</span>
+        <span><span class="tt">Formulário do aulão</span><span class="ds">Todas as fórmulas da lista do aulão, organizadas por assunto, para consultar enquanto resolve.</span>
+          <span class="meta"><span class="chip">${FORMULARIO.length} assuntos</span></span></span>
+        <span class="go">→</span></button>
+    </div>
+    <p class="sect-label">Temas</p>
+    <div class="cards">
+      ${SITE.temas.map((t, i) => {
+        const nl = t.listas.length;
+        return `<button class="tile ${t.cls || ''}" data-tema="${i}">
+          <span class="ico">${t.ico}</span>
+          <span><span class="tt">${t.nome}</span><span class="ds">${t.resumo}</span>
+            <span class="meta"><span class="chip">${nl} ${nl === 1 ? 'lista' : 'listas'}</span></span></span>
+          <span class="go">→</span></button>`;
+      }).join('')}
+    </div>
+    <p class="note">Novas listas entram aqui até o ENEM.</p>
+    <section class="card install" id="installCard" hidden></section>
+    ${getAluno() ? `<p class="note">Entrou como <b>${getAluno().email}</b>${getAluno().turma ? ' · Turma ' + getAluno().turma : ''}. <button class="btn ghost" data-act="sair" style="padding:0">Não é você? Trocar</button></p>` : ''}`;
+  showInstall();
+  toTop();
+}
+
+/* ===== Nível 2: tema ===== */
+function openTema(ti){
+  contarTempo(); tMarca = null;
+  T = SITE.temas[ti]; LI = null;
+  plate(`Física · ${SITE.turma}`, T.nome, T.resumo);
+  crumbs([{ label:'Início', nav:'home' }, { label:T.nome }]);
+  $('view').innerHTML = `
+    <p class="sect-label">Listas e práticas</p>
+    <div class="cards">
+      ${T.listas.map((l, i) => {
+        const s = stats(l);
+        const prog = s.n ? `<span class="chip ${s.n === s.total ? 'ok' : ''}">${s.n === s.total ? `Feita · ${s.c}/${s.total} certas` : `${s.n}/${s.total} respondidas`}</span>` : '';
+        return `<button class="tile" data-lista="${i}">
+          <span class="ico lane">L${l.num}</span>
+          <span><span class="tt">Lista ${l.num} · ${l.titulo}</span><span class="ds">${l.resumo}</span>
+            <span class="meta"><span class="chip">${s.total} questões</span><span class="chip">com resolução</span>${prog}</span></span>
+          <span class="go">→</span></button>`;
+      }).join('')}
+    </div>`;
+  toTop();
+}
+
+/* ===== Nível 3: lista interativa ===== */
+function openLista(li){
+  contarTempo();
+  LI = T.listas[li]; st = load(LI.key); st.cur = -1; tMarca = Date.now(); tInter = Date.now();
+  plate(`Física · ${SITE.turma} · ${T.nome}`, `Lista ${LI.num}`, LI.titulo);
+  crumbs([{ label:'Início', nav:'home' }, { label:T.nome, nav:'tema' }, { label:`Lista ${LI.num}` }]);
+  $('view').innerHTML = `
+    <nav class="road" aria-label="Progresso nas questões">
+      <div class="road-top"><span id="roadLabel"></span><span id="roadScore"></span></div>
+      ${trilha(LI.Q.length)}
+      <div class="marks" id="marks" style="grid-template-columns:repeat(${LI.Q.length},1fr)"></div>${levelRow()}
+    </nav>
+    <details class="tools">
+      <summary><span>Caixa de ferramentas: fórmulas e conversões</span><span class="chev">›</span></summary>
+      <div class="tools-grid">${LI.tools.map(([t,h])=>`<div class="tool"><h4>${t}</h4><div>${h}</div></div>`).join('')}</div>
+    </details>
+    <div id="qa"></div>`;
+  renderRoad(); renderIntro(); toTop();
+}
+
+
+const lvKey = n => ({'básico':'b','básico+':'bp','intermediário':'i','avançado':'a'})[n] || 'b';
+function levelGroups(){
+  const g = [];
+  LI.Q.forEach((q, i) => { if (!q.nivel) return; const last = g[g.length-1]; if (last && last.n === q.nivel && last.end === i) last.end = i + 1; else g.push({ n: q.nivel, start: i, end: i + 1 }); });
+  return g;
+}
+function levelRow(){
+  const g = levelGroups(); if (!g.length) return '';
+  return `<div class="lvrow" style="grid-template-columns:repeat(${LI.Q.length},1fr)">${g.map(x => `<span class="lv-${lvKey(x.n)}" style="grid-column:${x.start+1} / ${x.end+1}">${x.n}</span>`).join('')}</div>`;
+}
+function levelSummary(){
+  const g = levelGroups(); if (!g.length) return '';
+  const c = {}; g.forEach(x => c[x.n] = (c[x.n] || 0) + (x.end - x.start));
+  return `<div class="row" style="gap:6px">${Object.keys(c).map(n => `<span class="lvl lvl-${lvKey(n)}">${c[n]} ${n === 'básico' ? (c[n]>1?'básicas':'básica') : n === 'básico+' ? 'Básico+' : n === 'intermediário' ? (c[n]>1?'intermediárias':'intermediária') : (c[n]>1?'avançadas':'avançada')}</span>`).join('')}</div>`;
+}
+const save = () => store(LI.key, st);
+function resumoLista(){
+  const porNivel = n => { const idx = LI.Q.map((q,i) => i).filter(i => LI.Q[i].nivel === n); return idx.length ? idx.filter(i => status(i) === 'ok').length + '/' + idx.length : ''; };
+  return {
+    evento: 'lista concluída', tema: T.nome, lista: 'Lista ' + LI.num,
+    acertos: correctCount(), total: LI.Q.length,
+    basico: [porNivel('básico'), porNivel('básico+')].filter(Boolean).join(' + '), intermediario: porNivel('intermediário'), avancado: porNivel('avançado'),
+    erradas: LI.Q.map((q,i) => i).filter(i => status(i) !== 'ok').map(i => i + 1).join(', '),
+    dicas: Object.keys(st.hints || {}).filter(k => st.hints[k]).length,
+    tempoMin: Math.round((st.tempo || 0) / 6) / 10
+  };
+}
+function status(i){ const a = st.answers[i]; if (a === undefined) return 'none'; return a === LI.Q[i].ans ? 'ok' : 'bad'; }
+function correctCount(){ return LI.Q.reduce((n,_,i)=> n + (status(i)==='ok'?1:0), 0); }
+function answeredCount(){ return LI.Q.reduce((n,_,i)=> n + (status(i)!=='none'?1:0), 0); }
+
+function renderRoad(){
+  const Q = LI.Q;
+  $('marks').innerHTML = Q.map((_,i)=>{
+    const s = status(i);
+    const cls = ['mk', s==='ok'?'ok':s==='bad'?'bad':'', st.cur===i?'cur':''].join(' ');
+    const lab = s==='ok'?'certa':s==='bad'?'errada':'não respondida';
+    return `<button class="${cls}" data-go="${i}" aria-label="Questão ${i+1}, ${lab}">${i+1}</button>`;
+  }).join('');
+  const pos = st.cur < 0 ? 0 : st.cur >= Q.length ? Q.length - 0.5 : st.cur + 0.5;
+  const lane = $('lane'), pct = (pos/Q.length)*100;
+  if (lane.dataset.estilo === 'estrada') $('car').style.left = `calc(${pct}% + ${st.cur<0?17:0}px)`;
+  else { lane.style.setProperty('--p', pct.toFixed(2)); lane.querySelector('.ln-fill').style.clipPath = `inset(0 ${(100 - pct).toFixed(2)}% 0 0)`; }
+  const n = answeredCount();
+  $('roadLabel').textContent = st.cur>=0 && st.cur<Q.length ? `Questão ${st.cur+1} de ${Q.length}` : `Percurso: ${Q.length} questões`;
+  $('roadScore').textContent = n ? `${correctCount()} de ${n} certas` : '';
+}
+
+function renderIntro(){
+  const Q = LI.Q, n = answeredCount();
+  $('qa').innerHTML = `
+  <section class="card intro">
+    <div class="qnum">Antes de começar</div>
+    <p>São <b>${Q.length} questões</b> sobre ${LI.titulo.toLowerCase()}. ${LI.intro || ''}</p>${levelSummary()}
+    <ul>
+      <li>Responda uma questão por vez. Logo depois, aparece a <b>resolução detalhada</b>, passo a passo.</li>
+      <li>Travou? Use o botão <b>Ver dica</b> antes de responder.</li>
+      <li>A <b>caixa de ferramentas</b> acima tem as fórmulas e conversões que você vai usar.</li>
+      <li>Tenha papel e lápis à mão e tente resolver antes de clicar na alternativa.</li>
+    </ul>
+    <div class="row">
+      <button class="btn primary" id="startBtn">${n && n < Q.length ? 'Continuar de onde parei' : n === Q.length ? 'Ver meu resultado' : 'Começar a questão 1'}</button>
+      ${n ? `<span class="small">${n} de ${Q.length} questões respondidas neste aparelho.</span>` : ''}
+    </div>
+  </section>`;
+  $('startBtn').onclick = () => {
+    if (n === Q.length) goQ(Q.length);
+    else { const next = Q.findIndex((_,i)=>status(i)==='none'); goQ(next < 0 ? 0 : next); }
+  };
+}
+
+function renderQuestion(i){
+  const Q = LI.Q, q = Q[i], a = st.answers[i], done = a !== undefined, skipped = a === -1;
+  const opts = q.opts.map((o,k)=>{
+    let cls = 'opt', tag = '';
+    if (done){
+      if (k === q.ans){ cls += ' is-correct'; tag = '<span class="tag">✓ correta</span>'; }
+      else if (k === a){ cls += ' is-wrong'; tag = '<span class="tag">✗ sua resposta</span>'; }
+      else cls += ' is-dim';
+    }
+    return `<li><button class="${cls}" data-pick="${k}" ${done?'disabled':''}><span class="letter">${L[k]}</span><span>${o}</span>${tag}</button></li>`;
+  }).join('');
+  let fb = '';
+  if (done){
+    fb = a === q.ans
+      ? `<div class="feedback good" role="status"><span class="ico">✓</span>Correto! Confira a resolução para ver se o seu raciocínio bate.</div>`
+      : skipped
+        ? `<div class="feedback bad" role="status"><span class="ico">→</span>Sem problema. Acompanhe a resolução com calma e tente refazer no papel.</div>`
+        : `<div class="feedback bad" role="status"><span class="ico">✗</span>Não foi dessa vez. A resposta certa é a ${L[q.ans]}. Veja onde o raciocínio muda.</div>`;
+  }
+  const sol = done ? `
+    <section class="sol" aria-label="Resolução detalhada">
+      <h3>Resolução detalhada</h3>
+      <ol class="steps">
+        ${q.steps.map(([lab,html])=>`<li class="step"><div class="step-body"><div class="step-label">${lab}</div>${html}</div></li>`).join('')}
+      </ol>
+      <div class="answer"><span class="letter">${L[q.ans]}</span><span>Resposta: alternativa ${L[q.ans]} (${q.opts[q.ans]})</span></div>
+      ${q.alt ? `<div class="alt"><b class="lbl">Outro jeito de pensar</b>${q.alt}</div>` : ''}
+      ${q.warn ? `<div class="warn"><b class="lbl">Cuidado com a pegadinha</b>${q.warn}</div>` : ''}
+    </section>` : '';
+  const showHint = st.hints[i] && !done;
+  const last = i === Q.length - 1;
+  $('qa').innerHTML = `
+  <article class="card">
+    <div class="qhead">
+      <div class="qnum">Questão ${i+1} <span>/ ${Q.length}</span></div>
+      <span class="row" style="gap:6px">${q.nivel ? `<span class="lvl lvl-${lvKey(q.nivel)}">Nível ${q.nivel === 'básico+' ? 'Básico+' : q.nivel}</span>` : ''}<span class="src">${q.src}</span></span>
+    </div>
+    <div class="stmt">${q.text}</div>
+    <ul class="opts">${opts}</ul>
+    ${!done ? `<div class="row">
+        ${showHint ? '' : `<button class="btn" id="hintBtn">Ver dica</button>`}
+        <span class="spacer"></span>
+        <button class="btn ghost" id="skipBtn">Não sei, mostrar a resolução</button>
+      </div>` : ''}
+    ${showHint ? `<div class="tip"><b>Dica</b>${q.hint}</div>` : ''}
+    ${fb}
+    ${sol}
+    <div class="row">
+      ${i > 0 ? `<button class="btn" id="prevBtn">← Anterior</button>` : ''}
+      <span class="spacer"></span>
+      ${done ? `<button class="btn primary" id="nextBtn">${last ? 'Ver meu resultado' : 'Próxima questão →'}</button>`
+             : (!last ? `<button class="btn ghost" id="jumpBtn">Pular por enquanto</button>` : '')}
+    </div>
+  </article>`;
+  $('qa').querySelectorAll('[data-pick]').forEach(b => b.onclick = () => answer(i, +b.dataset.pick));
+  const h = $('hintBtn'); if (h) h.onclick = () => { st.hints[i] = true; save(); renderQuestion(i); };
+  const s = $('skipBtn'); if (s) s.onclick = () => answer(i, -1);
+  const p = $('prevBtn'); if (p) p.onclick = () => goQ(i - 1);
+  const n = $('nextBtn'); if (n) n.onclick = () => goQ(i + 1);
+  const j = $('jumpBtn'); if (j) j.onclick = () => goQ(i + 1);
+}
+
+function answer(i, k){
+  if (st.answers[i] !== undefined) return;
+  st.answers[i] = k; save();
+  if (answeredCount() === LI.Q.length && !st.enviado){ contarTempo(); st.enviado = true; save(); enviar(resumoLista()); }
+  renderRoad(); renderQuestion(i);
+  const fb = $('qa').querySelector('.feedback');
+  if (fb) fb.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+}
+
+function renderEnd(){
+  const Q = LI.Q, c = correctCount(), n = answeredCount();
+  const msg = n < Q.length
+    ? `Você ainda tem ${Q.length - n} questão(ões) sem responder. Toque nelas abaixo para terminar.`
+    : c >= Math.ceil(Q.length * 0.9) ? 'Excelente! Você domina este conteúdo. Releia as pegadinhas para chegar ao ENEM ainda mais seguro.'
+    : c >= Math.ceil(Q.length * 0.6) ? 'Bom trabalho. Revise as questões que errou e leia com atenção as pegadinhas: é onde mais se perde ponto.'
+    : 'Vale revisar a caixa de ferramentas e refazer as questões com calma, acompanhando cada passo da resolução, antes do ENEM.';
+  $('qa').innerHTML = `
+  <section class="card">
+    <div class="qnum">Resultado</div>
+    <div class="score">${c}<span> / ${Q.length}</span></div>
+    <p style="margin:0">${msg}</p>
+    <ul class="reslist">
+      ${Q.map((q,i)=>{ const s = status(i); const t = s==='ok'?'✓ certa':s==='bad'?(st.answers[i]===-1?'→ vista':'✗ errada'):'— pendente';
+        return `<li><button class="res ${s}" data-go="${i}"><b>Questão ${i+1}</b><span class="st">${t}</span></button></li>`; }).join('')}
+    </ul>
+    <div class="row">
+      <button class="btn" id="resetBtn">Refazer a lista do zero</button>
+      <button class="btn primary" data-nav="tema">Voltar para ${T.nome}</button>
+      <span class="small" id="resetNote"></span>
+    </div>
+  </section>`;
+  const r = $('resetBtn'); let armed = false;
+  r.onclick = () => {
+    if (!armed){ armed = true; r.textContent = 'Confirmar: apagar minhas respostas'; $('resetNote').textContent = 'Toque de novo para confirmar.'; return; }
+    st = { answers:{}, hints:{}, cur:-1, tempo:0 }; save(); goQ(-1);
+  };
+}
+
+function goQ(i){
+  st.cur = i; save();
+  renderRoad();
+  if (i < 0) renderIntro();
+  else if (i >= LI.Q.length) renderEnd();
+  else renderQuestion(i);
+  toTop();
+}
+
+/* ===== Formulário do aulão ===== */
+function openFormulario(){
+  contarTempo(); tMarca = null; T = LI = null;
+  plate(`Física · ${SITE.turma} · Aulão`, 'Formulário', 'Todas as fórmulas da lista do aulão, por assunto.');
+  document.documentElement.classList.add('th-form');
+  crumbs([{ label:'Início', nav:'home' }, { label:'Formulário' }]);
+  $('view').innerHTML = `
+    <nav class="card formnav" aria-label="Assuntos do formulário"><p class="sect-label">Ir para</p><div class="row" style="gap:6px">${FORMULARIO.map(([sec], i) => `<a class="chip chip-link" href="#/formulario" data-sec="${i}">${sec}</a>`).join('')}</div></nav>
+    ${FORMULARIO.map(([sec, itens], i) => `<section class="card formsec" id="sec${i}"><h2 class="formh">${sec}</h2><div class="tools-grid form-grid">${itens.map(([t, h]) => `<div class="tool"><h4>${t}</h4><div>${h}</div></div>`).join('')}</div></section>`).join('')}`;
+  toTop();
+}
+
+/* ===== Navegação com endereço próprio (#/tema/lista) e botão Voltar do celular ===== */
+function go(h){ if (location.hash === h) route(); else location.hash = h; }
+function openLogin(){
+  contarTempo(); tMarca = null; T = LI = null;
+  plate(`Física · ${SITE.escola}`, SITE.turma, `${SITE.turmas} · ${SITE.prof}`);
+  crumbs(null);
+  $('view').innerHTML = `
+    <form class="card intro" id="loginForm" novalidate>
+      <p class="sect-label">Identificação</p>
+      <p>Para usar as listas, informe o seu <b>e-mail do colégio</b> e a sua turma. Você só faz isso uma vez neste aparelho.</p>
+      <label class="fld"><span>E-mail do colégio <small class="fld-dica">(só a parte antes do @)</small></span>
+        <span class="emailbox">
+          <input id="loginEmail" type="text" inputmode="email" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="nome.sobrenome" required>
+          <span class="dom" aria-hidden="true">@${CONFIG.dominio.replace('.', '.<wbr>')}</span>
+        </span></label>
+      <label class="fld"><span>Turma</span>
+        <select id="loginTurma" required><option value="">Escolha</option>${CONFIG.turmas.map(t => `<option value="${t}">${t}</option>`).join('')}</select></label>
+      <p class="small" id="loginErro" role="alert"></p>
+      <div class="row"><button class="btn primary" type="submit">Entrar</button></div>
+      <p class="note">O professor recebe o seu e-mail, a turma, a data de acesso e os resultados das listas (acertos, tempo e dicas usadas), só para acompanhar os estudos da turma.</p>
+    </form>`;
+  $('loginForm').onsubmit = e => {
+    e.preventDefault();
+    let usuario = $('loginEmail').value.trim().toLowerCase().replace(/\s+/g, '');
+    const dom = '@' + CONFIG.dominio.toLowerCase().replace(/^@/, '');
+    if (usuario.endsWith(dom)) usuario = usuario.slice(0, -dom.length);   // se digitou o e-mail inteiro, aproveita
+    const email = usuario + dom, turma = $('loginTurma').value;
+    if (!usuario){ $('loginErro').textContent = 'Escreva a parte do seu e-mail antes do @.'; $('loginEmail').focus(); return; }
+    if (usuario.includes('@') || !emailValido(email)){ $('loginErro').textContent = `Escreva só a parte antes do @. O resto (${dom}) já está preenchido.`; $('loginEmail').focus(); return; }
+    if (!turma){ $('loginErro').textContent = 'Escolha a sua turma.'; $('loginTurma').focus(); return; }
+    setAluno({ email, turma }); registrarAcessoDoDia(); route();
+  };
+  toTop();
+}
+function route(){
+  if (precisaLogin()){ openLogin(); return; }
+  registrarAcessoDoDia(); enviarFila();
+  const p = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
+  document.documentElement.classList.remove('th-form');
+  if (p[0] === 'formulario'){ openFormulario(); return; }
+  const ti = SITE.temas.findIndex(t => t.id === p[0]);
+  if (ti < 0){ openHome(); return; }
+  if (!p[1]){ openTema(ti); return; }
+  const li = SITE.temas[ti].listas.findIndex(l => l.id === p[1]);
+  if (li < 0){ openTema(ti); return; }
+  T = SITE.temas[ti]; openLista(li);
+}
+window.addEventListener('hashchange', route);
+document.addEventListener('click', e => {
+  const fm = e.target.closest('[data-form]'); if (fm){ go('#/formulario'); return; }
+  const sc = e.target.closest('[data-sec]'); if (sc){ e.preventDefault(); const el = $('sec' + sc.dataset.sec); if (el) el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); return; }
+  const act = e.target.closest('[data-act="sair"]'); if (act){ setAluno(null); try { localStorage.removeItem(DIA_KEY); } catch(err){} go('#/'); route(); return; }
+  const nav = e.target.closest('[data-nav]');
+  if (nav){ go(nav.dataset.nav === 'tema' && T ? '#/' + T.id : '#/'); return; }
+  const t = e.target.closest('[data-tema]'); if (t){ go('#/' + SITE.temas[+t.dataset.tema].id); return; }
+  const l = e.target.closest('[data-lista]'); if (l){ go('#/' + T.id + '/' + T.listas[+l.dataset.lista].id); return; }
+  const g = e.target.closest('[data-go]'); if (g && LI){ goQ(+g.dataset.go); }
+});
+
+/* ===== Instalação como aplicativo ===== */
+let installEvt = null;
+const standalone = () => (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; showInstall(); });
+window.addEventListener('appinstalled', () => { installEvt = null; const c = $('installCard'); if (c) c.hidden = true; });
+function showInstall(){
+  const c = $('installCard'); if (!c || standalone()) return;
+  if (installEvt){
+    c.hidden = false;
+    c.innerHTML = `<p class="sect-label">Instale no celular</p><p>Tenha as listas como um aplicativo: ícone na tela inicial e funcionando mesmo sem internet.</p><div class="row"><button class="btn primary" id="instBtn">Instalar o app</button></div>`;
+    $('instBtn').onclick = async () => { installEvt.prompt(); try { await installEvt.userChoice; } catch(e){} installEvt = null; c.hidden = true; };
+  } else if (isIOS){
+    c.hidden = false;
+    c.innerHTML = `<p class="sect-label">Instale no iPhone</p><p>No Safari, toque em <b>Compartilhar</b> (o quadrado com a seta para cima) e depois em <b>Adicionar à Tela de Início</b>.</p>`;
+  }
+}
+
+if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(() => {});
+route();
+
+</script>
+</body>
+</html>
