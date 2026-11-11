@@ -5,7 +5,7 @@ import os
 B=os.path.dirname(os.path.abspath(__file__))+'/'
 head=open(B+'head.html',encoding='utf-8').read().replace('<title>Lista de Cinemática 9º Ano</title>','''<title>Terceirão · Física CIB</title>
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#7A1F2B">
+<meta name="theme-color" content="#123E8C">
 <meta name="description" content="Aulão de Física e listas interativas para a reta final do ENEM, 3ª série do Colégio Israelita Brasileiro.">
 <link rel="icon" type="image/png" href="icons/favicon.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
