@@ -78,19 +78,19 @@ const SITE = {
       ]
     },
     {
-      id: 'inducao', ico: 'Φ', nome: 'Indução eletromagnética', cls: 'th-inducao', estilo: 'onda', deco: 'bobina',
-      resumo: 'Fluxo magnético, leis de Faraday e de Lenz, fem de movimento, geradores e transformadores.',
+      id: 'inducao', ico: 'Φ', nome: 'Eletromagnetismo', cls: 'th-inducao', estilo: 'onda', deco: 'bobina',
+      resumo: 'Ímãs, campo magnético da Terra e das correntes, força magnética, leis de Faraday e de Lenz, geradores e transformadores.',
       listas: [
-        { id: 'basica', key: 'cib3-inducao-basica-v1', num: 1,
-          titulo: 'Nível básico',
-          resumo: '6 questões básicas e 4 que já puxam para o intermediário (Básico+).',
-          intro: 'Comece por aqui se indução ainda não está firme.',
-          tools: TOOLS_INDUCAO, Q: Q_INDUCAO_1 },
-        { id: 'intermediaria', key: 'cib3-inducao-intermediaria-v1', num: 2,
-          titulo: 'Nível intermediário',
-          resumo: '6 questões originais e 4 baseadas em questões do ENEM (2011, 2014, 2017 e 2020).',
-          intro: 'As 4 últimas foram montadas a partir de questões reais do ENEM, com outro contexto e outros números.',
-          tools: TOOLS_INDUCAO_2, Q: Q_INDUCAO_2 }
+        { id: 'magnetismo', key: 'cib3-eletromag-magnetismo-v1', num: 1,
+          titulo: 'Magnetismo e campo magnético',
+          resumo: 'Bússola, ímãs, eletroímãs, campo de um fio, força magnética sobre cargas e correntes.',
+          intro: 'Do ímã de brinquedo ao espectrômetro de massa: as situações que o ENEM usa para cobrar campo e força magnética.',
+          tools: TOOLS_MAG, Q: Q_MAG },
+        { id: 'faraday', key: 'cib3-eletromag-inducao-v1', num: 2,
+          titulo: 'Indução eletromagnética',
+          resumo: 'Fluxo, leis de Faraday e de Lenz, geradores, transformadores e transmissão de energia.',
+          intro: 'Carregador sem fio, fogão de indução, freio magnético, usinas: onde a variação do fluxo magnético aparece no dia a dia.',
+          tools: TOOLS_IND, Q: Q_IND }
       ]
     }
   ]

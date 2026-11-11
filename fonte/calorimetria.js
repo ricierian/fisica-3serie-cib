@@ -5,8 +5,7 @@ const TOOLS_CALOR = [
   ['Potência e rendimento', `P = ${f('Q','Δt')} &nbsp;·&nbsp; η = ${f('útil','total')}<br>Radiação solar: P = I · A &nbsp;·&nbsp; 1 cal ≈ 4,2 J`],
   ['Água', `c = 1 cal/(g·°C) = 4 200 J/(kg·°C)<br>L<sub>fusão</sub> = 80 cal/g &nbsp;·&nbsp; 1 L ≈ 1 kg`],
   ['Energia mecânica', `E<sub>p</sub> = m · g · h &nbsp;·&nbsp; E<sub>c</sub> = ${f('m · v²','2')}`],
-  ['Dilatação', `ΔL = L₀ · α · ΔT<br>Lâmina bimetálica: o metal de maior α fica do lado de fora da curva`],
-  ['Refrigerador', `Q₁ = Q₂ + W &nbsp;·&nbsp; e = ${f('Q₂','W')}<br>Q₂: retirado de dentro · Q₁: liberado no ambiente`]
+  ['Dilatação', `ΔL = L₀ · α · ΔT<br>Lâmina bimetálica: o metal de maior α fica do lado de fora da curva`]
 ];
 
 /* Lâmina bimetálica do termostato (questão 3) */
@@ -21,22 +20,6 @@ const FIG_BIMETAL = fig('0 0 340 170', 'Termostato: lâmina bimetálica presa nu
    <text x="282" y="54" text-anchor="middle" class="pt">contato</text>
    <text x="27" y="48" text-anchor="middle" class="pt">suporte</text>
    <text x="175" y="164" text-anchor="middle" class="pt">circuito da resistência do ferro</text>`, 380);
-
-/* Fluxo de energia da geladeira (questão 10) */
-const FIG_GELADEIRA = (() => {
-  const [d, mk] = seta('var(--ink)');
-  const caixa = (x, t1, t2, cheio) => `<rect x="${x}" y="70" width="86" height="60" rx="8" fill="${cheio ? 'var(--line)' : 'none'}" stroke="var(--ink)" stroke-width="2"/><text x="${x + 43}" y="96" text-anchor="middle" class="pt pt-strong">${t1}</text><text x="${x + 43}" y="114" text-anchor="middle" class="pt">${t2}</text>`;
-  return fig('0 0 380 190', 'Esquema da geladeira: o calor Q2 é retirado do interior, o compressor recebe o trabalho W da tomada, e o calor Q1 é liberado na cozinha pela grade traseira.',
-  `${d}${caixa(4, 'interior', 'fonte fria')}${caixa(147, 'geladeira', 'compressor', true)}${caixa(290, 'cozinha', 'fonte quente')}
-   <line x1="94" y1="100" x2="141" y2="100" stroke="var(--ink)" stroke-width="2.5" marker-end="${mk}"/>
-   <text x="117" y="90" text-anchor="middle" class="pt pt-strong">Q₂</text>
-   <line x1="237" y1="100" x2="284" y2="100" stroke="var(--ink)" stroke-width="2.5" marker-end="${mk}"/>
-   <text x="260" y="90" text-anchor="middle" class="pt pt-strong">Q₁</text>
-   <line x1="190" y1="24" x2="190" y2="64" stroke="var(--ink)" stroke-width="2.5" marker-end="${mk}"/>
-   <text x="200" y="46" class="pt pt-strong">W</text>
-   <text x="190" y="16" text-anchor="middle" class="pt">tomada</text>
-   <text x="190" y="166" text-anchor="middle" class="pt pt-strong">e = Q₂ / W = 3</text>`, 400);
-})();
 
 const Q_CALOR = [
 { src: 'Inédita', nivel: 'básico',
@@ -139,15 +122,14 @@ ${tabela(['Dado do sistema','Valor'],[['Área dos coletores','3,0 m²'],['Rendim
   warn: erros([['A) 0,070 °C:','usa a massa dos discos em gramas com c em J/(kg·°C).'],['B) 35 °C:','usa m · g · h / 2, como se fosse energia cinética.'],['C) 61 °C:','considera só a massa do ciclista e esquece a bicicleta.'],['E) 140 °C:','considera só um disco.']]) },
 
 { src: 'Inédita', nivel: 'avançado',
-  text: `<p>Uma família coloca 2,0 kg de água a 20 °C no congelador para fazer gelo. Na geladeira, um fluido refrigerante circula em ciclo: ele <b>evapora</b> na serpentina do interior (evaporador), é comprimido pelo compressor e se <b>condensa</b> na serpentina da grade traseira (condensador), voltando depois ao interior por uma válvula de expansão. Com o trabalho W do compressor, a geladeira retira o calor Q₂ do interior e libera o calor Q₁ na cozinha. Para essa geladeira, a eficiência é e&nbsp;=&nbsp;Q₂/W&nbsp;=&nbsp;3.</p>
-${FIG_GELADEIRA}
-<p>Considere o calor específico da água 1 cal/(g·°C), o calor latente de fusão 80 cal/g e 1 cal = 4,2 J. Para transformar toda a água em gelo a 0 °C, o calor liberado na cozinha e a parte do ciclo em que o fluido libera esse calor são, respectivamente,</p>`,
-  opts: ['280 kJ, no evaporador.','840 kJ, no condensador.','1 120 kJ, no condensador.','1 120 kJ, no evaporador.','2 520 kJ, na válvula de expansão.'], ans: 2,
-  hint: 'Duas perguntas. Na mudança de fase: evaporar absorve ou libera calor? E condensar? Na conta: calcule o calor retirado da água, o trabalho do compressor (pela eficiência) e some.',
-  steps: [['Onde o calor sai', '<p>Evaporar <b>absorve</b> calor latente (por isso o evaporador fica no interior e o esfria). Condensar <b>libera</b> calor latente: é no <b>condensador</b>, na grade traseira, que o calor vai para a cozinha.</p>'],
-          ['Calor retirado da água', '<p>Resfriar de 20 °C a 0 °C: 2 000 × 1 × 20 = 40 000 cal. Congelar: 2 000 × 80 = 160 000 cal.</p><div class="eq">Q₂ = 200 000 cal = 840 kJ</div>'],
-          ['Trabalho do compressor', `<div class="eq">W = ${f('Q₂','e')} = ${f('840','3')} = 280 kJ</div>`],
-          ['Calor na cozinha', '<div class="eq">Q₁ = Q₂ + W = 840 + 280 = 1 120 kJ</div>']],
-  alt: 'A cozinha recebe mais calor do que a geladeira tirou da água, porque a energia elétrica do compressor também vira calor. Por isso deixar a geladeira aberta não refresca a cozinha: no balanço, ela a esquenta.',
-  warn: erros([['A) 280 kJ, no evaporador:','responde o trabalho do compressor e troca evaporador por condensador.'],['B) 840 kJ, no condensador:','esquece que o trabalho do compressor também chega à cozinha.'],['D) 1 120 kJ, no evaporador:','acerta a conta, mas no evaporador o fluido absorve calor, não libera.'],['E) 2 520 kJ, na válvula de expansão:','multiplica Q₂ pela eficiência; na válvula, o fluido só perde pressão e esfria.']]) }
+  text: `<p>Em uma casa com aquecedor solar, a água quente chega à banheira a 70 °C, e a água fria da rede, a 20 °C. Para um banho de imersão, uma pessoa quer encher a banheira com 100 L de água a 38 °C, misturando as duas.</p>
+${tabela(['Água','Temperatura','Volume'],[['Quente (aquecedor solar)','70 °C','?'],['Fria (rede)','20 °C','?'],['Banheira cheia','38 °C','100 L']])}
+<p>Desprezando as trocas de calor com a banheira e com o ambiente, e considerando que 1 L de água tem 1 kg em qualquer dessas temperaturas, o volume de água quente necessário é de</p>`,
+  opts: ['36 L.','50 L.','54 L.','56 L.','64 L.'], ans: 0,
+  hint: 'O calor que a água quente perde até chegar a 38 °C é o calor que a fria ganha até 38 °C. Chame de x o volume de água quente; o de fria é 100 − x.',
+  steps: [['Balanço de energia', `<p>Sistema isolado: o calor cedido pela água quente é igual ao recebido pela fria (o c da água cancela).</p><div class="eq">x · (70 − 38) = (100 − x) · (38 − 20)</div>`],
+          ['Resolvendo', '<div class="eq">32x = 1 800 − 18x</div><div class="eq">50x = 1 800 → x = 36 L</div><p>Água fria: 100 − 36 = 64 L.</p>'],
+          ['Conferindo', '<p>Calor cedido: 36 × 32 = 1 152. Calor recebido: 64 × 18 = 1 152. As contas fecham.</p>']],
+  alt: 'Pense em “distâncias” até 38 °C: a quente está 32 °C acima, e a fria, 18 °C abaixo. As massas ficam na razão inversa dessas distâncias: quente/fria = 18/32 = 9/16. Dividindo 100 L em 9 + 16 = 25 partes, a quente fica com 9 partes: 36 L. Como 38 °C está mais perto de 20 °C, precisa de mais água fria.',
+  warn: erros([['B) 50 L:','usa metade de cada, mas a média daria 45 °C, e não 38 °C.'],['C) 54 L:','faz a proporção 38/70 da temperatura final pela da água quente; temperaturas não se dividem assim.'],['D) 56 L:','escreve x · 32 = 100 · 18, usando os 100 L inteiros como água fria (≈ 56 L).'],['E) 64 L:','responde o volume de água fria (ou inverte as diferenças de temperatura).']]) }
 ];
