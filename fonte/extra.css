@@ -155,3 +155,23 @@
 .ln-bloco .ln-head::before{content:"";position:absolute;left:31px;top:2.5px;border-top:4.75px solid transparent;border-bottom:4.75px solid transparent;border-left:7px solid var(--road-ink)}
 .ln-bloco{margin-right:30px}
 .ln-bloco .ln-src{width:4px;height:22px;left:-12px;top:13px;transform:translateY(-50%);background:repeating-linear-gradient(180deg,var(--road-ink) 0 2px,transparent 2px 5px);opacity:.6}
+/* Formulário: essenciais em destaque; complementares recolhidas e mais discretas */
+:root{--main-bg:#E3ECFA;--main-line:#123E8C;--extra-line:#9AA7B6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--main-bg:#14254A;--main-line:#6F9BE8;--extra-line:#4A5868}}
+:root[data-theme="dark"]{--main-bg:#14254A;--main-line:#6F9BE8;--extra-line:#4A5868}
+.leg{display:inline-block;white-space:nowrap;font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-right:6px;vertical-align:1px}
+.leg-main{background:var(--main-line);color:#FFFFFF}
+.leg-extra{background:transparent;color:var(--muted);box-shadow:inset 0 0 0 1px var(--extra-line)}
+.formleg{gap:8px}
+.formleg p{font-size:15px}
+.form-tag{margin:0}
+.tool.tool-main{background:var(--main-bg);border-left:4px solid var(--main-line)}
+.tool.tool-main h4{color:var(--main-line)}
+.form-extra{border-top:1.5px dashed var(--line);padding-top:10px}
+.form-extra summary{list-style:none;display:flex;align-items:center;gap:8px;cursor:pointer;padding:4px 0}
+.form-extra summary::-webkit-details-marker{display:none}
+.form-extra summary .chev{margin-left:auto;font-family:var(--f-mono);color:var(--muted);transition:transform .2s}
+.form-extra[open] summary .chev{transform:rotate(90deg)}
+.form-extra .form-grid{margin-top:10px}
+.tool.tool-extra{background:transparent;border:1px dashed var(--extra-line)}
+.tool.tool-extra div{font-size:15px}

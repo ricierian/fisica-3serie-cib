@@ -417,3 +417,60 @@ const FORMULARIO = [
     ['Gravitação universal', `F = G · ${f('M · m','d²')}<br><small>G = 6,7 × 10⁻¹¹ N·m²/kg²</small>`],
     ['Energia de um fóton', `E = h · f<br><small>h = 6,6 × 10⁻³⁴ J·s</small>`]]]
 ];
+
+/* ===== Formulário · fórmulas complementares ("Para ir além") ===== */
+const FORMULARIO_EXTRA = {
+  'Eletrodinâmica': [
+    ['Corrente elétrica', `i = ${f('ΔQ','Δt')} &nbsp;;&nbsp; Q = n · e<br><small>e = 1,6 × 10⁻¹⁹ C</small>`],
+    ['Rendimento do gerador', `P<sub>útil</sub> = U · i &nbsp;;&nbsp; P<sub>total</sub> = ε · i<br>η = ${f('U','ε')}`],
+    ['Custo da energia', `custo = E (kWh) × tarifa (R$/kWh)`],
+    ['Fusível e disjuntor', `<small>escolha o valor imediatamente acima da maior corrente de operação do circuito</small>`]],
+  'Magnetismo': [
+    ['Força magnética sobre carga', `F = |q| · v · B · sen θ`],
+    ['Força magnética sobre fio', `F = B · i · L · sen θ`],
+    ['Campo de um fio longo', `B = ${f('μ₀ · i','2π · d')}<br><small>μ₀ = 4π × 10⁻⁷ T·m/A</small>`],
+    ['fem de movimento', `ε = B · L · v`],
+    ['Lei de Lenz', `<small>a corrente induzida se opõe à variação do fluxo que a produziu</small>`]],
+  'Termologia': [
+    ['Capacidade térmica', `C = m · c = ${f('Q','ΔT')}`],
+    ['Equilíbrio térmico', `Q₁ + Q₂ + … = 0<br><small>calor recebido positivo; cedido negativo</small>`],
+    ['Dilatação superficial e volumétrica', `ΔA = A₀ · β · ΔT &nbsp;;&nbsp; ΔV = V₀ · γ · ΔT<br><small>β = 2α; γ = 3α</small>`],
+    ['1ª lei da termodinâmica', `ΔU = Q − τ<br>pressão constante: τ = p · ΔV`]],
+  'Ondulatória': [
+    ['Período e frequência', `T = ${f('1','f')}`],
+    ['Tubos sonoros', `aberto: f<sub>n</sub> = ${f('n · v','2L')} &nbsp;;&nbsp; fechado: f<sub>n</sub> = ${f('n · v','4L')} <small>(n ímpar)</small>`],
+    ['Velocidade numa corda', `v = √${f('F','μ')}<br><small>μ: massa por unidade de comprimento</small>`],
+    ['Nível de intensidade sonora', `β = 10 · log ${f('I','I₀')} <small>(dB)</small>`],
+    ['Efeito Doppler', `f′ = f · ${f('v ± v<sub>o</sub>','v ∓ v<sub>f</sub>')}<br><small>sinais de cima: observador e fonte se aproximando</small>`]],
+  'Cinemática': [
+    ['Queda livre', `v = g · t &nbsp;;&nbsp; h = ${f('g · t²','2')}`],
+    ['Lançamento oblíquo', `v<sub>x</sub> = v₀ · cos θ &nbsp;;&nbsp; v<sub>0y</sub> = v₀ · sen θ<br>alcance: A = ${f('v₀² · sen 2θ','g')}`],
+    ['Movimento circular uniforme', `ω = 2π · f &nbsp;;&nbsp; v = ω · R<br>a<sub>cp</sub> = ${f('v²','R')}`]],
+  'Dinâmica e energia': [
+    ['Força elástica', `F = k · x`],
+    ['Resultante centrípeta', `F<sub>cp</sub> = ${f('m · v²','R')}`],
+    ['Plano inclinado', `P<sub>x</sub> = P · sen θ &nbsp;;&nbsp; P<sub>y</sub> = P · cos θ`],
+    ['Teorema da energia cinética', `τ<sub>R</sub> = ΔE<sub>c</sub>`],
+    ['Rendimento', `η = ${f('P<sub>útil</sub>','P<sub>total</sub>')}`],
+    ['Colisões', `e = ${f('v<sub>afastamento</sub>','v<sub>aproximação</sub>')}<br><small>e = 1: elástica; e = 0: perfeitamente inelástica</small>`]],
+  'Fluidos': [
+    ['Peso aparente', `P<sub>ap</sub> = P − E`],
+    ['Vazão e continuidade', `Z = ${f('V','Δt')} = A · v &nbsp;;&nbsp; A₁ · v₁ = A₂ · v₂`],
+    ['Pressão atmosférica', `1 atm ≈ 1,0 × 10⁵ Pa ≈ 76 cmHg<br><small>≈ coluna de 10 m de água</small>`]],
+  'Eletrostática': [
+    ['Campo elétrico', `E = ${f('F','|q|')} &nbsp;;&nbsp; E = k · ${f('|Q|','d²')}`],
+    ['Potencial e trabalho', `V = k · ${f('Q','d')} &nbsp;;&nbsp; τ = q · U<br>campo uniforme: U = E · d`],
+    ['Constante eletrostática', `k = 9,0 × 10⁹ N·m²/C² <small>(no vácuo)</small>`]],
+  'Óptica': [
+    ['Espelhos esféricos', `f = ${f('R','2')} <small>(mesma equação de Gauss das lentes)</small>`],
+    ['Ângulo limite', `sen L = ${f('n<sub>menor</sub>','n<sub>maior</sub>')}`],
+    ['Câmara escura', `${f('i','o')} = ${f('p′','p')}`],
+    ['Associação de espelhos planos', `N = ${f('360°','α')} − 1`],
+    ['Lentes justapostas', `V = V₁ + V₂`]],
+  'Gravitação e física moderna': [
+    ['Gravidade na superfície', `g = ${f('G · M','R²')}`],
+    ['3ª lei de Kepler', `${f('T²','r³')} = constante`],
+    ['Efeito fotoelétrico', `E<sub>c máx</sub> = h · f − W<br><small>W: função trabalho do metal</small>`],
+    ['Massa e energia', `E = m · c²`],
+    ['Meia-vida', `m = ${f('m₀','2ⁿ')}<br><small>n: número de meias-vidas</small>`]]
+};

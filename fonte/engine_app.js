@@ -480,9 +480,18 @@ function openFormulario(){
   plate(`Física · ${SITE.turma} · Aulão`, 'Formulário', 'Todas as fórmulas da lista do aulão, por assunto.');
   document.documentElement.classList.add('th-form');
   crumbs([{ label:'Início', nav:'home' }, { label:'Formulário' }]);
+  const totalExtra = Object.values(FORMULARIO_EXTRA).reduce((n, l) => n + l.length, 0);
   $('view').innerHTML = `
+    <section class="card intro formleg"><p><span class="leg leg-main">Essenciais</span> São as fórmulas da lista do aulão. Comece por elas: dominando estas, você resolve as 30 questões.</p>
+      <p><span class="leg leg-extra">Para ir além</span> Mais ${totalExtra} fórmulas que costumam aparecer no ENEM. Abra em cada assunto quando as essenciais já estiverem firmes.</p></section>
     <nav class="card formnav" aria-label="Assuntos do formulário"><p class="sect-label">Ir para</p><div class="row" style="gap:6px">${FORMULARIO.map(([sec], i) => `<a class="chip chip-link" href="#/formulario" data-sec="${i}">${sec}</a>`).join('')}</div></nav>
-    ${FORMULARIO.map(([sec, itens], i) => `<section class="card formsec" id="sec${i}"><h2 class="formh">${sec}</h2><div class="tools-grid form-grid">${itens.map(([t, h]) => `<div class="tool"><h4>${t}</h4><div>${h}</div></div>`).join('')}</div></section>`).join('')}`;
+    ${FORMULARIO.map(([sec, itens], i) => { const ex = FORMULARIO_EXTRA[sec] || [];
+      return `<section class="card formsec" id="sec${i}"><h2 class="formh">${sec}</h2>
+        <p class="form-tag"><span class="leg leg-main">Essenciais</span></p>
+        <div class="tools-grid form-grid">${itens.map(([t, h]) => `<div class="tool tool-main"><h4>${t}</h4><div>${h}</div></div>`).join('')}</div>
+        ${ex.length ? `<details class="form-extra"><summary><span class="leg leg-extra">Para ir além</span><span class="small">${ex.length} ${ex.length > 1 ? 'fórmulas complementares' : 'fórmula complementar'}</span><span class="chev">›</span></summary>
+          <div class="tools-grid form-grid">${ex.map(([t, h]) => `<div class="tool tool-extra"><h4>${t}</h4><div>${h}</div></div>`).join('')}</div></details>` : ''}
+      </section>`; }).join('')}`;
   toTop();
 }
 
