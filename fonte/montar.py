@@ -18,7 +18,7 @@ extra=open(B+'extra.css',encoding='utf-8').read()+'''
 .install p{margin:0}
 @media (display-mode: standalone){.wrap{padding-top:max(20px,env(safe-area-inset-top,0px))}}
 '''
-js='\n'.join(open(B+n,encoding='utf-8').read() for n in ['data.js','enem.js','inducao.js','calorimetria.js','ondulatoria.js','eletricidade.js','consulta.js','engine_app.js'])
+js='\n'.join(open(B+n,encoding='utf-8').read() for n in ['data.js','enem.js','inducao.js','calorimetria.js','ondulatoria.js','eletricidade.js','consulta.js','engine_app.js','calc.js'])
 body='''<div class="wrap">
 <header class="plate"><div class="plate-deco" id="deco" aria-hidden="true"></div><div class="plate-inner"><div class="eyebrow" id="eyebrow"></div><h1 id="ptitle"></h1><p id="psub"></p></div></header>
 <nav class="crumbs" id="crumbs" aria-label="Você está em" hidden></nav>
