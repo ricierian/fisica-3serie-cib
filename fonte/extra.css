@@ -177,7 +177,6 @@
 .tool.tool-extra div{font-size:15px}
 /* Consulta rápida */
 button.chip-link{background:transparent;cursor:pointer;font-family:var(--f-mono)}
-.aulao{display:inline-block;font-family:var(--f-mono);font-size:9.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:1px 6px;border-radius:999px;background:var(--tip-bg);color:var(--tip-ink);vertical-align:1px;margin-left:4px}
 .tbl-pref td:nth-child(2),.tbl-pref td:nth-child(3){font-family:var(--f-mono);white-space:nowrap}
 .tbl-pref td:last-child,.tbl-deriv td:last-child{text-align:left;color:var(--muted);font-size:13.5px}
 .tbl-const td:first-child{text-align:left}

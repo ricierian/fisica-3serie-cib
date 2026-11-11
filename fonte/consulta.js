@@ -1,6 +1,6 @@
 /* ===== Consulta rápida: formulário, prefixos, grandezas e unidades, constantes e conversões =====
    Formulário: "Essenciais" = fórmulas destacadas no material "Fórmulas de Física" entregue aos alunos
-   + as usadas na lista do aulão (marcadas com a = true). "Para ir além" = demais fórmulas do material e complementares. */
+   (o terceiro item, a, não é mais exibido). "Para ir além" = demais fórmulas do material e complementares. */
 const FORMULARIO = [
   { nome: 'Cinemática',
     ess: [

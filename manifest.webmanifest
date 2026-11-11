@@ -1,7 +1,7 @@
 {
   "name": "Terceirão · Física CIB",
   "short_name": "Terceirão",
-  "description": "Aulão de Física e listas interativas para a reta final do ENEM, 3ª série do CIB.",
+  "description": "Listas interativas de Física para a reta final do ENEM, 3ª série do CIB.",
   "lang": "pt-BR",
   "start_url": "./",
   "scope": "./",

@@ -1,4 +1,4 @@
-/* ---------- Calorimetria · Lista do aulão (10 questões inéditas, estilo ENEM) ---------- */
+/* ---------- Calorimetria no ENEM (10 questões inéditas) ---------- */
 const TOOLS_CALOR = [
   ['Calor sensível e latente', `Q = m · c · ΔT &nbsp;·&nbsp; Q = m · L<br>Sistema isolado: ΣQ = 0`],
   ['Condução (Fourier)', `Φ = ${f('Q','Δt')} = ${f('k · A · ΔT','L')}<br>k: condutividade, constante de cada material`],

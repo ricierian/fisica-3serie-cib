@@ -1,9 +1,9 @@
-/* ===== Revisão ENEM · listas do aulão (3 listas de 10, por área) ===== */
+/* ===== Revisão ENEM · lista impressa (3 listas de 10, por área) ===== */
 /* Figura em imagem (pasta img/) com fundo claro, legível nos dois temas */
 const foto = (n, aria, w) => `<figure class="fig figw"${w ? ` style="max-width:${w}px"` : ''}><img src="img/${n}.png" alt="${aria}" loading="lazy"></figure>`;
 /* Pegadinha: de onde vem cada alternativa errada (gabarito comentado do professor) */
 const erros = linhas => `De onde vem cada alternativa errada:<ul class="erros">${linhas.map(([a, t]) => `<li><b>${a}</b> ${t}</li>`).join('')}</ul>`;
-const src = n => `Lista do aulão · Q${String(n).padStart(2, '0')}`;
+const src = n => `Lista impressa · Q${String(n).padStart(2, '0')}`;
 
 /* ---------- Lista 1 · Eletricidade e energia ---------- */
 const TOOLS_E1 = [

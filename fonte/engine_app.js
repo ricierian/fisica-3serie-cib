@@ -12,36 +12,36 @@ const SITE = {
   temas: [
     {
       id: 'enem', ico: CARTAO, nome: 'Revisão ENEM', cls: 'th-enem', estilo: 'estrada', deco: 'conquista',
-      resumo: 'As 30 questões do aulão de Física, divididas em três listas por área.',
+      resumo: 'As 30 questões da lista de revisão, divididas em três listas por área.',
       listas: [
         { id: 'eletricidade', key: 'cib3-enem-eletricidade-v1', num: 1,
           titulo: 'Eletricidade e energia',
           resumo: 'Disjuntor, conta de luz, choque, circuitos, LED, chuveiro, transformador, hidrelétrica e cargas elétricas.',
-          intro: 'São as questões 1 a 7, 26, 27 e 29 da lista impressa do aulão, em ordem de dificuldade.',
+          intro: 'São as questões 1 a 7, 26, 27 e 29 da lista impressa, em ordem de dificuldade.',
           cls: 'th-eletr', estilo: 'circuito', deco: 'circuito',
           tools: TOOLS_E1, Q: Q_E1 },
         { id: 'calor-ondas', key: 'cib3-enem-calor-ondas-v1', num: 2,
           titulo: 'Calor, ondas e luz',
           resumo: 'Calorimetria, mudança de fase, gases, máquinas térmicas, ondas, som e luz.',
-          intro: 'São as questões 8 a 16 e 21 da lista impressa do aulão, em ordem de dificuldade.',
+          intro: 'São as questões 8 a 16 e 21 da lista impressa, em ordem de dificuldade.',
           cls: 'th-calor', estilo: 'espectro', deco: 'calor',
           tools: TOOLS_E2, Q: Q_E2 },
         { id: 'mecanica-optica', key: 'cib3-enem-mecanica-optica-v1', num: 3,
           titulo: 'Movimento, forças e óptica',
           resumo: 'Velocidade média, gráficos, lançamento vertical, transmissão, Newton, atrito, empuxo, alavancas, refração e visão.',
-          intro: 'São as questões 17 a 20, 22 a 25, 28 e 30 da lista impressa do aulão, em ordem de dificuldade.',
+          intro: 'São as questões 17 a 20, 22 a 25, 28 e 30 da lista impressa, em ordem de dificuldade.',
           cls: 'th-mec', estilo: 'bloco', deco: 'forcas',
           tools: TOOLS_E3, Q: Q_E3 }
       ]
     },
     {
       id: 'calorimetria', ico: '°C', nome: 'Calorimetria', cls: 'th-calor', estilo: 'espectro', deco: 'calor',
-      resumo: 'Lista do aulão de Calorimetria: calor sensível e latente, propagação, potência, dilatação, termometria e geladeira.',
+      resumo: 'Calor sensível e latente, propagação do calor, potência, dilatação e geladeira.',
       listas: [
-        { id: 'aulao', key: 'cib3-calorimetria-aulao-v1', num: 1,
-          titulo: 'Aulão de Calorimetria',
+        { id: 'questoes', key: 'cib3-calorimetria-v1', num: 1,
+          titulo: 'Calorimetria no ENEM',
           resumo: '10 questões inéditas no estilo do ENEM, do básico ao avançado.',
-          intro: 'Questões feitas para fechar o aulão: o que mais aparece no ENEM em calorimetria e o que costuma vir junto (dilatação, termometria e termodinâmica).',
+          intro: 'O que mais aparece no ENEM em calorimetria e o que costuma vir junto: dilatação e termodinâmica.',
           tools: TOOLS_CALOR, Q: Q_CALOR }
       ]
     },
@@ -266,7 +266,7 @@ function openHome(){
   $('view').innerHTML = `
     <section class="card intro">
       <p class="sect-label">Como usar</p>
-      <p>Aqui ficam os materiais do aulão de Física e as listas para a reta final do ENEM. Escolha um tema e depois a lista. Cada lista mostra uma questão por vez, com dica e resolução detalhada logo depois de responder.</p>
+      <p>Aqui ficam as listas de Física para a reta final do ENEM. Escolha um tema e depois a lista. Cada lista mostra uma questão por vez, com dica e resolução detalhada logo depois de responder.</p>
     </section>
     <p class="sect-label">Consulta rápida</p>
     <div class="cards">
@@ -536,12 +536,12 @@ function openFormulario(){
   abrirConsulta('Formulário', 'As fórmulas por assunto, das essenciais às complementares.', migConsulta('Formulário'));
   const nEss = FORMULARIO.reduce((n, s) => n + s.ess.length, 0), nExt = FORMULARIO.reduce((n, s) => n + s.ext.length, 0);
   $('view').innerHTML = `
-    <section class="card intro formleg"><p><span class="leg leg-main">Essenciais</span> ${nEss} fórmulas: as que estão destacadas no material de fórmulas que você recebeu e as usadas na lista do aulão (marcadas com <span class="aulao">aulão</span>). Comece por elas.</p>
+    <section class="card intro formleg"><p><span class="leg leg-main">Essenciais</span> ${nEss} fórmulas: as que estão destacadas no material de fórmulas que você recebeu. Comece por elas.</p>
       <p><span class="leg leg-extra">Para ir além</span> Mais ${nExt} fórmulas que também aparecem em provas. Abra em cada assunto quando as essenciais já estiverem firmes.</p></section>
     <nav class="card formnav" aria-label="Assuntos do formulário"><p class="sect-label">Ir para</p><div class="row" style="gap:6px">${FORMULARIO.map((s, i) => `<a class="chip chip-link" href="#/consulta/formulario" data-sec="${i}">${s.nome}</a>`).join('')}</div></nav>
     ${FORMULARIO.map((s, i) => `<section class="card formsec" id="sec${i}"><h2 class="formh">${s.nome}</h2>
         <p class="form-tag"><span class="leg leg-main">Essenciais</span></p>
-        <div class="tools-grid form-grid">${s.ess.map(([t, h, a]) => `<div class="tool tool-main"><h4>${t}${a ? ' <span class="aulao">aulão</span>' : ''}</h4><div>${h}</div></div>`).join('')}</div>
+        <div class="tools-grid form-grid">${s.ess.map(([t, h, a]) => `<div class="tool tool-main"><h4>${t}</h4><div>${h}</div></div>`).join('')}</div>
         ${s.ext.length ? `<details class="form-extra"><summary><span class="leg leg-extra">Para ir além</span><span class="small">${s.ext.length} ${s.ext.length > 1 ? 'fórmulas complementares' : 'fórmula complementar'}</span><span class="chev">›</span></summary>
           <div class="tools-grid form-grid">${s.ext.map(([t, h]) => `<div class="tool tool-extra"><h4>${t}</h4><div>${h}</div></div>`).join('')}</div></details>` : ''}
       </section>`).join('')}
