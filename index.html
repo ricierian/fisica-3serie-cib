@@ -1158,6 +1158,8 @@ const Q_INDUCAO_2 = [
 /* ===== Estrutura do site: temas e listas. Para adicionar material, inclua um item em "listas" ou um novo tema. ===== */
 /* Capelo (ícone da revisão para o vestibular) */
 const CAPELO = '<svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true"><path d="M2 15 L20 7 L38 15 L20 23 Z" fill="currentColor"/><path d="M10 19 V28 Q20 34 30 28 V19 L20 23 Z" fill="currentColor"/><path d="M34 16.5 V27" stroke="currentColor" stroke-width="2"/><circle cx="34" cy="28.5" r="2.2" fill="currentColor"/></svg>';
+/* Cartão-resposta (ícone da revisão para a prova) */
+const CARTAO = '<svg viewBox="0 0 40 40" width="38" height="38" aria-hidden="true"><rect x="5" y="3" width="30" height="34" rx="3" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="12.5" cy="12" r="2.7" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="12" r="2.7" fill="currentColor" stroke="currentColor" stroke-width="1.5"/><circle cx="27.5" cy="12" r="2.7" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12.5" cy="21" r="2.7" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="21" r="2.7" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="27.5" cy="21" r="2.7" fill="currentColor" stroke="currentColor" stroke-width="1.5"/><circle cx="12.5" cy="30" r="2.7" fill="currentColor" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="30" r="2.7" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="27.5" cy="30" r="2.7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>';
 const SITE = {
   escola: 'Colégio Israelita Brasileiro',
   turma: '3ª série',
@@ -1166,7 +1168,7 @@ const SITE = {
   prof: 'Prof. Ricieri',
   temas: [
     {
-      id: 'enem', ico: CAPELO, nome: 'Revisão ENEM', cls: 'th-enem', estilo: 'estrada', deco: 'conquista',
+      id: 'enem', ico: CARTAO, nome: 'Revisão ENEM', cls: 'th-enem', estilo: 'estrada', deco: 'conquista',
       resumo: 'As 30 questões do aulão de Física, divididas em três listas por área.',
       listas: [
         { id: 'eletricidade', key: 'cib3-enem-eletricidade-v1', num: 1,
