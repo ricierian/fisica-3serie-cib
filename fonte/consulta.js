@@ -214,5 +214,86 @@ const CONSULTA = [
   { id: 'formulario', ico: 'ƒ', nome: 'Formulário', resumo: 'As fórmulas por assunto: as essenciais em destaque e, em cada assunto, as complementares para ir além.' },
   { id: 'prefixos', ico: 'µ', nome: 'Prefixos e potências de 10', resumo: 'De tera a pico, com exemplos e as armadilhas das conversões de área e volume.' },
   { id: 'grandezas', ico: 'SI', nome: 'Grandezas e unidades', resumo: 'As 7 grandezas fundamentais do SI e as derivadas que mais aparecem nas provas.' },
-  { id: 'constantes', ico: 'c', nome: 'Constantes e conversões', resumo: 'Valores para usar nos cálculos e as conversões de unidades mais cobradas.' }
+  { id: 'constantes', ico: 'c', nome: 'Constantes e conversões', resumo: 'Valores para usar nos cálculos e as conversões de unidades mais cobradas.' },
+  { id: 'pistas', ico: '→', nome: 'Pistas do enunciado', resumo: 'Palavras e situações do texto que indicam o conceito cobrado: calor, ondas e circuitos.' },
+  { id: 'pegadinhas', ico: '!', nome: 'Pegadinhas clássicas', resumo: 'Os erros que mais derrubam em calor, ondas e circuitos, e como evitar cada um.' }
+];
+
+/* Pistas do enunciado: [o que aparece no texto, o que pensar] */
+const PISTAS = [
+  { nome: 'Calor e temperatura', itens: [
+    ['“no vácuo”, “do Sol até a Terra”, cor escura ou clara, superfície espelhada', '<b>Irradiação</b>. Bom absorvedor é bom emissor.'],
+    ['“o metal parece mais frio”, maçaneta, piso × tapete, cabo de madeira', '<b>Condução</b>. A pele sente o fluxo de calor (k), não a temperatura.'],
+    ['“o ar quente sobe”, congelador no alto, brisa, reservatório, aquecedor solar', '<b>Convecção</b>. Fluido quente fica menos denso e sobe.'],
+    ['garrafa térmica, isopor, cobertor, porta fechada, iglu', '<b>Isolamento</b>. Reduz a perda de calor; não existe “entrada de frio”.'],
+    ['litoral × deserto, amplitude térmica, concreto × água', '<b>Calor específico</b>. c alto → ΔT pequeno (Q = m · c · ΔT).'],
+    ['ferver, derreter, evaporar, condensar, patamar no gráfico', '<b>Calor latente</b>. Q = m · L, com temperatura constante.'],
+    ['panela de pressão, altitude, leite UHT', '<b>Pressão e ebulição</b>. Mais pressão → ferve a uma temperatura maior.'],
+    ['suor, moringa de barro, sair da piscina com vento', '<b>Evaporação resfria</b>. A água retira calor latente do que está em volta.'],
+    ['freio, frenagem, objeto que para, descida com velocidade constante', '<b>Energia mecânica vira calor</b>. E<sub>c</sub> ou E<sub>p</sub> = Q.'],
+    ['W/m², coletor, painel, refletor solar', '<b>Potência</b> = intensidade × área × rendimento.'],
+    ['BTU, kWh, kcal do rótulo', '<b>Unidades</b>. BTU e kWh são energia; BTU/h e W são potência.'],
+    ['geladeira, ar-condicionado, compressor', '<b>Refrigerador</b>. Q₁ (liberado fora) = Q₂ (retirado de dentro) + W.'],
+    ['lâmina bimetálica, trilho, junta de dilatação, tampa presa', '<b>Dilatação</b>. ΔL = L₀ · α · ΔT; maior α dilata mais.']] },
+  { nome: 'Ondas', itens: [
+    ['eco, sonar, morcego, ultrassonografia, sensor de estacionamento', '<b>Reflexão</b>. d = v · Δt / 2 (ida e volta).'],
+    ['“ouve atrás do muro”, “contorna”, fenda, rádio AM atrás do morro', '<b>Difração</b>. Forte quando λ é parecido com o obstáculo.'],
+    ['muda de meio, ar → água, onda chegando paralela à praia', '<b>Refração</b>. A frequência não muda; v e λ mudam juntos.'],
+    ['quebra a taça, sintonizar a rádio, frequência natural, estrutura que balança', '<b>Ressonância</b>. Frequência recebida = frequência natural.'],
+    ['bolha de sabão colorida, CD, cancelamento de ruído', '<b>Interferência</b>. Ondas se reforçam ou se anulam.'],
+    ['óculos polarizados, óculos 3D, filtro', '<b>Polarização</b>. Só ondas transversais (o som no ar não).'],
+    ['ambulância, radar, “se aproxima”, “se afasta”, desvio para o vermelho', '<b>Efeito Doppler</b>. Aproximação → f maior; afastamento → f menor.'],
+    ['agudo ou grave', '<b>Altura</b> → frequência.'],
+    ['forte ou fraco, volume, decibéis', '<b>Intensidade</b> → amplitude; +10 dB = 10 vezes mais intenso.'],
+    ['“reconhecer o instrumento”, “reconhecer a voz”', '<b>Timbre</b> → forma da onda (harmônicos).'],
+    ['chocolate no micro-ondas, nós e ventres, corda presa, flauta, garrafa soprada', '<b>Onda estacionária</b>. Distância entre nós = λ/2.'],
+    ['ondas sísmicas, “não atravessa líquidos”', '<b>Transversal × longitudinal</b>. Transversais (ondas S) não passam por líquidos.'],
+    ['ionizante, raios X, ultravioleta, 5G, Wi-Fi, controle remoto', '<b>Espectro eletromagnético</b>. Maior frequência → maior energia.']] },
+  { nome: 'Circuitos', itens: [
+    ['“uma lâmpada queima e todas apagam”', '<b>Série</b>. Em casa, os aparelhos ficam em paralelo.'],
+    ['fio mais grosso ou mais fino, extensão que esquenta', '<b>Resistência do fio</b>. R = ρ · L / A.'],
+    ['ligar em 127 V ou 220 V, “aparelho de outra cidade”', '<b>P = U² / R</b> com R fixa. 127 → 220 V: potência cerca de 3 vezes maior.'],
+    ['chave verão/inverno, seletora, duas resistências', '<b>Com U fixa</b>, menor R → maior potência.'],
+    ['mAh, Ah, autonomia, bateria', '<b>Carga</b> (Q = i · Δt). Energia em Wh = V × Ah.'],
+    ['conta de luz, kWh, consumo', '<b>Energia</b>. E = P · Δt.'],
+    ['disjuntor, fusível, “desarma”', '<b>Corrente máxima</b>. i = P / U.'],
+    ['“os faróis enfraquecem na partida”, resistência interna', '<b>Gerador real</b>. U = ε − r · i.'],
+    ['galvanômetro zerado, ponte', '<b>Ponte de Wheatstone</b>. Produtos dos braços opostos são iguais.'],
+    ['amperímetro, voltímetro, “medir a corrente”', '<b>Amperímetro</b> em série; <b>voltímetro</b> em paralelo.']] }
+];
+
+/* Pegadinhas clássicas: [erro, como evitar] */
+const PEGADINHAS = [
+  { nome: 'Calor e temperatura', itens: [
+    ['Usar a temperatura final no lugar de ΔT', 'ΔT = T<sub>final</sub> − T<sub>inicial</sub>. Em °C ou em K, a variação tem o mesmo valor.'],
+    ['Esquecer conversões', 'km/h ÷ 3,6 → m/s<br>min × 60 → s &nbsp;·&nbsp; h × 3 600 → s<br>J/g × 1 000 → J/kg &nbsp;·&nbsp; 1 cal ≈ 4,2 J'],
+    ['Esquecer o ½ da energia cinética', 'E<sub>c</sub> = m · v² / 2. Sem o ½, a resposta dobra (e costuma estar nas alternativas).'],
+    ['Esquecer o rendimento', 'Se o texto dá um “%”, só essa parte aquece o sistema.'],
+    ['Esquecer um corpo', 'Tigela, recipiente e calorímetro também recebem calor.'],
+    ['Pular o patamar', 'Chegar a 0 °C ou a 100 °C não basta: mudar de fase exige Q = m · L.'],
+    ['Confundir volume com massa', '“Mesmo volume” não é “mesma massa”: use m = ρ · V.'],
+    ['Acreditar em “frio”', 'Calor é que flui, do quente para o frio. Isolante só reduz a perda de calor.'],
+    ['Calor latente por mol', 'Converta mols em gramas com a massa molar (água: 18 g/mol).'],
+    ['Geladeira e cozinha', 'A cozinha recebe Q₂ + W: mais calor do que foi retirado de dentro.']] },
+  { nome: 'Ondas', itens: [
+    ['Eco sem dividir por 2', 'O som vai e volta: d = v · Δt / 2. No trovão, o som só vai: não divida.'],
+    ['Achar que a frequência muda na refração', 'A frequência é da fonte. Na mudança de meio, v e λ mudam na mesma proporção.'],
+    ['Distância entre nós', 'Entre dois nós (ou dois ventres) consecutivos cabe λ/2, não λ.'],
+    ['Tubo aberto × fechado', 'Fechado: L = λ/4 no modo fundamental. Aberto: L = λ/2.'],
+    ['Tarraxa × braço do violão', 'Apertar a tarraxa muda a velocidade (tensão). Apertar no braço muda o comprimento de onda.'],
+    ['“Som alto”', 'Em Física, alto é agudo (frequência). Volume é intensidade (amplitude).'],
+    ['Decibéis lineares', '+10 dB = 10 vezes a intensidade; +20 dB = 100 vezes. Não divida decibéis.'],
+    ['Potências de 10', 'GHz = 10⁹ Hz · MHz = 10⁶ Hz · kHz = 10³ Hz. Confira antes de usar λ = v / f.'],
+    ['Doppler invertido', 'Aproximação → f maior. Quem se move junto com a fonte ouve a frequência real.'],
+    ['Polarizar o som', 'Só ondas transversais se polarizam. O som no ar é longitudinal.']] },
+  { nome: 'Circuitos', itens: [
+    ['“Mais resistência, mais calor”', 'Com a tensão fixa (tomada), é o contrário: P = U² / R, menor R → maior P.'],
+    ['Esquecer o quadrado da tensão', 'De 127 V para 220 V, a potência vira cerca de 3 vezes, não 1,7.'],
+    ['Ah como energia', 'Ah é carga. Energia (Wh) = tensão × Ah.'],
+    ['Pilhas em série', 'Em série soma a tensão, não a duração. A mesma corrente passa por todas.'],
+    ['kW × kWh', 'kW é potência; kWh é energia (potência × tempo).'],
+    ['Corrente total fixa', 'Ao tirar ou pôr um aparelho, a resistência equivalente muda: recalcule a corrente total.'],
+    ['Gerador ideal', 'Com corrente alta, a tensão nos terminais cai: U = ε − r · i.'],
+    ['Amperímetro em paralelo', 'É um curto-circuito. Amperímetro em série; voltímetro em paralelo.'],
+    ['Ponte de Wheatstone', 'Multiplique os braços opostos, não os vizinhos.']] }
 ];

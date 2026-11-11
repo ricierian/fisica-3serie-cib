@@ -191,3 +191,6 @@ button.chip-link{background:transparent;cursor:pointer;font-family:var(--f-mono)
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]).th-ondas, :root:not([data-theme="light"]) .th-ondas{--sign:#137C91;--lane:#FFA27A;--road:#06191E}}
 :root[data-theme="dark"].th-ondas, :root[data-theme="dark"] .th-ondas{--sign:#137C91;--lane:#FFA27A;--road:#06191E}
 :root.th-ondas .plate-inner, .th-ondas .plate .plate-inner{padding-bottom:50px}
+
+/* Pistas do enunciado: texto alinhado à esquerda */
+.tbl-pistas td, .tbl-pistas th{text-align:left}
