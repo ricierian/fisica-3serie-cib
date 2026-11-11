@@ -1,6 +1,6 @@
 /* Funciona sem internet: guarda o app no celular.
    Ao publicar uma versão nova, mude o número em VERSAO. */
-const VERSAO = 'fisica3cib-v16';
+const VERSAO = 'fisica3cib-v17';
 const BASE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png', './icons/apple-touch-icon.png', './icons/favicon.png',
   './img/q04.png', './img/q05.png', './img/q10.png', './img/q12.png', './img/q13.png', './img/q15.png', './img/q18.png', './img/q22.png', './img/q24.png', './img/q28.png', './img/q30.png'];
 

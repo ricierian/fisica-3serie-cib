@@ -269,6 +269,26 @@ ${FIG_DB}
   steps: [['Diferença em dB', '<div class="eq">80 − 60 = 20 dB = 2 × 10 dB</div>'],
           ['Intensidade', '<div class="eq">10 × 10 = 100 vezes maior</div>']],
   alt: 'Por isso o show de rock (110 dB) é perigoso: são 50 dB acima da conversa, ou seja, uma intensidade 100 000 vezes maior. A exposição prolongada acima de cerca de 85 dB já pode causar perda auditiva.',
+  deep: ['A mesma resposta pela fórmula com logaritmo', `<p>O enunciado descreve em palavras a definição do nível sonoro:</p>
+<div class="eq">β = 10 · log ${f('I','I₀')}</div>
+<p>β é o nível em dB, I é a intensidade (W/m²) e I₀ = 10⁻¹² W/m² é a intensidade mínima que o ouvido percebe. Lembre: <b>log x = n</b> significa <b>x = 10ⁿ</b>.</p>
+<p><b>1. Conversa normal (60 dB)</b></p>
+<div class="eq">60 = 10 · log ${f('I₁','I₀')}</div>
+<div class="eq">log ${f('I₁','I₀')} = 6 → ${f('I₁','I₀')} = 10⁶</div>
+<div class="eq">I₁ = 10⁶ × 10⁻¹²</div>
+<div class="eq">I₁ = 10⁻⁶ W/m²</div>
+<p><b>2. Trânsito intenso (80 dB)</b></p>
+<div class="eq">log ${f('I₂','I₀')} = 8 → ${f('I₂','I₀')} = 10⁸</div>
+<div class="eq">I₂ = 10⁻⁴ W/m²</div>
+<p><b>3. Comparação</b></p>
+<div class="eq">${f('I₂','I₁')} = ${f('10⁻⁴','10⁻⁶')} = 10²</div>
+<div class="eq">${f('I₂','I₁')} = 100</div>
+<p><b>Atalho:</b> subtraindo os dois níveis, I₀ some da conta (log a − log b = log a/b):</p>
+<div class="eq">β₂ − β₁ = 10 · log ${f('I₂','I₁')}</div>
+<div class="eq">80 − 60 = 10 · log ${f('I₂','I₁')}</div>
+<div class="eq">log ${f('I₂','I₁')} = 2</div>
+<div class="eq">${f('I₂','I₁')} = 10² = 100</div>
+<p><b>De onde vem a “regra dos 10 dB”:</b> se a intensidade fica 10 vezes maior, o nível sobe 10 · log 10 = 10 × 1 = 10 dB. E se a intensidade só dobra, sobe 10 · log 2 ≈ 10 × 0,30 = 3 dB: duas caixas de som iguais não fazem o dobro de decibéis, só 3 dB a mais.</p>`],
   warn: erros([['A) 1,3 vez:','divide os decibéis (80/60), como se a escala fosse linear.'],['B) 2 vezes:','divide a diferença (20 dB) por 10 e usa o resultado como fator.'],['C) 20 vezes:','usa a diferença em dB como fator de multiplicação.'],['E) 1 000 vezes:','conta três degraus de 10 dB.']]) },
 
 { src: 'Inédita', nivel: 'intermediário',
@@ -413,6 +433,17 @@ ${plot({aria:'Corda de 1,2 m vibrando com três ventres e quatro nós, incluindo
   steps: [['Intensidade', `<p>A distância aumentou 10 vezes; com I ∝ 1/r²:</p><div class="eq">I<sub>20 m</sub> = ${f('I<sub>2 m</sub>','10²')} = ${f('I<sub>2 m</sub>','100')}</div>`],
           ['Decibéis', '<p>Um fator 100 = 10 × 10, ou seja, dois degraus de 10 dB:</p><div class="eq">90 − 20 = 70 dB</div>']],
   alt: 'Regra útil: dobrar a distância ao ar livre tira cerca de 6 dB; multiplicar por 10 tira 20 dB. Afastar-se das caixas é a proteção mais simples para os ouvidos.',
+  deep: ['A mesma resposta pela fórmula com logaritmo', `<p>O nível sonoro é β = 10 · log (I/I₀). Para comparar dois pontos, subtraia os níveis (log a − log b = log a/b):</p>
+<div class="eq">β₂ − β₁ = 10 · log ${f('I₂','I₁')}</div>
+<p><b>1. Razão das intensidades</b> (I ∝ 1/r²):</p>
+<div class="eq">${f('I₂','I₁')} = ${f('r₁²','r₂²')} = (${f('2,0','20')})²</div>
+<div class="eq">${f('I₂','I₁')} = (10⁻¹)² = 10⁻²</div>
+<p><b>2. Diferença de nível</b> (log 10ⁿ = n):</p>
+<div class="eq">β₂ − β₁ = 10 · log 10⁻²</div>
+<div class="eq">β₂ − β₁ = 10 × (−2)</div>
+<div class="eq">β₂ − β₁ = −20 dB</div>
+<div class="eq">β₂ = 90 − 20 = 70 dB</div>
+<p><b>De onde vem a regra dos 6 dB:</b> dobrando a distância, I₂/I₁ = (1/2)² = 1/4, e o nível muda 10 · log (1/4) = −20 · log 2 ≈ −20 × 0,30 = −6 dB.</p>`],
   warn: erros([['A) 0,90 dB:','divide os decibéis por 100, como se a escala fosse linear.'],['B) 9,0 dB:','divide os decibéis por 10.'],['C) 45 dB:','acha que o nível em dB cai à metade.'],['E) 80 dB:','usa I ∝ 1/r (um só degrau de 10 dB).']]) },
 
 { src: 'Inédita', nivel: 'avançado',

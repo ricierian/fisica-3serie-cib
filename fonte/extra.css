@@ -236,3 +236,13 @@ body.com-calc .wrap{padding-bottom:96px}
 .rs sub{font-size:.75em}
 @media (min-width:640px){.rs-lista{columns:2;column-gap:28px}}
 @media (max-width:360px){.formsec .fxbox{font-size:15px}.formsec .tool.tool-extra .fxbox{font-size:14.5px}}
+
+/* Resolução aprofundada (opcional, recolhida) */
+.deep{border:1.5px dashed var(--sign);border-radius:10px;padding:0 16px;font-size:16px}
+.deep summary{list-style:none;display:flex;align-items:center;gap:10px;cursor:pointer;padding:12px 0}
+.deep summary::-webkit-details-marker{display:none}
+.deep summary b.lbl{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:2px;color:var(--sign)}
+.deep summary .chev{margin-left:auto;font-family:var(--f-mono);color:var(--muted);transition:transform .2s}
+.deep[open] summary .chev{transform:rotate(90deg)}
+.deep-body{padding:0 0 14px}
+.deep-body p{margin:8px 0}

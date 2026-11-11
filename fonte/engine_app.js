@@ -435,6 +435,7 @@ function renderQuestion(i){
       </ol>
       <div class="answer"><span class="letter">${L[q.ans]}</span><span>Resposta: alternativa ${L[q.ans]} (${q.opts[q.ans]})</span></div>
       ${q.alt ? `<div class="alt"><b class="lbl">Outro jeito de pensar</b>${q.alt}</div>` : ''}
+      ${q.deep ? `<details class="deep"><summary><span><b class="lbl">Para aprofundar</b>${q.deep[0]}</span><span class="chev">›</span></summary><div class="deep-body">${q.deep[1]}</div></details>` : ''}
       ${q.warn ? `<div class="warn"><b class="lbl">Cuidado com a pegadinha</b>${q.warn}</div>` : ''}
     </section>` : '';
   const showHint = st.hints[i] && !done;
