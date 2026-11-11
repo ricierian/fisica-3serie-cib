@@ -700,6 +700,13 @@ ${foto('q12', 'Esquema: a caldeira, fonte quente a 527 °C, fornece Q1 = 1 000 
           ['Carnot', `<p>800 K e 300 K:</p><div class="eq">η = 1 − ${f('300','800')} = 0,625 = 62,5%</div>`],
           ['Coerência', '<p>O rendimento real (350/1 000 = 35%) fica abaixo do máximo teórico, como exige a segunda lei.</p>']],
   alt: 'Toda máquina térmica rejeita calor para a fonte fria. É esse calor (650 MW, quase o dobro da energia elétrica gerada) que esquenta o rio: a poluição térmica do enunciado.',
+  deep: ['Por que nenhuma usina passa do rendimento de Carnot', `<p><b>1. O que é o rendimento de Carnot.</b> É o rendimento de uma máquina ideal, sem atrito e sem perdas, funcionando entre duas temperaturas. A segunda lei da termodinâmica garante que nenhuma máquina real, operando entre as mesmas temperaturas, rende mais que ela.</p>
+<p><b>2. Mesmo a máquina ideal rejeita calor.</b> Com η = 62,5%, de 1 000 MW recebidos ela aproveitaria no máximo 625 MW e rejeitaria, no mínimo:</p>
+<div class="eq">Q<sub>2,mín</sub> = 1 000 − 625</div>
+<div class="eq">Q<sub>2,mín</sub> = 375 MW</div>
+<p>A usina real rejeita 650 MW. Os 275 MW a mais são as perdas reais: atrito, vazamentos de calor, trocas de calor com diferenças de temperatura finitas.</p>
+<p><b>3. Por que não dá para chegar a 100%.</b> Pela fórmula η = 1 − T<sub>fria</sub>/T<sub>quente</sub>, só daria 100% com a fonte fria a 0 K, o que é impossível. Na prática, há dois caminhos para subir o rendimento: aquecer mais o vapor (limitado pela resistência dos materiais da caldeira e da turbina) ou resfriar mais a fonte fria (limitado pela temperatura do ambiente).</p>
+<p><b>Ligação com o meio ambiente:</b> a poluição térmica não é um defeito da usina que se resolve com engenharia. Alguma rejeição de calor é exigida pela própria física.</p>`],
   warn: erros([['B) 650 MW e 95%:','usa Celsius no rendimento de Carnot (1 − 27/527).'],['C) 350 MW e 62,5%:','confunde o calor rejeitado com o trabalho útil.'],['D) 650 MW e 35%:','dá o rendimento real, não o máximo teórico.'],['E) 1 350 MW e 37,5%:','soma Q₁ e W e calcula T<sub>fria</sub>/T<sub>quente</sub>.']]) }
 ];
 
@@ -981,6 +988,11 @@ ${tabela(['Dado','Valor'],[['Corrente no cabo','500 A'],['Distância do cabo at�
   steps: [['Campo do cabo', `<div class="eq">B = ${f('4π × 10⁻⁷ × 500','2π × 20')} = ${f('2 × 10⁻⁷ × 500','20')}</div><div class="eq">B = 5,0 × 10⁻⁶ T</div>`],
           ['Comparação', `<div class="eq">${f('5,0 × 10⁻⁶','2,5 × 10⁻⁵')} = 0,20 = 20%</div>`]],
   alt: 'O campo de um fio cai com a distância (B ∝ 1/d): a 40 m seria a metade, 10%. Além disso, em linhas de corrente alternada o campo troca de sentido 120 vezes por segundo, e a agulha nem consegue acompanhar.',
+  deep: ['Como o campo muda com a distância, e por que a bússola nem percebe', `<p><b>1. O campo cai com a distância.</b> Em B = μ₀ · i/(2π · d), a corrente é fixa: B é inversamente proporcional a d.</p>
+${tabela(['Distância do cabo','Campo do cabo','Em relação ao da Terra'],[['10 m','1,0 × 10⁻⁵ T','40%'],['20 m','5,0 × 10⁻⁶ T','20%'],['40 m','2,5 × 10⁻⁶ T','10%']])}
+<p>Dobrou a distância, o campo cai à metade.</p>
+<p><b>2. A corrente é alternada.</b> Nas linhas de transmissão, a corrente muda de sentido 120 vezes por segundo (60 Hz), e o campo do cabo também. A agulha, por inércia, não consegue acompanhar uma inversão a cada 1/120 s: na média, o efeito do cabo se anula, e ela continua orientada pelo campo da Terra, que é constante.</p>
+<p><b>Resumo:</b> o cálculo mostra que o campo do cabo não é desprezível perto dele, mas o fato de ele ser alternado é o que, na prática, deixa a bússola tranquila.</p>`],
   warn: erros([['E) 400%:','esquece de dividir pela distância.'],['A) 0,2%:','erra a potência de dez na comparação.']]) },
 
 { src: 'Inédita', nivel: 'intermediário',
@@ -1012,6 +1024,14 @@ ${FIG_ESPECTRO}
   steps: [['Raio do outro isótopo', `<p>R ∝ m:</p><div class="eq">R₂₂ = 20 × ${f('22','20')} = 22 cm</div>`],
           ['Pontos de impacto', '<p>Cada íon percorre meia volta: chega à placa a uma distância 2R da fenda. Massa 20: 40 cm. Massa 22: 44 cm.</p><div class="eq">44 − 40 = 4,0 cm</div>']],
   alt: 'Foi assim que se descobriu que um mesmo elemento químico pode ter átomos de massas diferentes (isótopos). Íons mais pesados “fazem a curva” mais aberta.',
+  deep: ['De onde vem R = m · v / (q · B)', `<p>O enunciado dá a fórmula pronta, mas ela sai de duas ideias que você já conhece.</p>
+<p><b>1. A força magnética é sempre perpendicular à velocidade.</b> Ela muda a direção do movimento, mas não o valor da velocidade: o íon faz um movimento circular uniforme.</p>
+<p><b>2. Num movimento circular, a resultante aponta para o centro</b> e vale m · v²/R. Aqui, quem faz esse papel é a força magnética:</p>
+<div class="eq">F<sub>mag</sub> = F<sub>cp</sub></div>
+<div class="eq">q · v · B = ${f('m · v²','R')}</div>
+<p>Dividindo os dois lados por v e isolando R:</p>
+<div class="eq">R = ${f('m · v','q · B')}</div>
+<p><b>Lendo a fórmula:</b> com v, q e B iguais para todos os íons, R é proporcional a m. Íon mais pesado tem mais inércia, resiste mais a ser desviado e faz a curva mais aberta. Por isso o espectrômetro “separa” isótopos pela massa.</p>`],
   warn: erros([['A) 2,0 cm:','compara os raios, e não os diâmetros.'],['D) 22 cm:','dá o raio do isótopo mais pesado.'],['E) 44 cm:','dá a distância da fenda ao ponto do isótopo mais pesado.']]) },
 
 { src: 'Inédita', nivel: 'avançado',
@@ -1143,6 +1163,16 @@ ${tabela(['Tensão de transmissão','Corrente na linha','Perda na linha'],[['10 
           ['Nova perda', '<div class="eq">P<sub>perda</sub> = R · i² = 10 × 10² = 1 000 W = 1 kW</div>'],
           ['Porcentagem', `<div class="eq">${f('1 kW','1 000 kW')} = 0,1%</div>`]],
   alt: 'Tensão 10 vezes maior → corrente 10 vezes menor → perda 10² = 100 vezes menor (de 10% para 0,1%). É por isso que se transmite energia em alta tensão, com transformadores nas duas pontas.',
+  deep: ['Por que a perda cai com o quadrado da tensão', `<p>Junte as duas fórmulas usadas na resolução. A corrente na linha é i = P/U, e a perda é R · i²:</p>
+<div class="eq">P<sub>perda</sub> = R · i²</div>
+<div class="eq">P<sub>perda</sub> = R · (${f('P','U')})²</div>
+<div class="eq">P<sub>perda</sub> = ${f('R · P²','U²')}</div>
+<p>Com a mesma potência enviada (P) e a mesma linha (R), a perda é <b>inversamente proporcional ao quadrado da tensão</b>:</p>
+<div class="eq">${f('P<sub>perda,2</sub>','P<sub>perda,1</sub>')} = (${f('U₁','U₂')})²</div>
+<div class="eq">${f('P<sub>perda,2</sub>','P<sub>perda,1</sub>')} = (${f('10','100')})²</div>
+<div class="eq">${f('P<sub>perda,2</sub>','P<sub>perda,1</sub>')} = ${f('1','100')}</div>
+<p>Conferindo: 10% ÷ 100 = 0,1%.</p>
+<p><b>Cuidado com uma confusão comum:</b> a perda também pode ser escrita como U²/R, mas aí U seria a <b>queda de tensão na própria linha</b>, e não a tensão de transmissão. Usar 100 kV nessa fórmula daria uma perda absurda, maior que a potência enviada.</p>`],
   warn: erros([['D) 1%:','acha que a perda cai na mesma proporção da corrente (esquece o quadrado).'],['E) 10%:','acha que a perda não muda com a tensão.'],['B) 0,01%:','divide a perda por 1 000, como se dependesse do cubo da corrente.']]) },
 
 { src: 'Inédita', nivel: 'avançado',
@@ -1152,6 +1182,14 @@ ${tabela(['Tensão de transmissão','Corrente na linha','Perda na linha'],[['10 
   steps: [['Rotações por segundo', `<div class="eq">n = ${f('f','p')} = ${f('60','40')} = 1,5 rotação por segundo</div>`],
           ['Rotações por minuto', '<div class="eq">1,5 × 60 = 90 rpm</div>']],
   alt: 'Um gerador com 1 par de polos precisa girar 60 vezes por segundo (3 600 rpm), como nas termelétricas a vapor. Com muitos polos, o gerador pode girar devagar, no ritmo das turbinas hidráulicas.',
+  deep: ['De onde vem f = p · n', `<p>Pense em uma bobina parada, presa à carcaça do gerador, e no rotor girando com seus ímãs.</p>
+<p><b>1. Um par de polos (um norte e um sul)</b> passando em frente à bobina faz o fluxo magnético nela subir, inverter e voltar: a tensão induzida completa <b>um ciclo</b>.</p>
+<p><b>2. Em uma volta do rotor,</b> passam em frente à bobina todos os p pares de polos: são p ciclos por volta.</p>
+<p><b>3. Com n voltas por segundo:</b></p>
+<div class="eq">f = p · n</div>
+<p>(ciclos por segundo, ou seja, hertz).</p>
+<p><b>Consequência prática:</b> para manter 60 Hz, quem gira rápido precisa de poucos polos, e quem gira devagar, de muitos.</p>
+${tabela(['Pares de polos','Rotação para 60 Hz','Exemplo'],[['1','3 600 rpm','turbina a vapor'],['2','1 800 rpm','—'],['40','90 rpm','hidrelétrica (esta questão)']])}`],
   warn: erros([['A) 1,5 rpm:','não converte rotações por segundo em rotações por minuto.'],['B) 45 rpm:','usa 80 polos em vez de 40 pares.'],['D) 2 400 rpm:','multiplica a frequência pelo número de pares.'],['E) 3 600 rpm:','é a rotação de um gerador com um só par de polos.']]) },
 
 { src: 'Inédita', nivel: 'avançado',
@@ -1518,6 +1556,19 @@ ${FIG_MORRO}
   steps: [['Mesma velocidade', '<p>AM e FM são ondas eletromagnéticas: viajam à velocidade da luz. Pelo quadro, as ondas AM têm λ de centenas de metros; as FM, de cerca de 3 m.</p>'],
           ['Difração', '<p>A difração é mais intensa quando o comprimento de onda é comparável ao obstáculo. As ondas AM contornam os morros; as FM se propagam quase em linha reta e deixam uma “sombra” atrás deles.</p>']],
   alt: 'Pela equação v = λ · f, com a mesma velocidade, frequência menor significa comprimento de onda maior. Por isso a “vantagem” da AM está na frequência baixa, que é justamente o que A inverte.',
+  deep: ['Calculando os comprimentos de onda do quadro', `<p>O quadro dá os comprimentos de onda prontos, mas eles saem de v = λ · f, com v = c = 3,0 × 10⁸ m/s para as duas rádios (ambas são ondas eletromagnéticas):</p>
+<div class="eq">λ = ${f('c','f')}</div>
+<p><b>AM, de 540 kHz a 1 600 kHz:</b></p>
+<div class="eq">λ = ${f('3,0 × 10⁸','5,4 × 10⁵')}</div>
+<div class="eq">λ ≈ 560 m</div>
+<div class="eq">λ = ${f('3,0 × 10⁸','1,6 × 10⁶')}</div>
+<div class="eq">λ ≈ 190 m</div>
+<p><b>FM, de 88 MHz a 108 MHz:</b></p>
+<div class="eq">λ = ${f('3,0 × 10⁸','8,8 × 10⁷')}</div>
+<div class="eq">λ ≈ 3,4 m</div>
+<div class="eq">λ = ${f('3,0 × 10⁸','1,08 × 10⁸')}</div>
+<div class="eq">λ ≈ 2,8 m</div>
+<p><b>Comparando com o obstáculo:</b> um morro tem dezenas a centenas de metros. Para a onda AM, ele tem tamanho parecido com o comprimento de onda, e a difração é forte. Para a FM, o morro é dezenas de vezes maior que λ: a onda passa quase em linha reta e deixa uma “sombra” atrás dele. Por isso as emissoras de FM costumam instalar antenas no alto dos morros.</p>`],
   warn: erros([['A)','as ondas FM têm frequência maior, não menor.'],['B)','AM e FM são ondas eletromagnéticas.'],['D)','as duas se propagam à velocidade da luz.'],['E)','polarização não impede a recepção atrás dos morros.']]) }
 ];
 
@@ -1664,6 +1715,15 @@ ${tabela(['Transdutor','Frequência'],[['I','1,0 MHz'],['II','2,0 MHz'],['III','
   steps: [['Comprimento de onda', '<p>O comprimento de onda recebido (670 nm) é <b>maior</b> que o emitido (656 nm): a frequência recebida é menor.</p>'],
           ['Efeito Doppler', '<p>Comprimento de onda esticado indica que a fonte se <b>afasta</b>: é o “desvio para o vermelho”.</p>']],
   alt: 'Foi observando esse desvio para o vermelho em quase todas as galáxias que Hubble concluiu, nos anos 1920, que o Universo está em expansão.',
+  deep: ['Quanto a galáxia se afasta?', `<p>Para velocidades bem menores que a da luz, o desvio relativo do comprimento de onda é aproximadamente a razão entre a velocidade da fonte e a velocidade da luz:</p>
+<div class="eq">${f('Δλ','λ')} ≈ ${f('v','c')}</div>
+<p><b>1. Desvio:</b> Δλ = 670 − 656 = 14 nm.</p>
+<p><b>2. Velocidade de afastamento:</b></p>
+<div class="eq">v ≈ c · ${f('Δλ','λ')}</div>
+<div class="eq">v ≈ 3,0 × 10⁸ × ${f('14','656')}</div>
+<div class="eq">v ≈ 6,4 × 10⁶ m/s</div>
+<p>São cerca de 6 400 km por segundo, uns 2% da velocidade da luz.</p>
+<p><b>Ponte com a cosmologia:</b> Hubble percebeu que quanto mais distante a galáxia, maior o desvio. Pela lei de Hubble (v = H₀ · d, com H₀ ≈ 70 km/s por megaparsec), essa galáxia estaria a cerca de 90 megaparsecs, ou seja, uns 300 milhões de anos-luz. A luz que você analisou saiu dela antes de existirem dinossauros na Terra.</p>`],
   warn: erros([['A)','a frequência recebida é menor (o comprimento de onda aumentou).'],['C)','a velocidade da luz é a mesma, mas a frequência e o comprimento de onda medidos mudam.'],['D)','na aproximação, a luz se desvia para o azul.'],['E)','a velocidade da luz no vácuo não diminui.']]) },
 
 { src: 'Inédita', nivel: 'avançado',
@@ -1741,6 +1801,16 @@ ${plot({aria:'Corda de 1,2 m vibrando com três ventres e quatro nós, incluindo
   steps: [['Velocidade', '<div class="eq">v = √(10 × 4 000) = √40 000 = 200 m/s (720 km/h)</div>'],
           ['Comprimento de onda', '<div class="eq">λ = v · T = 200 × 900 = 180 000 m = 180 km</div>']],
   alt: 'Com λ de 180 km, a crista e o vale ficam a 90 km de distância: um navio sobe alguns centímetros ao longo de vários minutos e nem percebe. Perto da costa, a profundidade diminui, a onda freia e a altura cresce muito.',
+  deep: ['O que acontece quando o tsunami chega à costa', `<p>A mesma fórmula v = √(g · h) explica por que o tsunami é inofensivo em alto-mar e devastador na praia.</p>
+<p><b>1. A onda freia.</b> Perto da costa, com h = 10 m:</p>
+<div class="eq">v = √(10 × 10)</div>
+<div class="eq">v = 10 m/s</div>
+<p>São 36 km/h, contra 720 km/h em alto-mar.</p>
+<p><b>2. A frequência não muda</b> (o período continua 15 min, pois quem define a frequência é a fonte). Então o comprimento de onda encolhe:</p>
+<div class="eq">λ = v · T = 10 × 900</div>
+<div class="eq">λ = 9 000 m = 9 km</div>
+<p><b>3. A energia se concentra.</b> A energia que estava espalhada em 180 km de onda passa a ocupar só 9 km, 20 vezes menos. Para caber ali, a onda cresce para cima: os poucos centímetros de alto-mar viram metros de altura.</p>
+<p><b>Ligação com a refração:</b> é a mesma ideia da questão 5 da Lista 1 (frentes de onda que se dobram perto da praia). Mudou a profundidade, mudou a velocidade; a frequência fica, e o comprimento de onda se ajusta.</p>`],
   warn: erros([['A) 3,0 km:','usa o período em minutos (200 × 15).'],['B) 50 km:','usa 200 km/h no lugar de 200 m/s e 1/4 de hora.'],['D) 720 km:','usa a velocidade em km/h com o período de 1 h.'],['E) 10 800 km:','multiplica 720 km/h por 15, misturando horas e minutos.']]) },
 
 { src: 'Inédita', nivel: 'avançado',

@@ -192,6 +192,19 @@ ${FIG_MORRO}
   steps: [['Mesma velocidade', '<p>AM e FM são ondas eletromagnéticas: viajam à velocidade da luz. Pelo quadro, as ondas AM têm λ de centenas de metros; as FM, de cerca de 3 m.</p>'],
           ['Difração', '<p>A difração é mais intensa quando o comprimento de onda é comparável ao obstáculo. As ondas AM contornam os morros; as FM se propagam quase em linha reta e deixam uma “sombra” atrás deles.</p>']],
   alt: 'Pela equação v = λ · f, com a mesma velocidade, frequência menor significa comprimento de onda maior. Por isso a “vantagem” da AM está na frequência baixa, que é justamente o que A inverte.',
+  deep: ['Calculando os comprimentos de onda do quadro', `<p>O quadro dá os comprimentos de onda prontos, mas eles saem de v = λ · f, com v = c = 3,0 × 10⁸ m/s para as duas rádios (ambas são ondas eletromagnéticas):</p>
+<div class="eq">λ = ${f('c','f')}</div>
+<p><b>AM, de 540 kHz a 1 600 kHz:</b></p>
+<div class="eq">λ = ${f('3,0 × 10⁸','5,4 × 10⁵')}</div>
+<div class="eq">λ ≈ 560 m</div>
+<div class="eq">λ = ${f('3,0 × 10⁸','1,6 × 10⁶')}</div>
+<div class="eq">λ ≈ 190 m</div>
+<p><b>FM, de 88 MHz a 108 MHz:</b></p>
+<div class="eq">λ = ${f('3,0 × 10⁸','8,8 × 10⁷')}</div>
+<div class="eq">λ ≈ 3,4 m</div>
+<div class="eq">λ = ${f('3,0 × 10⁸','1,08 × 10⁸')}</div>
+<div class="eq">λ ≈ 2,8 m</div>
+<p><b>Comparando com o obstáculo:</b> um morro tem dezenas a centenas de metros. Para a onda AM, ele tem tamanho parecido com o comprimento de onda, e a difração é forte. Para a FM, o morro é dezenas de vezes maior que λ: a onda passa quase em linha reta e deixa uma “sombra” atrás dele. Por isso as emissoras de FM costumam instalar antenas no alto dos morros.</p>`],
   warn: erros([['A)','as ondas FM têm frequência maior, não menor.'],['B)','AM e FM são ondas eletromagnéticas.'],['D)','as duas se propagam à velocidade da luz.'],['E)','polarização não impede a recepção atrás dos morros.']]) }
 ];
 
@@ -338,6 +351,15 @@ ${tabela(['Transdutor','Frequência'],[['I','1,0 MHz'],['II','2,0 MHz'],['III','
   steps: [['Comprimento de onda', '<p>O comprimento de onda recebido (670 nm) é <b>maior</b> que o emitido (656 nm): a frequência recebida é menor.</p>'],
           ['Efeito Doppler', '<p>Comprimento de onda esticado indica que a fonte se <b>afasta</b>: é o “desvio para o vermelho”.</p>']],
   alt: 'Foi observando esse desvio para o vermelho em quase todas as galáxias que Hubble concluiu, nos anos 1920, que o Universo está em expansão.',
+  deep: ['Quanto a galáxia se afasta?', `<p>Para velocidades bem menores que a da luz, o desvio relativo do comprimento de onda é aproximadamente a razão entre a velocidade da fonte e a velocidade da luz:</p>
+<div class="eq">${f('Δλ','λ')} ≈ ${f('v','c')}</div>
+<p><b>1. Desvio:</b> Δλ = 670 − 656 = 14 nm.</p>
+<p><b>2. Velocidade de afastamento:</b></p>
+<div class="eq">v ≈ c · ${f('Δλ','λ')}</div>
+<div class="eq">v ≈ 3,0 × 10⁸ × ${f('14','656')}</div>
+<div class="eq">v ≈ 6,4 × 10⁶ m/s</div>
+<p>São cerca de 6 400 km por segundo, uns 2% da velocidade da luz.</p>
+<p><b>Ponte com a cosmologia:</b> Hubble percebeu que quanto mais distante a galáxia, maior o desvio. Pela lei de Hubble (v = H₀ · d, com H₀ ≈ 70 km/s por megaparsec), essa galáxia estaria a cerca de 90 megaparsecs, ou seja, uns 300 milhões de anos-luz. A luz que você analisou saiu dela antes de existirem dinossauros na Terra.</p>`],
   warn: erros([['A)','a frequência recebida é menor (o comprimento de onda aumentou).'],['C)','a velocidade da luz é a mesma, mas a frequência e o comprimento de onda medidos mudam.'],['D)','na aproximação, a luz se desvia para o azul.'],['E)','a velocidade da luz no vácuo não diminui.']]) },
 
 { src: 'Inédita', nivel: 'avançado',
@@ -415,6 +437,16 @@ ${plot({aria:'Corda de 1,2 m vibrando com três ventres e quatro nós, incluindo
   steps: [['Velocidade', '<div class="eq">v = √(10 × 4 000) = √40 000 = 200 m/s (720 km/h)</div>'],
           ['Comprimento de onda', '<div class="eq">λ = v · T = 200 × 900 = 180 000 m = 180 km</div>']],
   alt: 'Com λ de 180 km, a crista e o vale ficam a 90 km de distância: um navio sobe alguns centímetros ao longo de vários minutos e nem percebe. Perto da costa, a profundidade diminui, a onda freia e a altura cresce muito.',
+  deep: ['O que acontece quando o tsunami chega à costa', `<p>A mesma fórmula v = √(g · h) explica por que o tsunami é inofensivo em alto-mar e devastador na praia.</p>
+<p><b>1. A onda freia.</b> Perto da costa, com h = 10 m:</p>
+<div class="eq">v = √(10 × 10)</div>
+<div class="eq">v = 10 m/s</div>
+<p>São 36 km/h, contra 720 km/h em alto-mar.</p>
+<p><b>2. A frequência não muda</b> (o período continua 15 min, pois quem define a frequência é a fonte). Então o comprimento de onda encolhe:</p>
+<div class="eq">λ = v · T = 10 × 900</div>
+<div class="eq">λ = 9 000 m = 9 km</div>
+<p><b>3. A energia se concentra.</b> A energia que estava espalhada em 180 km de onda passa a ocupar só 9 km, 20 vezes menos. Para caber ali, a onda cresce para cima: os poucos centímetros de alto-mar viram metros de altura.</p>
+<p><b>Ligação com a refração:</b> é a mesma ideia da questão 5 da Lista 1 (frentes de onda que se dobram perto da praia). Mudou a profundidade, mudou a velocidade; a frequência fica, e o comprimento de onda se ajusta.</p>`],
   warn: erros([['A) 3,0 km:','usa o período em minutos (200 × 15).'],['B) 50 km:','usa 200 km/h no lugar de 200 m/s e 1/4 de hora.'],['D) 720 km:','usa a velocidade em km/h com o período de 1 h.'],['E) 10 800 km:','multiplica 720 km/h por 15, misturando horas e minutos.']]) },
 
 { src: 'Inédita', nivel: 'avançado',

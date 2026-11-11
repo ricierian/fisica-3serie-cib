@@ -245,6 +245,13 @@ ${foto('q12', 'Esquema: a caldeira, fonte quente a 527 °C, fornece Q1 = 1 000 
           ['Carnot', `<p>800 K e 300 K:</p><div class="eq">η = 1 − ${f('300','800')} = 0,625 = 62,5%</div>`],
           ['Coerência', '<p>O rendimento real (350/1 000 = 35%) fica abaixo do máximo teórico, como exige a segunda lei.</p>']],
   alt: 'Toda máquina térmica rejeita calor para a fonte fria. É esse calor (650 MW, quase o dobro da energia elétrica gerada) que esquenta o rio: a poluição térmica do enunciado.',
+  deep: ['Por que nenhuma usina passa do rendimento de Carnot', `<p><b>1. O que é o rendimento de Carnot.</b> É o rendimento de uma máquina ideal, sem atrito e sem perdas, funcionando entre duas temperaturas. A segunda lei da termodinâmica garante que nenhuma máquina real, operando entre as mesmas temperaturas, rende mais que ela.</p>
+<p><b>2. Mesmo a máquina ideal rejeita calor.</b> Com η = 62,5%, de 1 000 MW recebidos ela aproveitaria no máximo 625 MW e rejeitaria, no mínimo:</p>
+<div class="eq">Q<sub>2,mín</sub> = 1 000 − 625</div>
+<div class="eq">Q<sub>2,mín</sub> = 375 MW</div>
+<p>A usina real rejeita 650 MW. Os 275 MW a mais são as perdas reais: atrito, vazamentos de calor, trocas de calor com diferenças de temperatura finitas.</p>
+<p><b>3. Por que não dá para chegar a 100%.</b> Pela fórmula η = 1 − T<sub>fria</sub>/T<sub>quente</sub>, só daria 100% com a fonte fria a 0 K, o que é impossível. Na prática, há dois caminhos para subir o rendimento: aquecer mais o vapor (limitado pela resistência dos materiais da caldeira e da turbina) ou resfriar mais a fonte fria (limitado pela temperatura do ambiente).</p>
+<p><b>Ligação com o meio ambiente:</b> a poluição térmica não é um defeito da usina que se resolve com engenharia. Alguma rejeição de calor é exigida pela própria física.</p>`],
   warn: erros([['B) 650 MW e 95%:','usa Celsius no rendimento de Carnot (1 − 27/527).'],['C) 350 MW e 62,5%:','confunde o calor rejeitado com o trabalho útil.'],['D) 650 MW e 35%:','dá o rendimento real, não o máximo teórico.'],['E) 1 350 MW e 37,5%:','soma Q₁ e W e calcula T<sub>fria</sub>/T<sub>quente</sub>.']]) }
 ];
 

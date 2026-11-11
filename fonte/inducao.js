@@ -153,6 +153,11 @@ ${tabela(['Dado','Valor'],[['Corrente no cabo','500 A'],['Distância do cabo at�
   steps: [['Campo do cabo', `<div class="eq">B = ${f('4π × 10⁻⁷ × 500','2π × 20')} = ${f('2 × 10⁻⁷ × 500','20')}</div><div class="eq">B = 5,0 × 10⁻⁶ T</div>`],
           ['Comparação', `<div class="eq">${f('5,0 × 10⁻⁶','2,5 × 10⁻⁵')} = 0,20 = 20%</div>`]],
   alt: 'O campo de um fio cai com a distância (B ∝ 1/d): a 40 m seria a metade, 10%. Além disso, em linhas de corrente alternada o campo troca de sentido 120 vezes por segundo, e a agulha nem consegue acompanhar.',
+  deep: ['Como o campo muda com a distância, e por que a bússola nem percebe', `<p><b>1. O campo cai com a distância.</b> Em B = μ₀ · i/(2π · d), a corrente é fixa: B é inversamente proporcional a d.</p>
+${tabela(['Distância do cabo','Campo do cabo','Em relação ao da Terra'],[['10 m','1,0 × 10⁻⁵ T','40%'],['20 m','5,0 × 10⁻⁶ T','20%'],['40 m','2,5 × 10⁻⁶ T','10%']])}
+<p>Dobrou a distância, o campo cai à metade.</p>
+<p><b>2. A corrente é alternada.</b> Nas linhas de transmissão, a corrente muda de sentido 120 vezes por segundo (60 Hz), e o campo do cabo também. A agulha, por inércia, não consegue acompanhar uma inversão a cada 1/120 s: na média, o efeito do cabo se anula, e ela continua orientada pelo campo da Terra, que é constante.</p>
+<p><b>Resumo:</b> o cálculo mostra que o campo do cabo não é desprezível perto dele, mas o fato de ele ser alternado é o que, na prática, deixa a bússola tranquila.</p>`],
   warn: erros([['E) 400%:','esquece de dividir pela distância.'],['A) 0,2%:','erra a potência de dez na comparação.']]) },
 
 { src: 'Inédita', nivel: 'intermediário',
@@ -184,6 +189,14 @@ ${FIG_ESPECTRO}
   steps: [['Raio do outro isótopo', `<p>R ∝ m:</p><div class="eq">R₂₂ = 20 × ${f('22','20')} = 22 cm</div>`],
           ['Pontos de impacto', '<p>Cada íon percorre meia volta: chega à placa a uma distância 2R da fenda. Massa 20: 40 cm. Massa 22: 44 cm.</p><div class="eq">44 − 40 = 4,0 cm</div>']],
   alt: 'Foi assim que se descobriu que um mesmo elemento químico pode ter átomos de massas diferentes (isótopos). Íons mais pesados “fazem a curva” mais aberta.',
+  deep: ['De onde vem R = m · v / (q · B)', `<p>O enunciado dá a fórmula pronta, mas ela sai de duas ideias que você já conhece.</p>
+<p><b>1. A força magnética é sempre perpendicular à velocidade.</b> Ela muda a direção do movimento, mas não o valor da velocidade: o íon faz um movimento circular uniforme.</p>
+<p><b>2. Num movimento circular, a resultante aponta para o centro</b> e vale m · v²/R. Aqui, quem faz esse papel é a força magnética:</p>
+<div class="eq">F<sub>mag</sub> = F<sub>cp</sub></div>
+<div class="eq">q · v · B = ${f('m · v²','R')}</div>
+<p>Dividindo os dois lados por v e isolando R:</p>
+<div class="eq">R = ${f('m · v','q · B')}</div>
+<p><b>Lendo a fórmula:</b> com v, q e B iguais para todos os íons, R é proporcional a m. Íon mais pesado tem mais inércia, resiste mais a ser desviado e faz a curva mais aberta. Por isso o espectrômetro “separa” isótopos pela massa.</p>`],
   warn: erros([['A) 2,0 cm:','compara os raios, e não os diâmetros.'],['D) 22 cm:','dá o raio do isótopo mais pesado.'],['E) 44 cm:','dá a distância da fenda ao ponto do isótopo mais pesado.']]) },
 
 { src: 'Inédita', nivel: 'avançado',
@@ -315,6 +328,16 @@ ${tabela(['Tensão de transmissão','Corrente na linha','Perda na linha'],[['10 
           ['Nova perda', '<div class="eq">P<sub>perda</sub> = R · i² = 10 × 10² = 1 000 W = 1 kW</div>'],
           ['Porcentagem', `<div class="eq">${f('1 kW','1 000 kW')} = 0,1%</div>`]],
   alt: 'Tensão 10 vezes maior → corrente 10 vezes menor → perda 10² = 100 vezes menor (de 10% para 0,1%). É por isso que se transmite energia em alta tensão, com transformadores nas duas pontas.',
+  deep: ['Por que a perda cai com o quadrado da tensão', `<p>Junte as duas fórmulas usadas na resolução. A corrente na linha é i = P/U, e a perda é R · i²:</p>
+<div class="eq">P<sub>perda</sub> = R · i²</div>
+<div class="eq">P<sub>perda</sub> = R · (${f('P','U')})²</div>
+<div class="eq">P<sub>perda</sub> = ${f('R · P²','U²')}</div>
+<p>Com a mesma potência enviada (P) e a mesma linha (R), a perda é <b>inversamente proporcional ao quadrado da tensão</b>:</p>
+<div class="eq">${f('P<sub>perda,2</sub>','P<sub>perda,1</sub>')} = (${f('U₁','U₂')})²</div>
+<div class="eq">${f('P<sub>perda,2</sub>','P<sub>perda,1</sub>')} = (${f('10','100')})²</div>
+<div class="eq">${f('P<sub>perda,2</sub>','P<sub>perda,1</sub>')} = ${f('1','100')}</div>
+<p>Conferindo: 10% ÷ 100 = 0,1%.</p>
+<p><b>Cuidado com uma confusão comum:</b> a perda também pode ser escrita como U²/R, mas aí U seria a <b>queda de tensão na própria linha</b>, e não a tensão de transmissão. Usar 100 kV nessa fórmula daria uma perda absurda, maior que a potência enviada.</p>`],
   warn: erros([['D) 1%:','acha que a perda cai na mesma proporção da corrente (esquece o quadrado).'],['E) 10%:','acha que a perda não muda com a tensão.'],['B) 0,01%:','divide a perda por 1 000, como se dependesse do cubo da corrente.']]) },
 
 { src: 'Inédita', nivel: 'avançado',
@@ -324,6 +347,14 @@ ${tabela(['Tensão de transmissão','Corrente na linha','Perda na linha'],[['10 
   steps: [['Rotações por segundo', `<div class="eq">n = ${f('f','p')} = ${f('60','40')} = 1,5 rotação por segundo</div>`],
           ['Rotações por minuto', '<div class="eq">1,5 × 60 = 90 rpm</div>']],
   alt: 'Um gerador com 1 par de polos precisa girar 60 vezes por segundo (3 600 rpm), como nas termelétricas a vapor. Com muitos polos, o gerador pode girar devagar, no ritmo das turbinas hidráulicas.',
+  deep: ['De onde vem f = p · n', `<p>Pense em uma bobina parada, presa à carcaça do gerador, e no rotor girando com seus ímãs.</p>
+<p><b>1. Um par de polos (um norte e um sul)</b> passando em frente à bobina faz o fluxo magnético nela subir, inverter e voltar: a tensão induzida completa <b>um ciclo</b>.</p>
+<p><b>2. Em uma volta do rotor,</b> passam em frente à bobina todos os p pares de polos: são p ciclos por volta.</p>
+<p><b>3. Com n voltas por segundo:</b></p>
+<div class="eq">f = p · n</div>
+<p>(ciclos por segundo, ou seja, hertz).</p>
+<p><b>Consequência prática:</b> para manter 60 Hz, quem gira rápido precisa de poucos polos, e quem gira devagar, de muitos.</p>
+${tabela(['Pares de polos','Rotação para 60 Hz','Exemplo'],[['1','3 600 rpm','turbina a vapor'],['2','1 800 rpm','—'],['40','90 rpm','hidrelétrica (esta questão)']])}`],
   warn: erros([['A) 1,5 rpm:','não converte rotações por segundo em rotações por minuto.'],['B) 45 rpm:','usa 80 polos em vez de 40 pares.'],['D) 2 400 rpm:','multiplica a frequência pelo número de pares.'],['E) 3 600 rpm:','é a rotação de um gerador com um só par de polos.']]) },
 
 { src: 'Inédita', nivel: 'avançado',
