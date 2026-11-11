@@ -1,6 +1,6 @@
 # Monta o index.html do app a partir dos arquivos desta pasta.
 # Uso (na raiz do repositório):  python3 fonte/montar.py
-# Ordem do script: data.js (ajudantes: f, L, plot, fig, sen, tabela) → enem.js → inducao.js → engine_app.js (SITE, CONFIG e motor).
+# Ordem do script: data.js (ajudantes: f, L, plot, fig, sen, tabela) → enem.js → inducao.js → consulta.js → engine_app.js (SITE, CONFIG e motor).
 import os
 B=os.path.dirname(os.path.abspath(__file__))+'/'
 head=open(B+'head.html',encoding='utf-8').read().replace('<title>Lista de Cinemática 9º Ano</title>','''<title>Terceirão · Física CIB</title>
@@ -18,7 +18,7 @@ extra=open(B+'extra.css',encoding='utf-8').read()+'''
 .install p{margin:0}
 @media (display-mode: standalone){.wrap{padding-top:max(20px,env(safe-area-inset-top,0px))}}
 '''
-js='\n'.join(open(B+n,encoding='utf-8').read() for n in ['data.js','enem.js','inducao.js','engine_app.js'])
+js='\n'.join(open(B+n,encoding='utf-8').read() for n in ['data.js','enem.js','inducao.js','consulta.js','engine_app.js'])
 body='''<div class="wrap">
 <header class="plate"><div class="plate-deco" id="deco" aria-hidden="true"></div><div class="plate-inner"><div class="eyebrow" id="eyebrow"></div><h1 id="ptitle"></h1><p id="psub"></p></div></header>
 <nav class="crumbs" id="crumbs" aria-label="Você está em" hidden></nav>
