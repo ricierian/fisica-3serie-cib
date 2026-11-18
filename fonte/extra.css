@@ -246,3 +246,8 @@ body.com-calc .wrap{padding-bottom:96px}
 .deep[open] summary .chev{transform:rotate(90deg)}
 .deep-body{padding:0 0 14px}
 .deep-body p{margin:8px 0}
+
+/* Questões estilo UFRGS: legenda de figura e trilha "montanha-russa" (Trabalho e Energia) */
+.fig figcaption{font-size:12px;line-height:1.35;color:var(--muted);text-align:center;margin:4px 6px 2px}
+.ln-mont .ln-base path{fill:none;stroke:var(--road-ink);stroke-width:2;opacity:.3;vector-effect:non-scaling-stroke}
+.ln-mont .ln-base line{display:none}

@@ -92,6 +92,36 @@ const SITE = {
           intro: 'Carregador sem fio, fogão de indução, freio magnético, usinas: onde a variação do fluxo magnético aparece no dia a dia.',
           tools: TOOLS_IND, Q: Q_IND }
       ]
+    },
+    {
+      id: 'ufrgs', ico: '<span style="font-size:10.5px;letter-spacing:0">UFRGS</span>', nome: 'Questões estilo UFRGS', cls: 'th-enem', estilo: 'estrada', deco: 'conquista',
+      resumo: 'Mecânica no formato da UFRGS: lacunas, afirmações I, II e III e cálculos com gráficos e esquemas. Quatro listas, do movimento às colisões.',
+      listas: [
+        { id: 'cinematica', key: 'cib3-ufrgs-cinematica-v1', num: 1,
+          titulo: 'Cinemática',
+          resumo: 'Velocidade relativa, MUV, gráficos, lançamentos e referenciais.',
+          intro: 'Do metrô ao drone de entregas: os movimentos do jeito que a UFRGS cobra, com lacunas, afirmações e gráficos.',
+          cls: 'th-enem', estilo: 'estrada', deco: 'enem',
+          tools: TOOLS_U1, Q: Q_U1 },
+        { id: 'dinamica', key: 'cib3-ufrgs-dinamica-v1', num: 2,
+          titulo: 'Dinâmica',
+          resumo: 'Leis de Newton, plano inclinado, atrito, sistemas com fio e polia, elevador.',
+          intro: 'Rampas, roldanas, elevadores e cabo de guerra: as leis de Newton aplicadas a corpos e sistemas.',
+          cls: 'th-mec', estilo: 'bloco', deco: 'forcas',
+          tools: TOOLS_U2, Q: Q_U2 },
+        { id: 'energia', key: 'cib3-ufrgs-energia-v1', num: 3,
+          titulo: 'Trabalho e Energia',
+          resumo: 'Trabalho, gráfico F × x, energia cinética, potencial e elástica, conservação e dissipação.',
+          intro: 'Escorregadores, estilingues, molas e até Marte: quem trabalha, quanta energia há e para onde ela vai.',
+          cls: 'th-calor', estilo: 'montanha', deco: 'montanha',
+          tools: TOOLS_U3, Q: Q_U3 },
+        { id: 'colisoes', key: 'cib3-ufrgs-colisoes-v1', num: 4,
+          titulo: 'Colisões, Impulso e Centro de Massa',
+          resumo: 'Quantidade de movimento, impulso, colisões elásticas e inelásticas, centro de massa.',
+          intro: 'Do chute na bola ao desvio de um asteroide: conservação da quantidade de movimento e o centro de massa.',
+          cls: 'th-ondas', estilo: 'bloco', deco: 'colisao',
+          tools: TOOLS_U4, Q: Q_U4 }
+      ]
     }
   ]
 };
@@ -190,6 +220,13 @@ function decoTema(e){
   if (e === 'enem'){
     return `<svg viewBox="0 0 220 80" aria-hidden="true"><path d="M8 74 L92 30 L132 30 L212 74 Z" fill="currentColor" opacity=".35"/><path d="M110 70 L110 62 M110 54 L110 47 M110 41 L110 36 M110 32 L110 30" stroke="currentColor" stroke-width="3"/><path d="M150 30 V2" stroke="currentColor" stroke-width="2.5"/><path d="M150 2 h22 v5 h-22 z M150 7 h22 v5 h-22 z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M150 2 h5.5 v5 h-5.5 z M161 2 h5.5 v5 h-5.5 z M155.5 7 h5.5 v5 h-5.5 z M166.5 7 h5.5 v5 h-5.5 z" fill="currentColor"/></svg>`;
   }
+  if (e === 'montanha'){
+    let d = 'M4 70'; for (let x = 4; x <= 216; x += 3){ const h = 52 * (1 - 0.6 * (x - 4) / 212); d += ` L${x} ${(72 - h * Math.abs(Math.sin(Math.PI * (x - 4) / 70))).toFixed(1)}`; }
+    return `<svg viewBox="0 0 220 80" aria-hidden="true"><path d="${d}" fill="none" stroke="currentColor" stroke-width="3"/><path d="M4 76 H216" stroke="currentColor" stroke-width="1.5" opacity=".5"/><rect x="28" y="12" width="22" height="12" rx="3" fill="currentColor"/><circle cx="33" cy="26" r="3" fill="currentColor"/><circle cx="45" cy="26" r="3" fill="currentColor"/></svg>`;
+  }
+  if (e === 'colisao'){
+    return `<svg viewBox="0 0 220 80" aria-hidden="true"><path d="M4 70 H216" stroke="currentColor" stroke-width="2.5"/><rect x="40" y="38" width="40" height="32" fill="currentColor" opacity=".55"/><rect x="128" y="44" width="30" height="26" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M8 54 H34 M28 48 L36 54 L28 60" fill="none" stroke="currentColor" stroke-width="3"/><path d="M190 57 H164 M170 51 L162 57 L170 63" fill="none" stroke="currentColor" stroke-width="3"/><path d="M104 28 L104 18 M92 32 L86 24 M116 32 L122 24" stroke="currentColor" stroke-width="2.5"/></svg>`;
+  }
   if (e === 'bobina'){
     let esp = ''; for (let k = 0; k < 6; k++) esp += `<ellipse cx="${118 + k * 14}" cy="40" rx="7" ry="26" fill="none" stroke="currentColor" stroke-width="3"/>`;
     return `<svg viewBox="0 0 220 80" aria-hidden="true"><rect x="6" y="30" width="34" height="20" fill="currentColor" opacity=".55"/><rect x="40" y="30" width="34" height="20" fill="none" stroke="currentColor" stroke-width="2.5"/><text x="23" y="45" text-anchor="middle" font-size="14" font-weight="700" fill="var(--sign)">N</text><text x="57" y="45" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">S</text><path d="M80 40 H104" stroke="currentColor" stroke-width="2.5"/><path d="M98 34 L106 40 L98 46" fill="none" stroke="currentColor" stroke-width="2.5"/>${esp}</svg>`;
@@ -224,6 +261,13 @@ function trilha(n){
     return `<div class="lane2 ln-onda ln-esp" id="lane" data-estilo="espectro">
       <svg class="ln-base" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="15" x2="1000" y2="15"/></svg>
       <svg class="ln-fill" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="gEsp" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1000" y2="0"><stop offset="0" stop-color="#E5482F"/><stop offset=".3" stop-color="#FF9F40"/><stop offset=".5" stop-color="#FFE24D"/><stop offset=".65" stop-color="#55D17A"/><stop offset=".82" stop-color="#4FA3FF"/><stop offset="1" stop-color="#A57CFF"/></linearGradient></defs><path d="${d}"/></svg>
+      <span class="ln-src" aria-hidden="true"></span><span class="ln-head" aria-hidden="true"></span></div>`;
+  }
+  if (e === 'montanha'){
+    let d = 'M0 26'; for (let x = 0; x <= 1000; x += 4){ const h = 22 * (1 - 0.55 * x / 1000); d += ` L${x} ${(26 - h * Math.abs(Math.sin(Math.PI * x * Math.max(2, Math.round(n / 3)) / 1000))).toFixed(2)}`; }
+    return `<div class="lane2 ln-onda ln-mont" id="lane" data-estilo="montanha">
+      <svg class="ln-base" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><path d="${d}"/></svg>
+      <svg class="ln-fill" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><path d="${d}"/></svg>
       <span class="ln-src" aria-hidden="true"></span><span class="ln-head" aria-hidden="true"></span></div>`;
   }
   if (e === 'onda'){

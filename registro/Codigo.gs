@@ -40,10 +40,14 @@ const LISTAS = [
   ['Ondulatória', 'Lista 1'],
   ['Ondulatória', 'Lista 2'],
   ['Ondulatória', 'Lista 3'],
-  ['Eletricidade e circuitos', 'Lista 1']
+  ['Eletricidade e circuitos', 'Lista 1'],
+  ['Questões estilo UFRGS', 'Lista 1'],
+  ['Questões estilo UFRGS', 'Lista 2'],
+  ['Questões estilo UFRGS', 'Lista 3'],
+  ['Questões estilo UFRGS', 'Lista 4']
 ];
 const ROTULOS = { 'Revisão ENEM': 'ENEM', 'Eletromagnetismo': 'Eletromag.', 'Calorimetria': 'Calorimetria',
-  'Ondulatória': 'Ondas', 'Eletricidade e circuitos': 'Circuitos' };
+  'Ondulatória': 'Ondas', 'Eletricidade e circuitos': 'Circuitos', 'Questões estilo UFRGS': 'UFRGS' };
 const rotulo = l => (ROTULOS[l[0]] || l[0]) + ' ' + l[1];
 const LINHAS = 80; // linhas preparadas por turma
 

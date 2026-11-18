@@ -27,14 +27,14 @@ function plot(o){
   s += `<text x="${W-r}" y="${H-6}" text-anchor="end" class="pt">${o.xl}</text><text x="${sx(x0)}" y="16" text-anchor="middle" class="pt">${o.yl}</text>`;
   o.L.forEach(ln => {
     s += `<polyline points="${ln.p.map(([x,y]) => sx(x)+','+sy(y)).join(' ')}" fill="none" stroke="${ln.c}" stroke-width="${ln.w || 3}" stroke-linecap="round" stroke-linejoin="round"${ln.dash ? ` stroke-dasharray="${ln.dash}"` : ''}/>`;
-    if (ln.lab){ const [x, y] = ln.lp || ln.p[ln.p.length-1]; s += `<text x="${sx(x)}" y="${sy(y)}" class="pt pt-lab" fill="${ln.c}">${ln.lab}</text>`; }
+    if (ln.lab){ const [x, y] = ln.lp || ln.p[ln.p.length-1]; s += `<text x="${sx(x)}" y="${sy(y)}" class="pt pt-lab" style="fill:${ln.c}">${ln.lab}</text>`; }
   });
   (o.dims || []).forEach(([xa, ya, xb, yb, txt, dx, dy]) => {
     s += `<line x1="${sx(xa)}" y1="${sy(ya)}" x2="${sx(xb)}" y2="${sy(yb)}" stroke="var(--ink)" stroke-width="1.4" marker-start="${mk}" marker-end="${mk}"/>`;
     if (txt) s += `<text x="${(sx(xa)+sx(xb))/2 + (dx||0)}" y="${(sy(ya)+sy(yb))/2 + (dy||-6)}" text-anchor="middle" class="pt pt-strong">${txt}</text>`;
   });
   (o.pts || []).forEach(([x, y]) => { s += `<circle cx="${sx(x)}" cy="${sy(y)}" r="4.5" fill="var(--ink)" stroke="var(--surface)" stroke-width="2"/>`; });
-  (o.ann || []).forEach(([x, y, txt, a, c]) => { s += `<text x="${sx(x)}" y="${sy(y)}" text-anchor="${a || 'middle'}" class="pt pt-strong"${c ? ` fill="${c}"` : ''}>${txt}</text>`; });
+  (o.ann || []).forEach(([x, y, txt, a, c]) => { s += `<text x="${sx(x)}" y="${sy(y)}" text-anchor="${a || 'middle'}" class="pt pt-strong"${c ? ` style="fill:${c}"` : ''}>${txt}</text>`; });
   return `<figure class="fig">${s}</svg></figure>`;
 }
 
